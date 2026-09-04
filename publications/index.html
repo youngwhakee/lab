@@ -278,8 +278,12 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
   .chat-panel{right:15px;bottom:90px;height:min(535px,calc(100vh - 120px))}
 }
 </style>
+
+<style>
+.data-empty{grid-column:1/-1;padding:28px;border-radius:22px;color:var(--muted);display:flex;flex-direction:column;gap:5px}.data-empty b{color:var(--ink);font-size:16px}.member-photo.has-photo:after{display:none}.member-links a{color:var(--ssu-dark)}
+</style>
 </head>
-<body>
+<body data-page="publications">
 <header class="site-header">
   <div class="wrap header-inner">
     <a href="../index.html" class="brand">
@@ -303,7 +307,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
     <div class="reveal">
       <div class="eyebrow">Research Archive</div>
       <h1>Publications<br>& <em>Works.</em></h1>
-      <p class="lead">논문, 저서, 북챕터, 연구보고서 등을 한곳에서 검색하고 필터링할 수 있는 연구성과 아카이브입니다. 실제 데이터 연결 전의 디자인 시안입니다.</p>
+      <p class="lead">논문, 저서, 북챕터, 연구보고서 등을 한곳에서 검색하고 필터링할 수 있는 연구성과 아카이브입니다. 데이터는 Excel 파일에서 관리되며 자동으로 이 페이지에 반영됩니다.</p>
     </div>
     <aside class="hero-stat-card glass reveal">
       <div class="stat"><strong>—</strong><span>TOTAL PUBLICATIONS</span></div>
@@ -321,20 +325,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
       <p>대표 논문이나 저서를 2개 정도 선별해 상단에서 강조할 수 있습니다. 교수님이 직접 지정하거나 최신·대표 연구로 자동 설정할 수 있습니다.</p>
     </div>
 
-    <div class="featured-grid reveal">
-      <article class="feature-card glass">
-        <div class="feature-top"><span class="feature-no">FEATURED · 01</span><span class="type-pill">JOURNAL</span></div>
-        <h3>Selected publication title will appear here as a featured work.</h3>
-        <p>Authors · Journal / Volume / Issue · Year</p>
-        <div class="feature-actions"><a class="btn primary" href="#">DOI ↗</a><a class="btn" href="#">PDF</a><a class="btn" href="#">CITE</a></div>
-      </article>
-      <article class="feature-card glass">
-        <div class="feature-top"><span class="feature-no">FEATURED · 02</span><span class="type-pill">BOOK</span></div>
-        <h3>Selected book or international publication title will appear here.</h3>
-        <p>Authors / Editors · Publisher · Year</p>
-        <div class="feature-actions"><a class="btn primary" href="#">DETAIL ↗</a><a class="btn" href="#">ISBN</a></div>
-      </article>
-    </div>
+    <div class="featured-grid reveal"></div>
   </div>
 </section>
 
@@ -347,13 +338,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 
     <div class="toolbar reveal">
       <div class="searchbox"><input id="searchInput" placeholder="Search title, author, journal, keyword…"><span>⌕</span></div>
-      <select class="select" id="yearSelect">
-        <option value="all">ALL YEARS</option>
-        <option value="2026">2026</option>
-        <option value="2025">2025</option>
-        <option value="2024">2024</option>
-        <option value="2023">2023</option>
-      </select>
+      <select class="select" id="yearSelect"><option value="all">ALL YEARS</option></select>
       <select class="select" id="sortSelect">
         <option value="new">NEWEST FIRST</option>
         <option value="old">OLDEST FIRST</option>
@@ -370,113 +355,10 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 
     <div class="archive-header reveal">
       <div class="label">PUBLICATION ARCHIVE</div>
-      <div class="result-count"><span id="resultCount">8</span> RESULTS · SAMPLE DATA</div>
+      <div class="result-count"><span id="resultCount">0</span> RESULTS · EXCEL DATA</div>
     </div>
 
-    <div id="publicationArchive" class="reveal">
-      <section class="year-block" data-year-block="2026">
-        <h3 class="year-title">2026 <span class="count">3 ITEMS</span></h3>
-        <div class="pub-list">
-          <article class="pub-row" data-year="2026" data-type="journal" data-search="lifelong learning adult education community journal sample publication 2026">
-            <div class="pub-index">01</div>
-            <div class="pub-main">
-              <h3>Sample journal article on lifelong learning and adult education</h3>
-              <div class="authors">Youngwha Kee · Co-author Name</div>
-              <div class="venue">Journal Name · Vol. 00, No. 0</div>
-              <div class="badges"><span class="badge">LIFELONG LEARNING</span><span class="badge">ADULT EDUCATION</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn">PDF</button><button class="icon-btn cite-btn">CITE</button></div>
-          </article>
-
-          <article class="pub-row" data-year="2026" data-type="journal" data-search="community wellbeing community learning participation sample publication 2026">
-            <div class="pub-index">02</div>
-            <div class="pub-main">
-              <h3>Sample publication on community learning and well-being</h3>
-              <div class="authors">Youngwha Kee · Co-author Name</div>
-              <div class="venue">International Journal Name</div>
-              <div class="badges"><span class="badge">COMMUNITY</span><span class="badge">WELL-BEING</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn">PDF</button><button class="icon-btn cite-btn">CITE</button></div>
-          </article>
-
-          <article class="pub-row" data-year="2026" data-type="report" data-search="research report lifelong education project sample 2026">
-            <div class="pub-index">03</div>
-            <div class="pub-main">
-              <h3>Sample research report / policy project title</h3>
-              <div class="authors">Research Team</div>
-              <div class="venue">Institution / Research Project</div>
-              <div class="badges"><span class="badge">REPORT</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button><button class="icon-btn">PDF</button></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="year-block" data-year-block="2025">
-        <h3 class="year-title">2025 <span class="count">3 ITEMS</span></h3>
-        <div class="pub-list">
-          <article class="pub-row" data-year="2025" data-type="book" data-search="book lifelong learning community education publisher 2025">
-            <div class="pub-index">01</div>
-            <div class="pub-main">
-              <h3>Sample book title on learning and community</h3>
-              <div class="authors">Youngwha Kee · Editor / Author</div>
-              <div class="venue">Publisher Name</div>
-              <div class="badges"><span class="badge">BOOK</span><span class="badge">COMMUNITY</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button><button class="icon-btn">ISBN</button></div>
-          </article>
-
-          <article class="pub-row" data-year="2025" data-type="chapter" data-search="book chapter adult learning lifelong education chapter sample 2025">
-            <div class="pub-index">02</div>
-            <div class="pub-main">
-              <h3>Sample book chapter title</h3>
-              <div class="authors">Youngwha Kee</div>
-              <div class="venue">In: Edited Book Title · Publisher</div>
-              <div class="badges"><span class="badge">BOOK CHAPTER</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button><button class="icon-btn cite-btn">CITE</button></div>
-          </article>
-
-          <article class="pub-row" data-year="2025" data-type="journal" data-search="adult continuing education participation journal sample 2025">
-            <div class="pub-index">03</div>
-            <div class="pub-main">
-              <h3>Sample article on adult and continuing education</h3>
-              <div class="authors">Youngwha Kee · Co-author Name</div>
-              <div class="venue">Journal Name</div>
-              <div class="badges"><span class="badge">ADULT EDUCATION</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn cite-btn">CITE</button></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="year-block" data-year-block="2024">
-        <h3 class="year-title">2024 <span class="count">2 ITEMS</span></h3>
-        <div class="pub-list">
-          <article class="pub-row" data-year="2024" data-type="journal" data-search="lifelong learning policy journal sample 2024">
-            <div class="pub-index">01</div>
-            <div class="pub-main">
-              <h3>Sample publication title from 2024</h3>
-              <div class="authors">Youngwha Kee · Co-author Name</div>
-              <div class="venue">Journal Name</div>
-              <div class="badges"><span class="badge">POLICY</span><span class="badge">LIFELONG LEARNING</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn">PDF</button></div>
-          </article>
-
-          <article class="pub-row" data-year="2024" data-type="report" data-search="other conference research project report sample 2024">
-            <div class="pub-index">02</div>
-            <div class="pub-main">
-              <h3>Sample other research output / project title</h3>
-              <div class="authors">Research Team</div>
-              <div class="venue">Institution / Conference / Project</div>
-              <div class="badges"><span class="badge">OTHER</span></div>
-            </div>
-            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button></div>
-          </article>
-        </div>
-      </section>
-    </div>
+    <div id="publicationArchive" class="reveal"></div>
 
     <div class="no-results" id="noResults"><strong>No publications found.</strong>검색어나 필터 조건을 변경해보세요.</div>
   </div>
@@ -488,11 +370,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
       <div><div class="label" style="margin-bottom:14px">BOOKS & CHAPTERS</div><h2>Books</h2></div>
       <p>책 표지 이미지를 확보하면 이 카드 영역에 표지를 넣을 수 있습니다. 현재는 텍스트 중심 디자인 시안입니다.</p>
     </div>
-    <div class="book-grid reveal">
-      <article class="book-card glass"><span class="book-year">2025 · BOOK</span><h3>Sample Book Title</h3><p>Author / Editor · Publisher</p><span class="book-link">↗</span></article>
-      <article class="book-card glass"><span class="book-year">2021 · BOOK</span><h3>Sample International Book Title</h3><p>Editors · Publisher</p><span class="book-link">↗</span></article>
-      <article class="book-card glass"><span class="book-year">2018 · CHAPTER</span><h3>Sample Book Chapter / Edited Volume</h3><p>Author · Book Title · Publisher</p><span class="book-link">↗</span></article>
-    </div>
+    <div class="book-grid reveal"></div>
   </div>
 </section>
 
@@ -506,7 +384,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 </section>
 </main>
 
-<footer><div class="wrap footer-inner"><span>© <span id="year"></span> KEE LAB · Soongsil University</span><span>Publications · KEE LAB v0.1</span></div></footer>
+<footer><div class="wrap footer-inner"><span>© <span id="year"></span> KEE LAB · Soongsil University</span><span>Publication design preview · Sample data</span></div></footer>
 
 <button class="chat-fab" id="chatFab" aria-label="KEE LAB AI 챗봇 열기">
   <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3.5C17.15 9.95 22.05 14.85 28.5 16C22.05 17.15 17.15 22.05 16 28.5C14.85 22.05 9.95 17.15 3.5 16C9.95 14.85 14.85 9.95 16 3.5Z" fill="white"/></svg>
@@ -518,74 +396,17 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
   <form class="chat-input" id="chatForm"><input placeholder="출판물에 대해 질문하세요…"><button>↑</button></form>
 </aside>
 
+
+
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
-
-const obs=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}
-}),{threshold:.1});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-
-const rows=[...document.querySelectorAll(".pub-row")];
-const yearBlocks=[...document.querySelectorAll("[data-year-block]")];
-const searchInput=document.getElementById("searchInput");
-const yearSelect=document.getElementById("yearSelect");
-const sortSelect=document.getElementById("sortSelect");
-const filters=[...document.querySelectorAll(".filter")];
-let activeType="all";
-
-function applyFilters(){
-  const q=searchInput.value.trim().toLowerCase();
-  const year=yearSelect.value;
-  let shown=0;
-
-  rows.forEach(row=>{
-    const matchQ=!q || row.dataset.search.toLowerCase().includes(q) || row.textContent.toLowerCase().includes(q);
-    const matchYear=year==="all" || row.dataset.year===year;
-    const matchType=activeType==="all" || row.dataset.type===activeType;
-    const ok=matchQ && matchYear && matchType;
-    row.style.display=ok?"grid":"none";
-    if(ok) shown++;
-  });
-
-  yearBlocks.forEach(block=>{
-    const visible=[...block.querySelectorAll(".pub-row")].filter(r=>r.style.display!=="none");
-    block.style.display=visible.length?"block":"none";
-    const count=block.querySelector(".year-title .count");
-    if(count) count.textContent=`${visible.length} ITEM${visible.length===1?"":"S"}`;
-  });
-
-  document.getElementById("resultCount").textContent=shown;
-  document.getElementById("noResults").style.display=shown?"none":"block";
-}
-
-searchInput.addEventListener("input",applyFilters);
-yearSelect.addEventListener("change",applyFilters);
-
-filters.forEach(btn=>btn.addEventListener("click",()=>{
-  filters.forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  activeType=btn.dataset.type;
-  applyFilters();
-}));
-
-sortSelect.addEventListener("change",()=>{
-  const archive=document.getElementById("publicationArchive");
-  const blocks=[...archive.querySelectorAll(".year-block")];
-  blocks.sort((a,b)=>{
-    const ya=+a.dataset.yearBlock, yb=+b.dataset.yearBlock;
-    return sortSelect.value==="new" ? yb-ya : ya-yb;
-  }).forEach(b=>archive.appendChild(b));
-});
-
-document.querySelectorAll(".cite-btn").forEach(btn=>btn.addEventListener("click",()=>{
-  alert("실제 데이터 연결 시 APA / MLA / Chicago 형식의 Citation 복사 기능을 넣을 수 있습니다.");
-}));
-
 const fab=document.getElementById("chatFab"),panel=document.getElementById("chatPanel");
-fab.addEventListener("click",()=>panel.classList.toggle("open"));
-document.getElementById("chatClose").addEventListener("click",()=>panel.classList.remove("open"));
-document.getElementById("chatForm").addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
+if(fab&&panel)fab.addEventListener("click",()=>panel.classList.toggle("open"));
+document.getElementById("chatClose")?.addEventListener("click",()=>panel?.classList.remove("open"));
+document.getElementById("chatForm")?.addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
 </script>
+<script src="../assets/js/data-pages.js"></script>
 </body>
 </html>

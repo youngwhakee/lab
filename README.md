@@ -1,66 +1,56 @@
-# KEE LAB v0.1
+# KEE LAB v0.2 — Excel-managed GitHub Pages
 
-이 폴더는 GitHub Pages에 바로 업로드할 수 있는 KEE LAB 공개용 초안입니다.
+이 패키지는 **HTML을 직접 수정하지 않고 Excel 파일로 Members / Alumni / Publications / News / Gallery를 관리**하도록 바꾼 버전입니다.
 
-## 포함된 페이지
+## 운영자가 수정하는 파일
 
-- `index.html` — HOME
-- `about/index.html` — About the Lab
-- `about/professor.html` — Professor
-- `about/members.html` — Members
-- `about/alumni.html` — Alumni
-- `research/index.html` — Research
-- `publications/index.html` — Publications
-- `news/index.html` — News
-- `gallery/index.html` — Photo / Gallery
-- `contact/index.html` — Contact
+`data/kee_lab_content.xlsx`
 
-## GitHub Pages에 공개하는 방법
+엑셀 안에는 다음 시트가 있습니다.
 
-1. GitHub에서 새 Public repository를 만듭니다. 예: `kee-lab`
-2. 이 ZIP의 **내용물 전체**를 저장소 최상단에 업로드합니다.
-   - 저장소 최상단에 `index.html`이 보여야 합니다.
-3. GitHub 저장소의 `Settings` → `Pages`로 이동합니다.
-4. `Build and deployment`에서:
-   - Source: `Deploy from a branch`
-   - Branch: `main`
-   - Folder: `/ (root)`
-5. Save를 누릅니다.
-6. 잠시 뒤 Pages 화면에 공개 URL이 표시됩니다.
+- `Members`
+- `Alumni`
+- `Publications`
+- `News`
+- `Gallery`
 
-주소는 보통 아래 형식입니다.
+`README` 시트에 입력 규칙이 들어 있습니다.
 
-`https://GITHUB-USERNAME.github.io/kee-lab/`
+## 자동 반영 원리
 
-## 현재 v0.1에서 의도적으로 미완성인 부분
+1. Excel을 수정합니다.
+2. 필요하면 사진을 정해진 폴더에 업로드합니다.
+3. GitHub에서 `data/kee_lab_content.xlsx`를 새 파일로 교체합니다.
+4. `.github/workflows/build-content.yml`이 자동 실행됩니다.
+5. Excel → JSON 변환이 자동으로 이루어집니다.
+6. GitHub Pages가 갱신됩니다.
 
-- 실제 교수/구성원/Alumni 데이터
-- 실제 Publications 데이터와 DOI/PDF 링크
-- News 및 Gallery의 실제 사진
-- Contact의 공식 이메일/연구실 위치
-- 문의 폼 실제 전송
-- 사이트 전체 검색
-- Gemini 기반 AI 챗봇
+HTML은 수정하지 않습니다.
 
-현재 각 페이지의 샘플/placeholder는 레이아웃 확인을 위한 것입니다.
-실제 자료가 준비되는 순서대로 교체하면 됩니다.
+## 이미지 폴더
 
-## 로고
+- 멤버 사진: `assets/uploads/members/`
+- 뉴스 사진: `assets/uploads/news/`
+- 갤러리 사진: `assets/uploads/gallery/`
 
-상단 숭실대학교 심벌은 현재 숭실대학교 공식 웹사이트의 이미지 URL을 참조합니다.
-최종 운영 전에는 학교의 공식 UI 사용 지침에 맞는 원본 로고 파일을 확보해
-`assets/images/`에 저장한 뒤 로컬 파일로 교체하는 것을 권장합니다.
+Excel에는 전체 경로가 아니라 **파일명만** 적으면 됩니다.
 
-## 다음 단계
+예: `honggildong.jpg`
 
-사이트가 공개된 다음 실제 URL을 보면서:
-1. 교수 프로필
-2. Members
-3. Publications
-4. Alumni
-5. News/Gallery
-6. Contact
-7. CMS
-8. AI 챗봇
+## 매우 중요 — 공개 정보만 입력
 
-순서로 채워가면 됩니다.
+현재 저장소가 Public이면 `data/kee_lab_content.xlsx`도 누구나 열어볼 수 있습니다.
+따라서 개인 전화번호, 비공개 이메일, 개인정보, API 키 등은 절대 넣지 마세요.
+
+## 처음 GitHub에 교체 업로드한 뒤
+
+`Actions` 탭에서 **Build site content from Excel** 작업이 초록색 체크로 완료되는지 확인하세요.
+실패한다면 저장소 `Settings → Actions → General → Workflow permissions`에서 Actions 쓰기 권한 설정을 확인해야 할 수 있습니다.
+
+## active / featured
+
+- `active = TRUE`: 홈페이지에 공개
+- `active = FALSE`: 데이터는 Excel에 있지만 홈페이지에는 숨김
+- `featured = TRUE`: Featured 영역에 우선 표시
+
+처음 들어 있는 예시 행은 모두 `active = FALSE`라 공개 페이지에는 나타나지 않습니다.

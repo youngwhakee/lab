@@ -273,8 +273,12 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
   .chat-panel{right:15px;bottom:90px;height:min(535px,calc(100vh - 120px))}
 }
 </style>
+
+<style>
+.data-empty{grid-column:1/-1;padding:28px;border-radius:22px;color:var(--muted);display:flex;flex-direction:column;gap:5px}.data-empty b{color:var(--ink);font-size:16px}.member-photo.has-photo:after{display:none}.member-links a{color:var(--ssu-dark)}
+</style>
 </head>
-<body>
+<body data-page="news">
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -299,7 +303,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
     <div class="reveal">
       <div class="eyebrow">Lab Updates</div>
       <h1>News &<br><em>Stories.</em></h1>
-      <p class="lead">연구, 학회, 수상, 세미나, 구성원 소식과 연구실의 일상을 기록하는 페이지입니다. 현재 내용과 사진은 디자인 확인용 placeholder입니다.</p>
+      <p class="lead">연구, 학회, 수상, 세미나, 구성원 소식과 연구실의 일상을 기록하는 페이지입니다. 뉴스 내용과 사진은 Excel 및 업로드 폴더에서 자동으로 불러옵니다.</p>
     </div>
 
     <aside class="hero-feature reveal">
@@ -324,12 +328,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
         <input id="newsSearch" placeholder="Search news title, keyword, event…">
         <span>⌕</span>
       </div>
-      <select class="select" id="yearFilter">
-        <option value="all">ALL YEARS</option>
-        <option value="2026">2026</option>
-        <option value="2025">2025</option>
-        <option value="2024">2024</option>
-      </select>
+      <select class="select" id="yearFilter"><option value="all">ALL YEARS</option></select>
     </div>
 
     <div class="filter-row reveal">
@@ -342,67 +341,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
       <button class="filter" data-category="lab">LAB LIFE</button>
     </div>
 
-    <div class="news-grid reveal" id="newsGrid">
-      <article class="news-card glass" data-category="research" data-year="2026" data-search="research project lifelong learning selected new project">
-        <div class="news-media"><span class="news-category">RESEARCH</span></div>
-        <div class="news-body">
-          <div class="news-date">SEP 12 · 2026</div>
-          <h3>New research project selected</h3>
-          <p>새로운 연구 프로젝트 선정 소식을 소개하는 샘플 카드입니다.</p>
-          <div class="news-bottom"><span class="readmore">READ STORY ↗</span><span class="tag">PROJECT</span></div>
-        </div>
-      </article>
-
-      <article class="news-card glass" data-category="conference" data-year="2026" data-search="conference presentation international academic meeting">
-        <div class="news-media"><span class="news-category">CONFERENCE</span></div>
-        <div class="news-body">
-          <div class="news-date">AUG 21 · 2026</div>
-          <h3>Presentation at an international conference</h3>
-          <p>학술대회 발표 또는 국제학회 참석 소식을 보여주는 샘플입니다.</p>
-          <div class="news-bottom"><span class="readmore">READ STORY ↗</span><span class="tag">ACADEMIC</span></div>
-        </div>
-      </article>
-
-      <article class="news-card glass" data-category="award" data-year="2026" data-search="award best paper research prize">
-        <div class="news-media"><span class="news-category">AWARD</span></div>
-        <div class="news-body">
-          <div class="news-date">JUL 03 · 2026</div>
-          <h3>Research award / best paper recognition</h3>
-          <p>논문상, 연구상, 장학금 등 주요 성과를 강조하는 카드입니다.</p>
-          <div class="news-bottom"><span class="readmore">READ STORY ↗</span><span class="tag">AWARD</span></div>
-        </div>
-      </article>
-
-      <article class="news-card glass" data-category="seminar" data-year="2025" data-search="seminar invited talk workshop lifelong education">
-        <div class="news-media"><span class="news-category">SEMINAR</span></div>
-        <div class="news-body">
-          <div class="news-date">NOV 14 · 2025</div>
-          <h3>KEE Lab seminar and invited talk</h3>
-          <p>초청강연, 세미나, 워크숍 소식을 보여주는 카드입니다.</p>
-          <div class="news-bottom"><span class="readmore">READ STORY ↗</span><span class="tag">SEMINAR</span></div>
-        </div>
-      </article>
-
-      <article class="news-card glass" data-category="people" data-year="2025" data-search="new member joined graduate student people lab">
-        <div class="news-media"><span class="news-category">PEOPLE</span></div>
-        <div class="news-body">
-          <div class="news-date">SEP 01 · 2025</div>
-          <h3>New members joined KEE LAB</h3>
-          <p>신입 대학원생, 연구원 등 구성원 관련 소식을 소개합니다.</p>
-          <div class="news-bottom"><span class="readmore">READ STORY ↗</span><span class="tag">MEMBERS</span></div>
-        </div>
-      </article>
-
-      <article class="news-card glass" data-category="lab" data-year="2024" data-search="lab retreat gathering graduation photo lab life">
-        <div class="news-media"><span class="news-category">LAB LIFE</span></div>
-        <div class="news-body">
-          <div class="news-date">DEC 20 · 2024</div>
-          <h3>Year-end gathering & lab moments</h3>
-          <p>졸업, 워크숍, 연구실 모임 등 연구실의 일상을 기록합니다.</p>
-          <div class="news-bottom"><span class="readmore">READ STORY ↗</span><span class="tag">GALLERY</span></div>
-        </div>
-      </article>
-    </div>
+    <div class="news-grid reveal" id="newsGrid"></div>
 
     <div class="no-results" id="noResults">
       <strong>No news found.</strong>
@@ -418,38 +357,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
       <p>오래된 소식은 카드보다 압축된 리스트로 제공하면 수년간 누적되어도 페이지가 과도하게 길어지지 않습니다.</p>
     </div>
 
-    <div class="archive reveal">
-      <a class="archive-row" href="#">
-        <span class="archive-date">2026.06.18</span>
-        <span class="archive-cat">CONFERENCE</span>
-        <span class="archive-title">Sample conference participation and presentation news</span>
-        <span class="archive-arrow">↗</span>
-      </a>
-      <a class="archive-row" href="#">
-        <span class="archive-date">2026.03.12</span>
-        <span class="archive-cat">RESEARCH</span>
-        <span class="archive-title">Sample research publication / project update</span>
-        <span class="archive-arrow">↗</span>
-      </a>
-      <a class="archive-row" href="#">
-        <span class="archive-date">2025.12.05</span>
-        <span class="archive-cat">LAB LIFE</span>
-        <span class="archive-title">Sample year-end event and member activity</span>
-        <span class="archive-arrow">↗</span>
-      </a>
-      <a class="archive-row" href="#">
-        <span class="archive-date">2025.08.28</span>
-        <span class="archive-cat">PEOPLE</span>
-        <span class="archive-title">Sample graduation / member announcement</span>
-        <span class="archive-arrow">↗</span>
-      </a>
-      <a class="archive-row" href="#">
-        <span class="archive-date">2024.11.01</span>
-        <span class="archive-cat">SEMINAR</span>
-        <span class="archive-title">Sample seminar and guest lecture announcement</span>
-        <span class="archive-arrow">↗</span>
-      </a>
-    </div>
+    <div class="archive reveal"></div>
   </div>
 </section>
 
@@ -495,7 +403,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 <footer>
   <div class="wrap footer-inner">
     <span>© <span id="year"></span> KEE LAB · Soongsil University</span>
-    <span>News · KEE LAB v0.1</span>
+    <span>News design preview · Sample content</span>
   </div>
 </footer>
 
@@ -520,51 +428,17 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
   </form>
 </aside>
 
+
+
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
-
-const obs=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}
-}),{threshold:.1});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-
-const cards=[...document.querySelectorAll(".news-card")];
-const filters=[...document.querySelectorAll(".filter")];
-const search=document.getElementById("newsSearch");
-const year=document.getElementById("yearFilter");
-const noResults=document.getElementById("noResults");
-let activeCategory="all";
-
-function filterNews(){
-  const q=search.value.trim().toLowerCase();
-  let shown=0;
-  cards.forEach(card=>{
-    const catOk=activeCategory==="all" || card.dataset.category===activeCategory;
-    const yearOk=year.value==="all" || card.dataset.year===year.value;
-    const searchOk=!q || card.dataset.search.includes(q) || card.textContent.toLowerCase().includes(q);
-    const ok=catOk && yearOk && searchOk;
-    card.style.display=ok?"block":"none";
-    if(ok) shown++;
-  });
-  noResults.style.display=shown ? "none" : "block";
-}
-
-filters.forEach(btn=>btn.addEventListener("click",()=>{
-  filters.forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
-  activeCategory=btn.dataset.category;
-  filterNews();
-}));
-search.addEventListener("input",filterNews);
-year.addEventListener("change",filterNews);
-
 const fab=document.getElementById("chatFab"),panel=document.getElementById("chatPanel");
-fab.addEventListener("click",()=>panel.classList.toggle("open"));
-document.getElementById("chatClose").addEventListener("click",()=>panel.classList.remove("open"));
-document.getElementById("chatForm").addEventListener("submit",e=>{
-  e.preventDefault();
-  alert("현재는 챗봇 UI 시안입니다.");
-});
+if(fab&&panel)fab.addEventListener("click",()=>panel.classList.toggle("open"));
+document.getElementById("chatClose")?.addEventListener("click",()=>panel?.classList.remove("open"));
+document.getElementById("chatForm")?.addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
 </script>
+<script src="../assets/js/data-pages.js"></script>
 </body>
 </html>

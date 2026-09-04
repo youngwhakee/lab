@@ -183,8 +183,12 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 @media(max-width:900px){.members-hero-grid{grid-template-columns:1fr}.member-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){.member-grid{grid-template-columns:1fr}.members-stat{grid-template-columns:1fr 1fr}}
 </style>
+
+<style>
+.data-empty{grid-column:1/-1;padding:28px;border-radius:22px;color:var(--muted);display:flex;flex-direction:column;gap:5px}.data-empty b{color:var(--ink);font-size:16px}.member-photo.has-photo:after{display:none}.member-links a{color:var(--ssu-dark)}
+</style>
 </head>
-<body>
+<body data-page="members">
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -228,31 +232,19 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 
 <section>
   <div class="wrap">
-    <div class="section-head reveal"><div><div class="label" style="margin-bottom:14px">CURRENT MEMBERS</div><h2>Meet the Lab</h2></div><p>현재 데이터는 디자인 시안용 placeholder입니다. CMS 연결 후 멤버 추가/수정 시 자동으로 카드가 생성됩니다.</p></div>
+    <div class="section-head reveal"><div><div class="label" style="margin-bottom:14px">CURRENT MEMBERS</div><h2>Meet the Lab</h2></div><p>Members 시트에서 active=TRUE로 설정한 구성원이 자동 표시됩니다. HTML 수정은 필요하지 않습니다.</p></div>
     <div class="filters reveal">
       <button class="filter active" data-filter="all">ALL</button><button class="filter" data-filter="phd">Ph.D.</button><button class="filter" data-filter="ma">MASTER'S</button><button class="filter" data-filter="researcher">RESEARCHER</button>
     </div>
 
-    <div class="section-title-row reveal"><h3>Doctoral Students</h3><span class="count">SAMPLE</span></div>
-    <div class="member-grid reveal">
-      <article class="member-card glass" data-role="phd"><div class="member-photo">PROFILE IMAGE</div><div class="member-info"><h3>Member Name</h3><div class="degree">Ph.D. Student</div><p>Research Interests · Lifelong Learning, Adult Education</p><div class="member-links"><span>PROFILE ↗</span><span>EMAIL ↗</span></div></div></article>
-      <article class="member-card glass" data-role="phd"><div class="member-photo">PROFILE IMAGE</div><div class="member-info"><h3>Member Name</h3><div class="degree">Ph.D. Student</div><p>Research Interests · Community Learning, Participation</p><div class="member-links"><span>PROFILE ↗</span><span>EMAIL ↗</span></div></div></article>
-      <article class="member-card glass" data-role="phd"><div class="member-photo">PROFILE IMAGE</div><div class="member-info"><h3>Member Name</h3><div class="degree">Ph.D. Candidate</div><p>Research Interests · Community Well-being, Policy</p><div class="member-links"><span>PROFILE ↗</span><span>EMAIL ↗</span></div></div></article>
-    </div>
-
-    <div class="section-title-row reveal"><h3>Master's Students & Researchers</h3><span class="count">SAMPLE</span></div>
-    <div class="member-grid reveal">
-      <article class="member-card glass" data-role="ma"><div class="member-photo">PROFILE IMAGE</div><div class="member-info"><h3>Member Name</h3><div class="degree">Master's Student</div><p>Research Interests · Adult Learning, Educational Practice</p><div class="member-links"><span>PROFILE ↗</span><span>EMAIL ↗</span></div></div></article>
-      <article class="member-card glass" data-role="ma"><div class="member-photo">PROFILE IMAGE</div><div class="member-info"><h3>Member Name</h3><div class="degree">Master's Student</div><p>Research Interests · Lifelong Education, Local Community</p><div class="member-links"><span>PROFILE ↗</span><span>EMAIL ↗</span></div></div></article>
-      <article class="member-card glass" data-role="researcher"><div class="member-photo">PROFILE IMAGE</div><div class="member-info"><h3>Member Name</h3><div class="degree">Researcher</div><p>Research Interests · Research Project / Field</p><div class="member-links"><span>PROFILE ↗</span><span>EMAIL ↗</span></div></div></article>
-    </div>
+    <div id="membersDynamic" class="reveal"></div>
   </div>
 </section>
 <section class="soft"><div class="wrap"><div class="cta reveal"><h2>Our<br>Alumni.</h2><div><p>오랜 연구실 역사는 사진 카드 대신 검색 가능한 Alumni Archive에서 보여줍니다.</p><a class="btn" style="background:#fff;color:var(--ssu-dark)" href="alumni.html">EXPLORE ALUMNI ↗</a></div></div></div></section>
 </main>
 
 
-<footer><div class="wrap footer-inner"><span>© <span id="year"></span> KEE LAB · Soongsil University</span><span>Members · KEE LAB v0.1</span></div></footer>
+<footer><div class="wrap footer-inner"><span>© <span id="year"></span> KEE LAB · Soongsil University</span><span>ABOUT design preview</span></div></footer>
 
 <button class="chat-fab" id="chatFab" aria-label="KEE LAB AI 챗봇 열기" title="KEE LAB AI">
   <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
@@ -268,24 +260,20 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
   <form class="chat-input" id="chatForm"><input placeholder="연구실에 대해 질문하세요…"><button>↑</button></form>
 </aside>
 
+
+
+
+
+
+
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 const fab=document.getElementById("chatFab"),panel=document.getElementById("chatPanel");
-fab.addEventListener("click",()=>panel.classList.toggle("open"));
-document.getElementById("chatClose").addEventListener("click",()=>panel.classList.remove("open"));
-document.getElementById("chatForm").addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
+if(fab&&panel)fab.addEventListener("click",()=>panel.classList.toggle("open"));
+document.getElementById("chatClose")?.addEventListener("click",()=>panel?.classList.remove("open"));
+document.getElementById("chatForm")?.addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
 </script>
-
-
-<script>
-const fs=[...document.querySelectorAll(".filter")], cards=[...document.querySelectorAll(".member-card")];
-fs.forEach(b=>b.addEventListener("click",()=>{
-  fs.forEach(x=>x.classList.remove("active")); b.classList.add("active");
-  const f=b.dataset.filter;
-  cards.forEach(c=>c.style.display=(f==="all"||c.dataset.role===f)?"block":"none");
-}));
-</script>
-
+<script src="../assets/js/data-pages.js"></script>
 </body></html>
