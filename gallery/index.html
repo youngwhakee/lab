@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gallery | KEE LAB</title>
+<style>
+:root{
+  --ssu-light:#7adfe3;
+  --ssu-medium:#22b9dc;
+  --ssu-dark:#087fa5;
+  --ssu-deep:#075f82;
+  --ssu-glow:#a8f2f0;
+  --ink:#10232b;
+  --muted:#64777d;
+  --line:rgba(130,184,194,.28);
+  --paper:#f3fbfb;
+  --white:#fff;
+  --glass-border:rgba(255,255,255,.70);
+  --max:1240px;
+  --shadow:0 24px 70px rgba(8,127,165,.16);
+  --glass-shadow:0 18px 55px rgba(8,127,165,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);background:#fff;
+  font-family:Inter,Pretendard,"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;
+  line-height:1.58;
+}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+
+/* header */
+.site-header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  background:rgba(255,255,255,.64);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);
+  backdrop-filter:blur(22px) saturate(155%);
+  border-bottom:1px solid rgba(255,255,255,.72);
+  box-shadow:0 8px 30px rgba(8,127,165,.06);
+}
+.header-inner{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand{display:flex;align-items:center;gap:14px;min-width:max-content}
+.brand img{width:62px;height:34px;object-fit:contain}
+.brand-copy{line-height:1.05}
+.brand-copy b{display:block;font-size:19px;letter-spacing:.02em}
+.brand-copy small{display:block;margin-top:6px;color:var(--ssu-dark);letter-spacing:.12em;font-size:10px;font-weight:800}
+.nav{display:flex;align-items:center;gap:26px;font-size:13px;font-weight:800;letter-spacing:.04em}
+.nav a{position:relative;padding:31px 0 27px}
+.nav a:after{content:"";position:absolute;left:0;right:0;bottom:20px;height:2px;background:var(--ssu-medium);transform:scaleX(0);transform-origin:right;transition:.25s}
+.nav a:hover:after,.nav a.active:after{transform:scaleX(1);transform-origin:left}
+.nav a.active{color:var(--ssu-dark)}
+.header-tools{display:flex;align-items:center;gap:10px}
+.round-btn{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;display:grid;place-items:center;cursor:pointer}
+
+/* common */
+.glass{
+  background:linear-gradient(145deg,rgba(255,255,255,.70),rgba(255,255,255,.38));
+  border:1px solid var(--glass-border);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);
+  backdrop-filter:blur(22px) saturate(155%);
+  box-shadow:var(--glass-shadow);
+}
+.label{font-size:11px;letter-spacing:.16em;font-weight:900;color:var(--ssu-dark)}
+.eyebrow{display:flex;align-items:center;gap:11px;color:var(--ssu-dark);font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.eyebrow:before{content:"";width:35px;height:3px;background:var(--ssu-medium)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:0 15px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.72);font-size:11px;font-weight:900;letter-spacing:.04em;transition:.25s
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(8,127,165,.12)}
+.btn.primary{background:var(--ssu-dark);border-color:var(--ssu-dark);color:#fff}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* hero */
+.page-hero{
+  padding:160px 0 92px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 16%,rgba(168,242,240,.40),transparent 27%),
+    radial-gradient(circle at 88% 12%,rgba(34,185,220,.18),transparent 31%),
+    linear-gradient(180deg,#fff 0%,#f8fefe 58%,#eefafa 100%);
+}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:end}
+.page-hero h1{margin:20px 0 0;font-size:clamp(62px,8vw,112px);line-height:.9;letter-spacing:-.065em}
+.page-hero h1 em{font-style:normal;color:var(--ssu-dark)}
+.lead{font-size:17px;color:var(--muted);max-width:720px;margin:28px 0 0}
+.hero-collage{
+  min-height:430px;border-radius:36px;padding:18px;display:grid;
+  grid-template-columns:1.2fr .8fr;grid-template-rows:1fr 1fr;gap:12px;overflow:hidden
+}
+.hero-photo{
+  border-radius:24px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 72% 22%,rgba(168,242,240,.68),transparent 20%),
+    linear-gradient(145deg,var(--ssu-deep),var(--ssu-medium));
+}
+.hero-photo.big{grid-row:1/-1}
+.hero-photo:after{
+  content:"PHOTO";position:absolute;left:16px;bottom:14px;color:#fff;
+  font-size:9px;font-weight:900;letter-spacing:.13em;opacity:.74
+}
+.hero-collage-note{
+  position:absolute;right:40px;bottom:26px;z-index:2;
+  padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.75);
+  border:1px solid rgba(255,255,255,.85);font-size:11px;color:var(--muted)
+}
+
+/* sections */
+main section.content{padding:92px 0 110px}
+.soft{
+  background:
+    radial-gradient(circle at 12% 20%,rgba(168,242,240,.16),transparent 29%),
+    radial-gradient(circle at 88% 75%,rgba(34,185,220,.09),transparent 27%),
+    var(--paper);
+}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:42px;margin-bottom:36px}
+.section-head h2{margin:0;font-size:clamp(38px,5vw,66px);letter-spacing:-.055em;line-height:.95}
+.section-head p{max-width:540px;color:var(--muted);margin:0}
+
+/* featured album */
+.featured-album{
+  display:grid;grid-template-columns:1.2fr .8fr;gap:20px;
+  padding:20px;border-radius:32px
+}
+.featured-image{
+  min-height:450px;border-radius:26px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 75% 20%,rgba(168,242,240,.65),transparent 22%),
+    linear-gradient(135deg,var(--ssu-deep),var(--ssu-medium))
+}
+.featured-image:after{
+  content:"FEATURED PHOTO";position:absolute;left:22px;bottom:20px;color:#fff;
+  font-size:10px;font-weight:900;letter-spacing:.14em;opacity:.75
+}
+.featured-copy{padding:30px;display:flex;flex-direction:column;justify-content:flex-end}
+.featured-copy h3{font-size:36px;line-height:1.05;letter-spacing:-.04em;margin:14px 0}
+.featured-copy p{color:var(--muted);font-size:13px}
+.album-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.meta{
+  border:1px solid var(--line);border-radius:999px;padding:6px 9px;
+  background:rgba(255,255,255,.62);font-size:9px;font-weight:900;color:var(--muted);letter-spacing:.08em
+}
+
+/* toolbar */
+.toolbar{display:grid;grid-template-columns:1.4fr auto;gap:10px;margin-bottom:18px}
+.searchbox{position:relative}
+.searchbox input{
+  width:100%;height:48px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(255,255,255,.78);padding:0 46px 0 18px;outline:none;color:var(--ink)
+}
+.searchbox span{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.select{
+  min-height:48px;border:1px solid var(--line);border-radius:999px;
+  padding:0 37px 0 16px;background:rgba(255,255,255,.78);
+  color:var(--ink);font-size:11px;font-weight:900;letter-spacing:.05em
+}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:34px}
+.filter{
+  border:1px solid var(--line);border-radius:999px;padding:9px 14px;background:rgba(255,255,255,.72);
+  cursor:pointer;font-size:10px;font-weight:900;letter-spacing:.09em;color:var(--muted);transition:.2s
+}
+.filter.active,.filter:hover{background:var(--ssu-dark);border-color:var(--ssu-dark);color:#fff}
+
+/* masonry-ish gallery */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-auto-rows:150px;
+  gap:16px;
+}
+.photo-card{
+  position:relative;border-radius:24px;overflow:hidden;cursor:pointer;transition:.28s;
+  background:
+    radial-gradient(circle at 72% 22%,rgba(168,242,240,.65),transparent 22%),
+    linear-gradient(145deg,var(--ssu-deep),var(--ssu-medium))
+}
+.photo-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:var(--shadow)}
+.photo-card::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 44%,rgba(2,45,61,.58) 100%);
+  opacity:.72
+}
+.photo-card.tall{grid-row:span 3}
+.photo-card.medium{grid-row:span 2}
+.photo-card.wide{grid-column:span 2;grid-row:span 2}
+.photo-info{
+  position:absolute;z-index:2;left:18px;right:18px;bottom:16px;color:#fff
+}
+.photo-info small{display:block;font-size:9px;font-weight:900;letter-spacing:.12em;opacity:.8}
+.photo-info b{display:block;font-size:15px;margin-top:3px;line-height:1.15}
+.photo-open{
+  position:absolute;right:15px;top:15px;z-index:2;width:34px;height:34px;border-radius:50%;
+  display:grid;place-items:center;background:rgba(255,255,255,.74);color:var(--ssu-dark);
+  border:1px solid rgba(255,255,255,.86);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  font-weight:900
+}
+.no-results{display:none;text-align:center;padding:60px 0;color:var(--muted)}
+.no-results strong{display:block;color:var(--ink);font-size:20px;margin-bottom:6px}
+
+/* album archive */
+.album-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.album-card{border-radius:26px;overflow:hidden;transition:.28s}
+.album-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.album-cover{
+  aspect-ratio:16/10;position:relative;
+  background:
+    radial-gradient(circle at 74% 20%,rgba(168,242,240,.68),transparent 23%),
+    linear-gradient(145deg,var(--ssu-dark),var(--ssu-light))
+}
+.album-count{
+  position:absolute;right:15px;top:15px;padding:6px 9px;border-radius:999px;
+  background:rgba(255,255,255,.76);border:1px solid rgba(255,255,255,.84);
+  color:var(--ssu-dark);font-size:9px;font-weight:900
+}
+.album-body{padding:22px}
+.album-year{font-size:10px;color:var(--ssu-medium);font-weight:900;letter-spacing:.11em}
+.album-body h3{font-size:19px;margin:8px 0 5px}
+.album-body p{font-size:12px;color:var(--muted);margin:0}
+
+/* lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:500;background:rgba(4,32,43,.78);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  display:flex;align-items:center;justify-content:center;padding:30px;
+  opacity:0;pointer-events:none;transition:.25s
+}
+.lightbox.open{opacity:1;pointer-events:auto}
+.lightbox-card{
+  width:min(1040px,100%);max-height:88vh;border-radius:30px;overflow:hidden;
+  display:grid;grid-template-columns:1.3fr .7fr;
+  background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.75);
+  box-shadow:0 30px 100px rgba(0,0,0,.25)
+}
+.lightbox-image{
+  min-height:600px;background:
+    radial-gradient(circle at 75% 18%,rgba(168,242,240,.65),transparent 23%),
+    linear-gradient(145deg,var(--ssu-deep),var(--ssu-medium));
+  position:relative
+}
+.lightbox-image:after{
+  content:"LARGE PHOTO PREVIEW";position:absolute;left:24px;bottom:22px;color:#fff;
+  font-size:10px;font-weight:900;letter-spacing:.14em;opacity:.75
+}
+.lightbox-copy{padding:34px;display:flex;flex-direction:column;justify-content:flex-end}
+.lightbox-copy small{color:var(--ssu-medium);font-weight:900;letter-spacing:.11em}
+.lightbox-copy h3{font-size:28px;line-height:1.1;margin:10px 0}
+.lightbox-copy p{font-size:13px;color:var(--muted)}
+.close-lightbox{
+  position:fixed;right:30px;top:25px;z-index:510;width:45px;height:45px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.16);color:#fff;
+  font-size:24px;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)
+}
+
+/* CTA/footer */
+.cta{
+  padding:68px;border-radius:34px;color:#fff;
+  background:radial-gradient(circle at 83% 8%,rgba(168,242,240,.22),transparent 28%),linear-gradient(125deg,var(--ssu-deep),var(--ssu-dark) 60%,#0aa8c7);
+  box-shadow:0 28px 70px rgba(8,127,165,.18);
+  display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:end
+}
+.cta h2{margin:0;font-size:clamp(42px,6vw,78px);line-height:.92;letter-spacing:-.055em}
+.cta p{margin:0 0 20px;color:rgba(255,255,255,.76)}
+footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
+.footer-inner{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+
+/* AI button */
+.chat-fab{
+  position:fixed;right:26px;bottom:26px;z-index:200;width:62px;height:62px;
+  border:1px solid rgba(255,255,255,.68);border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.46),transparent 23%),linear-gradient(145deg,var(--ssu-light),var(--ssu-medium) 48%,var(--ssu-dark));
+  box-shadow:0 14px 36px rgba(8,127,165,.32),inset 0 1px 0 rgba(255,255,255,.78);
+  display:grid;place-items:center;cursor:pointer;transition:.25s
+}
+.chat-fab:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 18px 44px rgba(8,127,165,.38),0 0 0 8px rgba(122,223,227,.10)}
+.chat-fab svg{width:30px;height:30px}
+.chat-panel{
+  position:fixed;right:26px;bottom:100px;z-index:199;width:min(390px,calc(100vw - 30px));height:535px;border-radius:25px;
+  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(244,253,253,.66));border:1px solid var(--glass-border);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);backdrop-filter:blur(22px) saturate(155%);
+  box-shadow:0 30px 90px rgba(0,50,70,.22);overflow:hidden;opacity:0;pointer-events:none;transform:translateY(15px) scale(.98);
+  transition:.25s;display:flex;flex-direction:column
+}
+.chat-panel.open{opacity:1;pointer-events:auto;transform:none}
+.chat-head{color:#fff;background:linear-gradient(120deg,var(--ssu-deep),var(--ssu-medium));padding:18px 20px;display:flex;justify-content:space-between}
+.chat-head small{display:block;opacity:.7;margin-top:2px}.chat-close{border:0;background:transparent;color:#fff;font-size:24px;cursor:pointer}
+.chat-body{padding:20px;flex:1;background:rgba(246,252,252,.75);overflow:auto}
+.bubble{width:84%;padding:13px 15px;border-radius:17px 17px 17px 5px;background:#fff;border:1px solid var(--line);font-size:13px}
+.chat-note{margin-top:14px;color:var(--muted);font-size:11px}
+.chat-input{padding:13px;border-top:1px solid var(--line);display:flex;gap:8px}
+.chat-input input{flex:1;border:1px solid var(--line);border-radius:999px;padding:0 15px;outline:none}
+.chat-input button{width:43px;height:43px;border:0;border-radius:50%;background:var(--ssu-dark);color:#fff}
+
+@media(max-width:980px){
+  .nav{display:none}
+  .hero-grid,.featured-album,.cta{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .album-grid{grid-template-columns:1fr 1fr}
+  .lightbox-card{grid-template-columns:1fr}
+  .lightbox-image{min-height:420px}
+}
+@media(max-width:700px){
+  .wrap{width:min(var(--max),calc(100% - 28px))}
+  .brand img{width:52px}.brand-copy small{display:none}
+  .page-hero{padding-top:130px}
+  .hero-grid{grid-template-columns:1fr}
+  .hero-collage{min-height:360px}
+  .section-head{display:block}.section-head p{margin-top:15px}
+  .toolbar{grid-template-columns:1fr}
+  .gallery-grid{grid-template-columns:1fr;grid-auto-rows:220px}
+  .photo-card.tall,.photo-card.medium,.photo-card.wide{grid-column:auto;grid-row:span 1}
+  .album-grid{grid-template-columns:1fr}
+  .cta{padding:42px 28px}
+  .lightbox{padding:14px}.lightbox-image{min-height:340px}.lightbox-copy{padding:24px}
+  .chat-fab{right:17px;bottom:17px;width:58px;height:58px}
+  .chat-panel{right:15px;bottom:90px;height:min(535px,calc(100vh - 120px))}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="../index.html" class="brand">
+      <img src="https://ssu.ac.kr/wp-content/uploads/2019/04/cymbal_mark.png" alt="Soongsil University symbol" onerror="this.style.display='none'">
+      <div class="brand-copy"><b>KEE LAB</b><small>SOONGSIL UNIVERSITY</small></div>
+    </a>
+    <nav class="nav">
+      <a href="../about/">ABOUT</a>
+      <a href="../research/">RESEARCH</a>
+      <a href="../publications/">PUBLICATIONS</a>
+      <a class="active" href="../news/">NEWS</a>
+      <a href="../contact/">CONTACT</a>
+    </nav>
+    <div class="header-tools"><button class="round-btn" aria-label="Search">⌕</button></div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="eyebrow">Photo Archive</div>
+      <h1>Life at<br><em>KEE LAB.</em></h1>
+      <p class="lead">학회, 세미나, 현장 활동, 졸업, 연구실 모임 등 KEE LAB의 시간을 사진으로 기록하는 공간입니다. 현재 이미지는 모두 placeholder입니다.</p>
+    </div>
+
+    <div class="hero-collage glass reveal">
+      <div class="hero-photo big"></div>
+      <div class="hero-photo"></div>
+      <div class="hero-photo"></div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="label" style="margin-bottom:14px">FEATURED ALBUM</div><h2>Recent Moments</h2></div>
+      <p>가장 최근 또는 의미 있는 행사를 한 개의 대표 앨범으로 크게 보여주는 영역입니다.</p>
+    </div>
+
+    <div class="featured-album glass reveal">
+      <div class="featured-image"></div>
+      <div class="featured-copy">
+        <div class="label">SEP · 2026</div>
+        <h3>International Conference & Lab Gathering</h3>
+        <p>대표 앨범 설명이 들어가는 영역입니다. 실제 사진이 들어오면 대표 사진 1장과 행사 설명, 날짜, 장소, 사진 수 등을 함께 보여줄 수 있습니다.</p>
+        <div class="album-meta">
+          <span class="meta">CONFERENCE</span>
+          <span class="meta">SEOUL</span>
+          <span class="meta">18 PHOTOS</span>
+        </div>
+        <div style="margin-top:22px"><a class="btn primary" href="#gallery">OPEN ALBUM ↗</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content soft" id="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="label" style="margin-bottom:14px">PHOTO GALLERY</div><h2>Explore Photos</h2></div>
+      <p>연도와 행사 유형으로 사진을 좁혀볼 수 있습니다. 사진을 누르면 라이트박스로 크게 열립니다.</p>
+    </div>
+
+    <div class="toolbar reveal">
+      <div class="searchbox">
+        <input id="gallerySearch" placeholder="Search event, place, keyword…">
+        <span>⌕</span>
+      </div>
+      <select class="select" id="yearFilter">
+        <option value="all">ALL YEARS</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+      </select>
+    </div>
+
+    <div class="filter-row reveal">
+      <button class="filter active" data-category="all">ALL</button>
+      <button class="filter" data-category="conference">CONFERENCE</button>
+      <button class="filter" data-category="seminar">SEMINAR</button>
+      <button class="filter" data-category="field">FIELD ACTIVITY</button>
+      <button class="filter" data-category="graduation">GRADUATION</button>
+      <button class="filter" data-category="lab">LAB LIFE</button>
+    </div>
+
+    <div class="gallery-grid reveal" id="galleryGrid">
+      <article class="photo-card tall" data-category="conference" data-year="2026" data-search="conference international presentation seoul" data-title="International Conference" data-date="SEP 2026">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>SEP · 2026</small><b>International Conference</b></div>
+      </article>
+
+      <article class="photo-card medium" data-category="seminar" data-year="2026" data-search="seminar guest lecture workshop" data-title="Guest Seminar" data-date="AUG 2026">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>AUG · 2026</small><b>Guest Seminar</b></div>
+      </article>
+
+      <article class="photo-card medium" data-category="lab" data-year="2026" data-search="lab gathering dinner group" data-title="Lab Gathering" data-date="JUL 2026">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>JUL · 2026</small><b>Lab Gathering</b></div>
+      </article>
+
+      <article class="photo-card wide" data-category="field" data-year="2025" data-search="field activity community site visit" data-title="Community Field Activity" data-date="NOV 2025">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>NOV · 2025</small><b>Community Field Activity</b></div>
+      </article>
+
+      <article class="photo-card medium" data-category="graduation" data-year="2025" data-search="graduation commencement alumni" data-title="Graduation Day" data-date="AUG 2025">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>AUG · 2025</small><b>Graduation Day</b></div>
+      </article>
+
+      <article class="photo-card tall" data-category="conference" data-year="2025" data-search="academic conference presentation" data-title="Academic Conference" data-date="MAY 2025">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>MAY · 2025</small><b>Academic Conference</b></div>
+      </article>
+
+      <article class="photo-card medium" data-category="lab" data-year="2024" data-search="year end gathering lab life" data-title="Year-end Gathering" data-date="DEC 2024">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>DEC · 2024</small><b>Year-end Gathering</b></div>
+      </article>
+
+      <article class="photo-card medium" data-category="seminar" data-year="2024" data-search="seminar workshop education" data-title="Research Workshop" data-date="OCT 2024">
+        <span class="photo-open">＋</span>
+        <div class="photo-info"><small>OCT · 2024</small><b>Research Workshop</b></div>
+      </article>
+    </div>
+
+    <div class="no-results" id="noResults">
+      <strong>No photos found.</strong>
+      검색어나 필터 조건을 변경해보세요.
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="label" style="margin-bottom:14px">ALBUM ARCHIVE</div><h2>Albums by Event</h2></div>
+      <p>사진이 많아지면 모든 사진을 한 화면에 펼치기보다 행사 단위 앨범으로 묶는 구조가 관리하기 좋습니다.</p>
+    </div>
+
+    <div class="album-grid reveal">
+      <article class="album-card glass">
+        <div class="album-cover"><span class="album-count">24 PHOTOS</span></div>
+        <div class="album-body">
+          <div class="album-year">2026 · CONFERENCE</div>
+          <h3>International Conference</h3>
+          <p>Academic presentation, networking, and conference moments.</p>
+        </div>
+      </article>
+
+      <article class="album-card glass">
+        <div class="album-cover"><span class="album-count">16 PHOTOS</span></div>
+        <div class="album-body">
+          <div class="album-year">2026 · SEMINAR</div>
+          <h3>KEE Lab Seminar Series</h3>
+          <p>Guest lectures, workshops, and research discussions.</p>
+        </div>
+      </article>
+
+      <article class="album-card glass">
+        <div class="album-cover"><span class="album-count">18 PHOTOS</span></div>
+        <div class="album-body">
+          <div class="album-year">2025 · GRADUATION</div>
+          <h3>Graduation & Alumni</h3>
+          <p>Graduation day and moments with alumni.</p>
+        </div>
+      </article>
+
+      <article class="album-card glass">
+        <div class="album-cover"><span class="album-count">21 PHOTOS</span></div>
+        <div class="album-body">
+          <div class="album-year">2025 · FIELD ACTIVITY</div>
+          <h3>Community Field Research</h3>
+          <p>Community visits, field activities, and collaborative work.</p>
+        </div>
+      </article>
+
+      <article class="album-card glass">
+        <div class="album-cover"><span class="album-count">14 PHOTOS</span></div>
+        <div class="album-body">
+          <div class="album-year">2024 · LAB LIFE</div>
+          <h3>Year-end Gathering</h3>
+          <p>Informal gatherings and moments from everyday lab life.</p>
+        </div>
+      </article>
+
+      <article class="album-card glass">
+        <div class="album-cover"><span class="album-count">12 PHOTOS</span></div>
+        <div class="album-body">
+          <div class="album-year">2024 · SEMINAR</div>
+          <h3>Research Workshop</h3>
+          <p>Internal workshop and academic discussion.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>Stories<br>behind Research.</h2>
+      <div>
+        <p>사진 속 활동에 대한 자세한 소식은 NEWS 페이지에서 연결해 보여줄 수 있습니다.</p>
+        <a class="btn" style="background:#fff;color:var(--ssu-dark)" href="../news/">VIEW NEWS ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>© <span id="year"></span> KEE LAB · Soongsil University</span>
+    <span>Gallery · KEE LAB v0.1</span>
+  </div>
+</footer>
+
+<!-- lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="close-lightbox" id="closeLightbox">×</button>
+  <div class="lightbox-card">
+    <div class="lightbox-image"></div>
+    <div class="lightbox-copy">
+      <small id="lightboxDate">SEP 2026</small>
+      <h3 id="lightboxTitle">Photo Title</h3>
+      <p>실제 사진이 연결되면 클릭한 사진을 크게 보여주고, 행사명·날짜·설명을 함께 표시할 수 있습니다.</p>
+    </div>
+  </div>
+</div>
+
+<!-- chatbot -->
+<button class="chat-fab" id="chatFab" aria-label="KEE LAB AI 챗봇 열기">
+  <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+    <path d="M16 3.5C17.15 9.95 22.05 14.85 28.5 16C22.05 17.15 17.15 22.05 16 28.5C14.85 22.05 9.95 17.15 3.5 16C9.95 14.85 14.85 9.95 16 3.5Z" fill="white"/>
+  </svg>
+</button>
+
+<aside class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div><b>KEE LAB AI</b><small>Research Lab Assistant · UI Prototype</small></div>
+    <button class="chat-close" id="chatClose">×</button>
+  </div>
+  <div class="chat-body">
+    <div class="bubble">학회, 세미나, 졸업, 연구실 활동 사진과 관련 소식을 질문할 수 있도록 연결할 예정입니다.</div>
+    <div class="chat-note">현재는 디자인 시안입니다.</div>
+  </div>
+  <form class="chat-input" id="chatForm">
+    <input placeholder="사진이나 행사에 대해 질문하세요…">
+    <button>↑</button>
+  </form>
+</aside>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}
+}),{threshold:.1});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+const photos=[...document.querySelectorAll(".photo-card")];
+const filters=[...document.querySelectorAll(".filter")];
+const search=document.getElementById("gallerySearch");
+const year=document.getElementById("yearFilter");
+const noResults=document.getElementById("noResults");
+let activeCategory="all";
+
+function filterGallery(){
+  const q=search.value.trim().toLowerCase();
+  let shown=0;
+  photos.forEach(photo=>{
+    const categoryOk=activeCategory==="all" || photo.dataset.category===activeCategory;
+    const yearOk=year.value==="all" || photo.dataset.year===year.value;
+    const searchOk=!q || photo.dataset.search.includes(q) || photo.textContent.toLowerCase().includes(q);
+    const ok=categoryOk && yearOk && searchOk;
+    photo.style.display=ok?"block":"none";
+    if(ok) shown++;
+  });
+  noResults.style.display=shown?"none":"block";
+}
+
+filters.forEach(btn=>btn.addEventListener("click",()=>{
+  filters.forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  activeCategory=btn.dataset.category;
+  filterGallery();
+}));
+search.addEventListener("input",filterGallery);
+year.addEventListener("change",filterGallery);
+
+/* Lightbox */
+const lightbox=document.getElementById("lightbox");
+const lightboxTitle=document.getElementById("lightboxTitle");
+const lightboxDate=document.getElementById("lightboxDate");
+photos.forEach(photo=>photo.addEventListener("click",()=>{
+  lightboxTitle.textContent=photo.dataset.title || "Gallery Photo";
+  lightboxDate.textContent=photo.dataset.date || "";
+  lightbox.classList.add("open");
+  lightbox.setAttribute("aria-hidden","false");
+}));
+function closeLightbox(){
+  lightbox.classList.remove("open");
+  lightbox.setAttribute("aria-hidden","true");
+}
+document.getElementById("closeLightbox").addEventListener("click",closeLightbox);
+lightbox.addEventListener("click",e=>{if(e.target===lightbox)closeLightbox()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLightbox()});
+
+/* Chat */
+const fab=document.getElementById("chatFab"),panel=document.getElementById("chatPanel");
+fab.addEventListener("click",()=>panel.classList.toggle("open"));
+document.getElementById("chatClose").addEventListener("click",()=>panel.classList.remove("open"));
+document.getElementById("chatForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  alert("현재는 챗봇 UI 시안입니다.");
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Publications | KEE LAB</title>
+<style>
+:root{
+  --ssu-light:#7adfe3;
+  --ssu-medium:#22b9dc;
+  --ssu-dark:#087fa5;
+  --ssu-deep:#075f82;
+  --ssu-glow:#a8f2f0;
+  --ink:#10232b;
+  --muted:#64777d;
+  --line:rgba(130,184,194,.28);
+  --paper:#f3fbfb;
+  --white:#fff;
+  --glass:rgba(255,255,255,.56);
+  --glass-strong:rgba(255,255,255,.72);
+  --glass-border:rgba(255,255,255,.70);
+  --max:1240px;
+  --shadow:0 24px 70px rgba(8,127,165,.16);
+  --glass-shadow:0 18px 55px rgba(8,127,165,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;color:var(--ink);background:#fff;
+  font-family:Inter,Pretendard,"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;
+  line-height:1.58;
+}
+a{text-decoration:none;color:inherit}
+button,input,select{font:inherit}
+.wrap{width:min(var(--max),calc(100% - 48px));margin:auto}
+
+/* Header */
+.site-header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  background:rgba(255,255,255,.64);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);
+  backdrop-filter:blur(22px) saturate(155%);
+  border-bottom:1px solid rgba(255,255,255,.72);
+  box-shadow:0 8px 30px rgba(8,127,165,.06);
+}
+.header-inner{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.brand{display:flex;align-items:center;gap:14px;min-width:max-content}
+.brand img{width:62px;height:34px;object-fit:contain}
+.brand-copy{line-height:1.05}
+.brand-copy b{display:block;font-size:19px;letter-spacing:.02em}
+.brand-copy small{display:block;margin-top:6px;color:var(--ssu-dark);letter-spacing:.12em;font-size:10px;font-weight:800}
+.nav{display:flex;align-items:center;gap:26px;font-size:13px;font-weight:800;letter-spacing:.04em}
+.nav a{position:relative;padding:31px 0 27px}
+.nav a:after{content:"";position:absolute;left:0;right:0;bottom:20px;height:2px;background:var(--ssu-medium);transform:scaleX(0);transform-origin:right;transition:.25s}
+.nav a:hover:after,.nav a.active:after{transform:scaleX(1);transform-origin:left}
+.nav a.active{color:var(--ssu-dark)}
+.header-tools{display:flex;align-items:center;gap:10px}
+.round-btn{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;display:grid;place-items:center;cursor:pointer}
+
+/* Common */
+.glass{
+  background:linear-gradient(145deg,rgba(255,255,255,.70),rgba(255,255,255,.38));
+  border:1px solid var(--glass-border);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);
+  backdrop-filter:blur(22px) saturate(155%);
+  box-shadow:var(--glass-shadow);
+}
+.label{font-size:11px;letter-spacing:.16em;font-weight:900;color:var(--ssu-dark)}
+.eyebrow{display:flex;align-items:center;gap:11px;color:var(--ssu-dark);font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase}
+.eyebrow:before{content:"";width:35px;height:3px;background:var(--ssu-medium)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:42px;padding:0 15px;border-radius:999px;
+  border:1px solid var(--line);background:rgba(255,255,255,.72);
+  font-size:11px;font-weight:900;letter-spacing:.04em;transition:.25s
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(8,127,165,.12)}
+.btn.primary{background:var(--ssu-dark);border-color:var(--ssu-dark);color:#fff}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* Hero */
+.page-hero{
+  padding:160px 0 92px;position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 16%,rgba(168,242,240,.40),transparent 27%),
+    radial-gradient(circle at 88% 12%,rgba(34,185,220,.18),transparent 31%),
+    linear-gradient(180deg,#fff 0%,#f8fefe 58%,#eefafa 100%);
+}
+.hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:55px;align-items:end}
+.page-hero h1{margin:20px 0 0;font-size:clamp(62px,8vw,112px);line-height:.9;letter-spacing:-.065em}
+.page-hero h1 em{font-style:normal;color:var(--ssu-dark)}
+.lead{font-size:17px;color:var(--muted);max-width:720px;margin:28px 0 0}
+.hero-stat-card{
+  border-radius:34px;padding:30px;min-height:355px;
+  display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:end;position:relative;overflow:hidden;
+}
+.hero-stat-card:before{
+  content:"";position:absolute;width:260px;height:260px;border-radius:50%;
+  right:-90px;top:-100px;background:radial-gradient(circle,rgba(122,223,227,.55),transparent 68%)
+}
+.stat{
+  position:relative;padding:22px;border-radius:20px;
+  background:rgba(255,255,255,.56);border:1px solid rgba(255,255,255,.78)
+}
+.stat strong{display:block;font-size:38px;line-height:1;letter-spacing:-.04em;color:var(--ssu-dark)}
+.stat span{display:block;margin-top:7px;color:var(--muted);font-size:10px;font-weight:900;letter-spacing:.10em}
+
+/* Main */
+main section.content{padding:92px 0 110px}
+.soft{
+  background:
+    radial-gradient(circle at 12% 20%,rgba(168,242,240,.16),transparent 29%),
+    radial-gradient(circle at 88% 75%,rgba(34,185,220,.09),transparent 27%),
+    var(--paper);
+}
+.section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:42px;margin-bottom:36px}
+.section-head h2{margin:0;font-size:clamp(38px,5vw,66px);letter-spacing:-.055em;line-height:.95}
+.section-head p{max-width:540px;color:var(--muted);margin:0}
+
+/* Featured */
+.featured-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.feature-card{
+  padding:30px;border-radius:26px;min-height:310px;position:relative;overflow:hidden;transition:.28s
+}
+.feature-card:before{
+  content:"";position:absolute;width:180px;height:180px;border-radius:50%;
+  right:-60px;top:-70px;background:radial-gradient(circle,rgba(122,223,227,.42),transparent 68%)
+}
+.feature-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.feature-top{display:flex;justify-content:space-between;gap:20px;align-items:start;position:relative}
+.feature-no{font-size:11px;color:var(--ssu-medium);font-weight:900;letter-spacing:.14em}
+.type-pill{
+  border:1px solid var(--line);border-radius:999px;padding:6px 9px;
+  font-size:9px;font-weight:900;letter-spacing:.10em;color:var(--ssu-dark);background:rgba(255,255,255,.58)
+}
+.feature-card h3{position:relative;font-size:28px;line-height:1.12;letter-spacing:-.035em;margin:60px 0 14px;max-width:520px}
+.feature-card p{position:relative;color:var(--muted);font-size:13px;margin:0}
+.feature-actions{position:absolute;left:30px;right:30px;bottom:28px;display:flex;gap:8px;flex-wrap:wrap}
+
+/* Toolbar */
+.toolbar{
+  display:grid;grid-template-columns:1.5fr auto auto;gap:10px;
+  position:sticky;top:82px;z-index:40;
+  padding:16px;border-radius:24px;margin:35px 0 18px;
+  background:rgba(247,253,253,.76);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  backdrop-filter:blur(18px) saturate(160%);
+  border:1px solid rgba(255,255,255,.78);
+  box-shadow:0 12px 35px rgba(8,127,165,.08)
+}
+.searchbox{position:relative}
+.searchbox input{
+  width:100%;height:48px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(255,255,255,.78);padding:0 48px 0 18px;outline:none;color:var(--ink)
+}
+.searchbox span{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--muted)}
+.select{
+  min-height:48px;border:1px solid var(--line);border-radius:999px;
+  padding:0 37px 0 16px;background:rgba(255,255,255,.78);
+  color:var(--ink);font-size:11px;font-weight:900;letter-spacing:.05em
+}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:44px}
+.filter{
+  border:1px solid var(--line);border-radius:999px;padding:9px 14px;background:rgba(255,255,255,.72);
+  cursor:pointer;font-size:10px;font-weight:900;letter-spacing:.09em;color:var(--muted);transition:.2s
+}
+.filter.active,.filter:hover{background:var(--ssu-dark);border-color:var(--ssu-dark);color:#fff}
+
+/* Archive */
+.archive-header{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:18px
+}
+.result-count{font-size:11px;color:var(--muted);font-weight:800}
+.year-block{margin:0 0 60px}
+.year-title{
+  display:flex;align-items:center;gap:14px;margin:0 0 12px;
+  font-size:clamp(38px,4.2vw,56px);line-height:1;letter-spacing:-.05em;color:var(--ssu-dark)
+}
+.year-title .count{font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 8px;letter-spacing:.08em}
+.pub-list{border-top:1px solid var(--line)}
+.pub-row{
+  display:grid;grid-template-columns:72px 1fr auto;gap:22px;
+  padding:25px 0;border-bottom:1px solid var(--line);position:relative;transition:.23s
+}
+.pub-row:hover{
+  padding-left:16px;padding-right:16px;border-radius:18px;
+  background:rgba(255,255,255,.62);
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
+  box-shadow:0 15px 42px rgba(8,127,165,.09)
+}
+.pub-index{font-size:11px;color:var(--ssu-medium);font-weight:900;letter-spacing:.10em;padding-top:3px}
+.pub-main h3{font-size:18px;line-height:1.35;margin:0 0 7px;letter-spacing:-.015em}
+.authors{font-size:12px;color:var(--muted);margin-bottom:5px}
+.venue{font-size:12px;color:var(--ssu-dark);font-weight:800}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.badge{
+  font-size:9px;font-weight:900;letter-spacing:.08em;border-radius:999px;
+  padding:5px 8px;background:rgba(34,185,220,.08);color:var(--ssu-dark);border:1px solid rgba(34,185,220,.16)
+}
+.pub-actions{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;align-content:start}
+.icon-btn{
+  min-height:36px;padding:0 11px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(255,255,255,.72);font-size:9px;font-weight:900;letter-spacing:.06em;color:var(--muted);cursor:pointer
+}
+.icon-btn:hover{color:var(--ssu-dark);border-color:rgba(34,185,220,.35)}
+.no-results{display:none;padding:70px 0;text-align:center;color:var(--muted)}
+.no-results strong{display:block;color:var(--ink);font-size:20px;margin-bottom:6px}
+
+/* Books */
+.book-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.book-card{padding:26px;border-radius:24px;min-height:280px;transition:.28s;position:relative}
+.book-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
+.book-year{font-size:10px;color:var(--ssu-medium);font-weight:900;letter-spacing:.12em}
+.book-card h3{font-size:22px;line-height:1.18;margin:55px 0 11px;letter-spacing:-.025em}
+.book-card p{font-size:12px;color:var(--muted)}
+.book-link{position:absolute;right:24px;bottom:22px;color:var(--ssu-dark);font-weight:900}
+
+/* Footer CTA */
+.cta{
+  padding:68px;border-radius:34px;color:#fff;
+  background:radial-gradient(circle at 83% 8%,rgba(168,242,240,.22),transparent 28%),linear-gradient(125deg,var(--ssu-deep),var(--ssu-dark) 60%,#0aa8c7);
+  box-shadow:0 28px 70px rgba(8,127,165,.18);
+  display:grid;grid-template-columns:1.15fr .85fr;gap:50px;align-items:end
+}
+.cta h2{margin:0;font-size:clamp(42px,6vw,78px);line-height:.92;letter-spacing:-.055em}
+.cta p{margin:0 0 20px;color:rgba(255,255,255,.76)}
+footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
+.footer-inner{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}
+
+/* AI button */
+.chat-fab{
+  position:fixed;right:26px;bottom:26px;z-index:200;width:62px;height:62px;
+  border:1px solid rgba(255,255,255,.68);border-radius:50%;
+  background:radial-gradient(circle at 32% 28%,rgba(255,255,255,.46),transparent 23%),linear-gradient(145deg,var(--ssu-light),var(--ssu-medium) 48%,var(--ssu-dark));
+  box-shadow:0 14px 36px rgba(8,127,165,.32),inset 0 1px 0 rgba(255,255,255,.78);
+  display:grid;place-items:center;cursor:pointer;transition:.25s
+}
+.chat-fab:hover{transform:translateY(-4px) scale(1.04);box-shadow:0 18px 44px rgba(8,127,165,.38),0 0 0 8px rgba(122,223,227,.10)}
+.chat-fab svg{width:30px;height:30px}
+.chat-panel{
+  position:fixed;right:26px;bottom:100px;z-index:199;width:min(390px,calc(100vw - 30px));height:535px;border-radius:25px;
+  background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(244,253,253,.66));border:1px solid var(--glass-border);
+  -webkit-backdrop-filter:blur(22px) saturate(155%);backdrop-filter:blur(22px) saturate(155%);
+  box-shadow:0 30px 90px rgba(0,50,70,.22);overflow:hidden;opacity:0;pointer-events:none;transform:translateY(15px) scale(.98);
+  transition:.25s;display:flex;flex-direction:column
+}
+.chat-panel.open{opacity:1;pointer-events:auto;transform:none}
+.chat-head{color:#fff;background:linear-gradient(120deg,var(--ssu-deep),var(--ssu-medium));padding:18px 20px;display:flex;justify-content:space-between}
+.chat-head small{display:block;opacity:.7;margin-top:2px}.chat-close{border:0;background:transparent;color:#fff;font-size:24px;cursor:pointer}
+.chat-body{padding:20px;flex:1;background:rgba(246,252,252,.75);overflow:auto}
+.bubble{width:84%;padding:13px 15px;border-radius:17px 17px 17px 5px;background:#fff;border:1px solid var(--line);font-size:13px}
+.chat-note{margin-top:14px;color:var(--muted);font-size:11px}
+.chat-input{padding:13px;border-top:1px solid var(--line);display:flex;gap:8px}
+.chat-input input{flex:1;border:1px solid var(--line);border-radius:999px;padding:0 15px;outline:none}
+.chat-input button{width:43px;height:43px;border:0;border-radius:50%;background:var(--ssu-dark);color:#fff}
+
+@media(max-width:980px){
+  .nav{display:none}
+  .hero-grid{grid-template-columns:1fr}
+  .featured-grid{grid-template-columns:1fr}
+  .toolbar{grid-template-columns:1fr}
+  .book-grid{grid-template-columns:1fr 1fr}
+  .cta{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .wrap{width:min(var(--max),calc(100% - 28px))}
+  .brand img{width:52px}.brand-copy small{display:none}
+  .page-hero{padding-top:130px}
+  .hero-stat-card{grid-template-columns:1fr 1fr}
+  .section-head{display:block}.section-head p{margin-top:15px}
+  .pub-row{grid-template-columns:48px 1fr}
+  .pub-actions{grid-column:2;justify-content:flex-start}
+  .book-grid{grid-template-columns:1fr}
+  .cta{padding:42px 28px}
+  .chat-fab{right:17px;bottom:17px;width:58px;height:58px}
+  .chat-panel{right:15px;bottom:90px;height:min(535px,calc(100vh - 120px))}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="../index.html" class="brand">
+      <img src="https://ssu.ac.kr/wp-content/uploads/2019/04/cymbal_mark.png" alt="Soongsil University symbol" onerror="this.style.display='none'">
+      <div class="brand-copy"><b>KEE LAB</b><small>SOONGSIL UNIVERSITY</small></div>
+    </a>
+    <nav class="nav">
+      <a href="../about/">ABOUT</a>
+      <a href="../research/">RESEARCH</a>
+      <a class="active" href="index.html">PUBLICATIONS</a>
+      <a href="../news/">NEWS</a>
+      <a href="../contact/">CONTACT</a>
+    </nav>
+    <div class="header-tools"><button class="round-btn" aria-label="Search">⌕</button></div>
+  </div>
+</header>
+
+<main>
+<section class="page-hero">
+  <div class="wrap hero-grid">
+    <div class="reveal">
+      <div class="eyebrow">Research Archive</div>
+      <h1>Publications<br>& <em>Works.</em></h1>
+      <p class="lead">논문, 저서, 북챕터, 연구보고서 등을 한곳에서 검색하고 필터링할 수 있는 연구성과 아카이브입니다. 실제 데이터 연결 전의 디자인 시안입니다.</p>
+    </div>
+    <aside class="hero-stat-card glass reveal">
+      <div class="stat"><strong>—</strong><span>TOTAL PUBLICATIONS</span></div>
+      <div class="stat"><strong>—</strong><span>JOURNAL ARTICLES</span></div>
+      <div class="stat"><strong>—</strong><span>BOOKS & CHAPTERS</span></div>
+      <div class="stat"><strong>1990s—</strong><span>RESEARCH ARCHIVE</span></div>
+    </aside>
+  </div>
+</section>
+
+<section class="content">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="label" style="margin-bottom:14px">FEATURED WORKS</div><h2>Selected Publications</h2></div>
+      <p>대표 논문이나 저서를 2개 정도 선별해 상단에서 강조할 수 있습니다. 교수님이 직접 지정하거나 최신·대표 연구로 자동 설정할 수 있습니다.</p>
+    </div>
+
+    <div class="featured-grid reveal">
+      <article class="feature-card glass">
+        <div class="feature-top"><span class="feature-no">FEATURED · 01</span><span class="type-pill">JOURNAL</span></div>
+        <h3>Selected publication title will appear here as a featured work.</h3>
+        <p>Authors · Journal / Volume / Issue · Year</p>
+        <div class="feature-actions"><a class="btn primary" href="#">DOI ↗</a><a class="btn" href="#">PDF</a><a class="btn" href="#">CITE</a></div>
+      </article>
+      <article class="feature-card glass">
+        <div class="feature-top"><span class="feature-no">FEATURED · 02</span><span class="type-pill">BOOK</span></div>
+        <h3>Selected book or international publication title will appear here.</h3>
+        <p>Authors / Editors · Publisher · Year</p>
+        <div class="feature-actions"><a class="btn primary" href="#">DETAIL ↗</a><a class="btn" href="#">ISBN</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="content soft">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="label" style="margin-bottom:14px">FULL ARCHIVE</div><h2>Browse Publications</h2></div>
+      <p>검색어, 자료 유형, 연도에 따라 결과를 즉시 좁힐 수 있습니다. 논문 수가 수백 편이어도 사용할 수 있는 구조입니다.</p>
+    </div>
+
+    <div class="toolbar reveal">
+      <div class="searchbox"><input id="searchInput" placeholder="Search title, author, journal, keyword…"><span>⌕</span></div>
+      <select class="select" id="yearSelect">
+        <option value="all">ALL YEARS</option>
+        <option value="2026">2026</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+      </select>
+      <select class="select" id="sortSelect">
+        <option value="new">NEWEST FIRST</option>
+        <option value="old">OLDEST FIRST</option>
+      </select>
+    </div>
+
+    <div class="filter-row reveal">
+      <button class="filter active" data-type="all">ALL</button>
+      <button class="filter" data-type="journal">JOURNAL</button>
+      <button class="filter" data-type="book">BOOK</button>
+      <button class="filter" data-type="chapter">BOOK CHAPTER</button>
+      <button class="filter" data-type="report">REPORT / OTHER</button>
+    </div>
+
+    <div class="archive-header reveal">
+      <div class="label">PUBLICATION ARCHIVE</div>
+      <div class="result-count"><span id="resultCount">8</span> RESULTS · SAMPLE DATA</div>
+    </div>
+
+    <div id="publicationArchive" class="reveal">
+      <section class="year-block" data-year-block="2026">
+        <h3 class="year-title">2026 <span class="count">3 ITEMS</span></h3>
+        <div class="pub-list">
+          <article class="pub-row" data-year="2026" data-type="journal" data-search="lifelong learning adult education community journal sample publication 2026">
+            <div class="pub-index">01</div>
+            <div class="pub-main">
+              <h3>Sample journal article on lifelong learning and adult education</h3>
+              <div class="authors">Youngwha Kee · Co-author Name</div>
+              <div class="venue">Journal Name · Vol. 00, No. 0</div>
+              <div class="badges"><span class="badge">LIFELONG LEARNING</span><span class="badge">ADULT EDUCATION</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn">PDF</button><button class="icon-btn cite-btn">CITE</button></div>
+          </article>
+
+          <article class="pub-row" data-year="2026" data-type="journal" data-search="community wellbeing community learning participation sample publication 2026">
+            <div class="pub-index">02</div>
+            <div class="pub-main">
+              <h3>Sample publication on community learning and well-being</h3>
+              <div class="authors">Youngwha Kee · Co-author Name</div>
+              <div class="venue">International Journal Name</div>
+              <div class="badges"><span class="badge">COMMUNITY</span><span class="badge">WELL-BEING</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn">PDF</button><button class="icon-btn cite-btn">CITE</button></div>
+          </article>
+
+          <article class="pub-row" data-year="2026" data-type="report" data-search="research report lifelong education project sample 2026">
+            <div class="pub-index">03</div>
+            <div class="pub-main">
+              <h3>Sample research report / policy project title</h3>
+              <div class="authors">Research Team</div>
+              <div class="venue">Institution / Research Project</div>
+              <div class="badges"><span class="badge">REPORT</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button><button class="icon-btn">PDF</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="year-block" data-year-block="2025">
+        <h3 class="year-title">2025 <span class="count">3 ITEMS</span></h3>
+        <div class="pub-list">
+          <article class="pub-row" data-year="2025" data-type="book" data-search="book lifelong learning community education publisher 2025">
+            <div class="pub-index">01</div>
+            <div class="pub-main">
+              <h3>Sample book title on learning and community</h3>
+              <div class="authors">Youngwha Kee · Editor / Author</div>
+              <div class="venue">Publisher Name</div>
+              <div class="badges"><span class="badge">BOOK</span><span class="badge">COMMUNITY</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button><button class="icon-btn">ISBN</button></div>
+          </article>
+
+          <article class="pub-row" data-year="2025" data-type="chapter" data-search="book chapter adult learning lifelong education chapter sample 2025">
+            <div class="pub-index">02</div>
+            <div class="pub-main">
+              <h3>Sample book chapter title</h3>
+              <div class="authors">Youngwha Kee</div>
+              <div class="venue">In: Edited Book Title · Publisher</div>
+              <div class="badges"><span class="badge">BOOK CHAPTER</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button><button class="icon-btn cite-btn">CITE</button></div>
+          </article>
+
+          <article class="pub-row" data-year="2025" data-type="journal" data-search="adult continuing education participation journal sample 2025">
+            <div class="pub-index">03</div>
+            <div class="pub-main">
+              <h3>Sample article on adult and continuing education</h3>
+              <div class="authors">Youngwha Kee · Co-author Name</div>
+              <div class="venue">Journal Name</div>
+              <div class="badges"><span class="badge">ADULT EDUCATION</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn cite-btn">CITE</button></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="year-block" data-year-block="2024">
+        <h3 class="year-title">2024 <span class="count">2 ITEMS</span></h3>
+        <div class="pub-list">
+          <article class="pub-row" data-year="2024" data-type="journal" data-search="lifelong learning policy journal sample 2024">
+            <div class="pub-index">01</div>
+            <div class="pub-main">
+              <h3>Sample publication title from 2024</h3>
+              <div class="authors">Youngwha Kee · Co-author Name</div>
+              <div class="venue">Journal Name</div>
+              <div class="badges"><span class="badge">POLICY</span><span class="badge">LIFELONG LEARNING</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DOI ↗</button><button class="icon-btn">PDF</button></div>
+          </article>
+
+          <article class="pub-row" data-year="2024" data-type="report" data-search="other conference research project report sample 2024">
+            <div class="pub-index">02</div>
+            <div class="pub-main">
+              <h3>Sample other research output / project title</h3>
+              <div class="authors">Research Team</div>
+              <div class="venue">Institution / Conference / Project</div>
+              <div class="badges"><span class="badge">OTHER</span></div>
+            </div>
+            <div class="pub-actions"><button class="icon-btn">DETAIL ↗</button></div>
+          </article>
+        </div>
+      </section>
+    </div>
+
+    <div class="no-results" id="noResults"><strong>No publications found.</strong>검색어나 필터 조건을 변경해보세요.</div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div><div class="label" style="margin-bottom:14px">BOOKS & CHAPTERS</div><h2>Books</h2></div>
+      <p>책 표지 이미지를 확보하면 이 카드 영역에 표지를 넣을 수 있습니다. 현재는 텍스트 중심 디자인 시안입니다.</p>
+    </div>
+    <div class="book-grid reveal">
+      <article class="book-card glass"><span class="book-year">2025 · BOOK</span><h3>Sample Book Title</h3><p>Author / Editor · Publisher</p><span class="book-link">↗</span></article>
+      <article class="book-card glass"><span class="book-year">2021 · BOOK</span><h3>Sample International Book Title</h3><p>Editors · Publisher</p><span class="book-link">↗</span></article>
+      <article class="book-card glass"><span class="book-year">2018 · CHAPTER</span><h3>Sample Book Chapter / Edited Volume</h3><p>Author · Book Title · Publisher</p><span class="book-link">↗</span></article>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="wrap">
+    <div class="cta reveal">
+      <h2>Research<br>that Connects.</h2>
+      <div><p>출판물의 키워드를 기반으로 향후 Research 페이지 및 AI 챗봇과 연결할 수 있습니다.</p><a class="btn" style="background:#fff;color:var(--ssu-dark)" href="../research/">EXPLORE RESEARCH ↗</a></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer><div class="wrap footer-inner"><span>© <span id="year"></span> KEE LAB · Soongsil University</span><span>Publications · KEE LAB v0.1</span></div></footer>
+
+<button class="chat-fab" id="chatFab" aria-label="KEE LAB AI 챗봇 열기">
+  <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 3.5C17.15 9.95 22.05 14.85 28.5 16C22.05 17.15 17.15 22.05 16 28.5C14.85 22.05 9.95 17.15 3.5 16C9.95 14.85 14.85 9.95 16 3.5Z" fill="white"/></svg>
+</button>
+
+<aside class="chat-panel" id="chatPanel">
+  <div class="chat-head"><div><b>KEE LAB AI</b><small>Research Lab Assistant · UI Prototype</small></div><button class="chat-close" id="chatClose">×</button></div>
+  <div class="chat-body"><div class="bubble">출판물, 저자, 연구주제, 특정 연도의 연구성과 등을 질문할 수 있도록 연결할 예정입니다.</div><div class="chat-note">현재는 디자인 시안입니다.</div></div>
+  <form class="chat-input" id="chatForm"><input placeholder="출판물에 대해 질문하세요…"><button>↑</button></form>
+</aside>
+
+<script>
+document.getElementById("year").textContent=new Date().getFullYear();
+
+const obs=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}
+}),{threshold:.1});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+const rows=[...document.querySelectorAll(".pub-row")];
+const yearBlocks=[...document.querySelectorAll("[data-year-block]")];
+const searchInput=document.getElementById("searchInput");
+const yearSelect=document.getElementById("yearSelect");
+const sortSelect=document.getElementById("sortSelect");
+const filters=[...document.querySelectorAll(".filter")];
+let activeType="all";
+
+function applyFilters(){
+  const q=searchInput.value.trim().toLowerCase();
+  const year=yearSelect.value;
+  let shown=0;
+
+  rows.forEach(row=>{
+    const matchQ=!q || row.dataset.search.toLowerCase().includes(q) || row.textContent.toLowerCase().includes(q);
+    const matchYear=year==="all" || row.dataset.year===year;
+    const matchType=activeType==="all" || row.dataset.type===activeType;
+    const ok=matchQ && matchYear && matchType;
+    row.style.display=ok?"grid":"none";
+    if(ok) shown++;
+  });
+
+  yearBlocks.forEach(block=>{
+    const visible=[...block.querySelectorAll(".pub-row")].filter(r=>r.style.display!=="none");
+    block.style.display=visible.length?"block":"none";
+    const count=block.querySelector(".year-title .count");
+    if(count) count.textContent=`${visible.length} ITEM${visible.length===1?"":"S"}`;
+  });
+
+  document.getElementById("resultCount").textContent=shown;
+  document.getElementById("noResults").style.display=shown?"none":"block";
+}
+
+searchInput.addEventListener("input",applyFilters);
+yearSelect.addEventListener("change",applyFilters);
+
+filters.forEach(btn=>btn.addEventListener("click",()=>{
+  filters.forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  activeType=btn.dataset.type;
+  applyFilters();
+}));
+
+sortSelect.addEventListener("change",()=>{
+  const archive=document.getElementById("publicationArchive");
+  const blocks=[...archive.querySelectorAll(".year-block")];
+  blocks.sort((a,b)=>{
+    const ya=+a.dataset.yearBlock, yb=+b.dataset.yearBlock;
+    return sortSelect.value==="new" ? yb-ya : ya-yb;
+  }).forEach(b=>archive.appendChild(b));
+});
+
+document.querySelectorAll(".cite-btn").forEach(btn=>btn.addEventListener("click",()=>{
+  alert("실제 데이터 연결 시 APA / MLA / Chicago 형식의 Citation 복사 기능을 넣을 수 있습니다.");
+}));
+
+const fab=document.getElementById("chatFab"),panel=document.getElementById("chatPanel");
+fab.addEventListener("click",()=>panel.classList.toggle("open"));
+document.getElementById("chatClose").addEventListener("click",()=>panel.classList.remove("open"));
+document.getElementById("chatForm").addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
+</script>
+</body>
+</html>
