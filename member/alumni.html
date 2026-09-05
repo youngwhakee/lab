@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>About the Lab | KEE LAB</title>
+<title>Alumni | KEE LAB</title>
 <style>
 :root{
   --ssu-light:#7adfe3;
@@ -163,30 +163,35 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 }
 
 
-.hero-about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:55px;align-items:end}
-.about-hero-card{min-height:380px;border-radius:34px;padding:34px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.about-hero-card:before{content:"";position:absolute;width:280px;height:280px;border-radius:50%;right:-80px;top:-90px;background:radial-gradient(circle,rgba(122,223,227,.58),transparent 68%)}
-.about-hero-card .quote{position:relative;font-size:clamp(28px,3.5vw,46px);line-height:1.08;letter-spacing:-.04em;font-weight:800;max-width:490px}
-.about-hero-card small{color:var(--ssu-dark);font-weight:900;letter-spacing:.12em}
-.story-grid{display:grid;grid-template-columns:.65fr 1.35fr;gap:65px}
-.story-copy .big{margin:0;font-size:clamp(31px,4.2vw,56px);line-height:1.1;letter-spacing:-.045em}
-.story-copy p:not(.big){color:var(--muted);max-width:760px}
-.value-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.value-card{padding:30px;border-radius:24px;min-height:270px;transition:.28s}
-.value-card:hover{transform:translateY(-7px);box-shadow:var(--shadow)}
-.value-card .n{color:var(--ssu-medium);font-size:11px;font-weight:900;letter-spacing:.15em}
-.value-card h3{font-size:25px;line-height:1.05;margin:55px 0 13px}
-.value-card p{color:var(--muted);font-size:14px}
-.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.flow-step{padding:24px;border-radius:22px;min-height:190px}
-.flow-step b{display:block;color:var(--ssu-dark);font-size:12px;letter-spacing:.1em}
-.flow-step h3{font-size:21px;margin:30px 0 7px}.flow-step p{margin:0;color:var(--muted);font-size:13px}
-@media(max-width:900px){.hero-about-grid,.story-grid{grid-template-columns:1fr}.value-grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.flow{grid-template-columns:1fr}}
+.alumni-hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:55px;align-items:end}
+.archive-card{padding:30px;border-radius:30px}
+.archive-card strong{display:block;font-size:54px;line-height:1;color:var(--ssu-dark);letter-spacing:-.04em}
+.archive-card p{color:var(--muted);font-size:13px}
+.tool-row{display:grid;grid-template-columns:1.5fr auto auto;gap:10px;margin-bottom:40px}
+.search{min-height:48px;border:1px solid var(--line);border-radius:999px;padding:0 19px;background:rgba(255,255,255,.72);outline:none}
+.select{min-height:48px;border:1px solid var(--line);border-radius:999px;padding:0 35px 0 16px;background:rgba(255,255,255,.72);color:var(--ink);font-size:12px;font-weight:800}
+.decades{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 45px}
+.decade-btn{border:1px solid var(--line);background:rgba(255,255,255,.7);border-radius:999px;padding:9px 14px;font-size:11px;font-weight:900;cursor:pointer}
+.decade-btn.active,.decade-btn:hover{background:var(--ssu-dark);color:#fff;border-color:var(--ssu-dark)}
+.decade-block{margin-bottom:70px}
+.decade-title{font-size:clamp(42px,5vw,68px);letter-spacing:-.055em;line-height:1;margin:0 0 30px;color:var(--ssu-dark)}
+.year-group{display:grid;grid-template-columns:120px 1fr;border-top:1px solid var(--line)}
+.year-label{font-size:22px;font-weight:900;padding:25px 0;color:var(--ssu-dark)}
+.alumni-list{border-left:1px solid var(--line)}
+.alumni-row{display:grid;grid-template-columns:1fr 130px 1.2fr auto;gap:22px;padding:24px;border-bottom:1px solid var(--line);transition:.22s}
+.alumni-row:hover{background:rgba(255,255,255,.62);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);padding-left:30px;box-shadow:0 15px 40px rgba(8,127,165,.08)}
+.alumni-row b{font-size:16px}.alumni-row span{font-size:13px;color:var(--muted)}.alumni-row .degree{font-weight:900;color:var(--ssu-dark)}
+.archive-note{padding:22px;border-radius:20px;color:var(--muted);font-size:12px;margin-top:28px}
+.no-results{display:none;padding:50px 0;text-align:center;color:var(--muted)}
+@media(max-width:900px){.alumni-hero-grid{grid-template-columns:1fr}.tool-row{grid-template-columns:1fr}.year-group{grid-template-columns:1fr}.alumni-list{border-left:0}.alumni-row{grid-template-columns:1fr 100px}.alumni-row .position{grid-column:1/-1}.alumni-row .arrow{display:none}}
+</style>
+
+<style>
+.data-empty{grid-column:1/-1;padding:28px;border-radius:22px;color:var(--muted);display:flex;flex-direction:column;gap:5px}.data-empty b{color:var(--ink);font-size:16px}.member-photo.has-photo:after{display:none}.member-links a{color:var(--ssu-dark)}
 </style>
 <link rel="stylesheet" href="../assets/css/site-v06.css?v=0.6.0">
 </head>
-<body>
+<body data-page="alumni">
 
 <header class="site-header">
   <div class="wrap header-inner">
@@ -195,8 +200,8 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
       <div class="brand-copy"><b>KEE LAB</b><small>SOONGSIL UNIVERSITY</small></div>
     </a>
     <nav class="nav" id="site-navigation" aria-label="주요 메뉴">
-        <a class="active" href="../about/">ABOUT</a>
-        <a class="" href="../member/">MEMBER</a>
+        <a class="" href="../about/">ABOUT</a>
+        <a class="active" href="../member/">MEMBER</a>
         <a class="" href="../publications/">PUBLICATIONS</a>
         <a class="" href="../news/">NEWS</a>
         <a class="" href="../contact/">CONTACT</a>
@@ -210,40 +215,47 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
 
 <main>
 <section class="page-hero">
-  <div class="wrap hero-about-grid">
-    <div class="reveal"><div class="eyebrow">About Kee Lab</div><h1>About<br>the <em>Lab.</em></h1><p class="lead">KEE LAB의 연구 철학과 핵심 연구영역을 소개합니다.</p></div>
-    <aside class="about-hero-card glass reveal"><small>OUR PERSPECTIVE</small><div class="quote">Learning continues throughout life — and grows through people, places, and communities.</div><a class="btn" href="#research-areas">Research Areas ↓</a></aside>
+  <div class="wrap alumni-hero-grid">
+    <div class="reveal"><div class="eyebrow">Kee Lab Network</div><h1>Alumni<br><em>Archive.</em></h1><p class="lead">수십 년간 축적되는 Alumni를 사진 카드가 아니라 검색·학위·연대별 필터가 가능한 학술 아카이브로 디자인했습니다.</p></div>
+    <aside class="archive-card glass reveal"><div class="label">LAB LEGACY</div><strong>1990s—</strong><p>실제 졸업생 데이터가 들어오면 연대별 규모와 네트워크를 시각화할 수 있습니다.</p><div class="archive-note glass">Alumni 시트에서 active=TRUE인 공개용 데이터만 자동 표시됩니다.</div></aside>
   </div>
 </section>
-<div class="subnav-wrap"><div class="wrap subnav"><a class="active" href="index.html">ABOUT THE LAB</a><a href="professor.html">PROFESSOR</a></div></div>
-<section>
-  <div class="wrap story-grid reveal"><div><div class="label">LAB INTRODUCTION</div></div><div class="story-copy"><p class="big">We study learning as a lifelong, social, and community-based process.</p><p>KEE LAB은 평생학습과 성인교육을 중심으로 개인의 학습 경험, 지역사회 참여, 교육과 공동체의 관계를 연구합니다. 이 영역에는 실제 연구실 소개, 연구 철학, 역사 등을 2~3문단으로 구성할 수 있습니다.</p><p>연구실의 공식 소개문이 확정되면 이 부분의 문구만 교체하면 됩니다.</p></div></div>
-</section>
-<section class="soft" id="research-areas">
-  <div class="wrap"><div class="section-head reveal"><div><div class="label" style="margin-bottom:14px">WHAT WE STUDY</div><h2>Research Areas</h2></div><p>연구실의 핵심 연구영역을 한 페이지에서 확인할 수 있도록 구성했습니다.</p></div>
-    <div class="about-research-grid reveal">
-      <article class="about-research-card"><span class="num">01</span><h3>Lifelong<br>Learning</h3><p>생애 전반의 학습과 평생학습 체제 및 실천을 탐구합니다.</p></article>
-      <article class="about-research-card"><span class="num">02</span><h3>Adult<br>Education</h3><p>성인학습자의 참여, 경험, 교육 프로그램과 정책을 연구합니다.</p></article>
-      <article class="about-research-card"><span class="num">03</span><h3>Community<br>Learning</h3><p>지역사회 안에서 이루어지는 학습과 참여의 의미를 탐색합니다.</p></article>
-      <article class="about-research-card"><span class="num">04</span><h3>Community<br>Well-being</h3><p>교육과 참여가 공동체의 삶과 웰빙에 미치는 관계를 연구합니다.</p></article>
+
+<div class="subnav-wrap"><div class="wrap subnav"><a href="index.html">MEMBER</a><a class="active" href="alumni.html">ALUMNI</a></div></div>
+
+<section class="soft">
+  <div class="wrap">
+    <div class="section-head reveal"><div><div class="label" style="margin-bottom:14px">ALUMNI DIRECTORY</div><h2>People & Legacy</h2></div><p>Alumni가 100명 이상이어도 쉽게 찾을 수 있도록 정보 중심으로 구성합니다. 사진은 선택적으로만 사용하면 됩니다.</p></div>
+    <div class="tool-row reveal">
+      <input class="search" id="alumniSearch" placeholder="Search by name or affiliation…">
+      <select class="select" id="degreeFilter"><option value="all">ALL DEGREES</option><option value="Ph.D.">Ph.D.</option><option value="M.A.">M.A.</option></select>
+      <select class="select" id="decadeSelect"><option value="all">ALL DECADES</option><option>2020s</option><option>2010s</option><option>2000s</option><option>1990s</option></select>
     </div>
+    <div class="decades reveal"><button class="decade-btn active" data-decade="all">ALL</button><button class="decade-btn" data-decade="2020s">2020s</button><button class="decade-btn" data-decade="2010s">2010s</button><button class="decade-btn" data-decade="2000s">2000s</button><button class="decade-btn" data-decade="1990s">1990s</button></div>
+    <div id="archive"></div>
   </div>
 </section>
+<section><div class="wrap"><div class="cta reveal"><h2>Once KEE LAB,<br>Always Connected.</h2><div><p>Alumni 데이터는 Excel에서 이름, 학위, 졸업연도, 현재 소속 등을 관리합니다.</p><a class="btn" style="background:#fff;color:var(--ssu-dark)" href="index.html">CURRENT MEMBERS ↗</a></div></div></div></section>
 </main>
 
 
-<footer><div class="wrap footer-inner"><span>© <span id="year"></span> KEE LAB · Soongsil University</span><span>ABOUT public site v0.6.0</span></div></footer>
+<footer><div class="wrap footer-inner"><span>© <span id="year"></span> KEE LAB · Soongsil University</span><span>MEMBER public site v0.6.0</span></div></footer>
+
+
+
+
+
+
 
 <script>
 document.getElementById("year").textContent=new Date().getFullYear();
 const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 const fab=document.getElementById("chatFab"),panel=document.getElementById("chatPanel");
-fab?.addEventListener("click",()=>panel.classList.toggle("open"));
-document.getElementById("chatClose")?.addEventListener("click",()=>panel.classList.remove("open"));
+if(fab&&panel)fab?.addEventListener("click",()=>panel.classList.toggle("open"));
+document.getElementById("chatClose")?.addEventListener("click",()=>panel?.classList.remove("open"));
 document.getElementById("chatForm")?.addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
 </script>
-
-
+<script src="../assets/js/data-pages.js?v=0.6.0"></script>
 <script src="../assets/js/site-v06.js?v=0.6.0"></script>
 </body></html>

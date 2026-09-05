@@ -40,7 +40,7 @@
         photo.innerHTML = '';
         photo.style.backgroundImage = `linear-gradient(180deg,rgba(7,95,130,.03),rgba(7,95,130,.12)),url('${asset(prof.photo)}')`;
         photo.style.backgroundSize = 'cover';
-        photo.style.backgroundPosition = 'center';
+        photo.style.backgroundPosition = 'center top';
       }
       const en = profCard.querySelector('.prof-info .label');
       const ko = profCard.querySelector('.prof-info h3');
@@ -64,13 +64,14 @@
           <span class="pill">${esc(String(p.type||'WORK').toUpperCase())}</span>
         </a>`).join('') : empty('Publications will be updated from the Excel file.');
     }
-    const grid = document.querySelector('main .news-grid');
-    if (grid) {
-      const chosen = [...news].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).slice(0,3);
-      grid.innerHTML = chosen.length ? chosen.map(n => `
-        <a class="news-card" href="${n.link_url ? safeLink(n.link_url) : 'news/'}" ${n.link_url ? 'target="_blank" rel="noopener"' : ''}>
-          <div class="thumb" ${imgStyle(n.image)}></div>
-          <div class="news-body"><span class="news-date">${fmtDate(n.date,'month')}</span><h3>${esc(n.title)}</h3><p>${esc(n.summary||'')}</p></div>
+    const board = document.getElementById('homeNewsBoard');
+    if (board) {
+      const chosen = [...news].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||''))).slice(0,5);
+      board.innerHTML = chosen.length ? chosen.map(n => `
+        <a class="home-news-row" href="${n.link_url ? safeLink(n.link_url) : 'news/'}" ${n.link_url ? 'target="_blank" rel="noopener"' : ''}>
+          <span class="date">${fmtDate(n.date,'month')}</span>
+          <span><strong>${esc(n.title)}</strong><small>${esc(n.category||'news')}</small></span>
+          <span class="arr">↗</span>
         </a>`).join('') : empty('News will be updated from the Excel file.');
     }
   }
@@ -138,9 +139,62 @@
       stats[2].textContent = data.filter(x=>x.role_group==='researcher').length;
       stats[3].textContent = '1';
     }
-    const labels = {phd:'Doctoral Students',ma:"Master's Students",researcher:'Researchers',other:'Other Members'};
+    const labels = {phd:'Doctoral Students',ma:"Master\'s Students",researcher:'Researchers',other:'Other Members'};
     const order = ['phd','ma','researcher','other'];
     const filters = [...document.querySelectorAll('.filters .filter')];
+    const modal = document.getElementById('memberModal');
+    const modalPhoto = document.getElementById('memberModalPhoto');
+    const modalName = document.getElementById('memberModalName');
+    const modalEn = document.getElementById('memberModalEn');
+    const modalRole = document.getElementById('memberModalRole');
+    const modalBio = document.getElementById('memberModalBio');
+    const modalResearch = document.getElementById('memberModalResearch');
+    const modalEducation = document.getElementById('memberModalEducation');
+    const modalActions = document.getElementById('memberModalActions');
+    const toast = document.getElementById('copyToast');
+
+    const copyEmail = async email => {
+      if (!email) return;
+      try { await navigator.clipboard.writeText(email); }
+      catch(e){
+        const ta=document.createElement('textarea');ta.value=email;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove();
+      }
+      if (toast) { toast.textContent='이메일 주소가 클립보드에 복사되었습니다.'; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),1800); }
+    };
+
+    const closeModal = () => { if(modal){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; } };
+    const openModal = m => {
+      if (!modal) return;
+      if (modalPhoto) {
+        modalPhoto.style.backgroundImage = m.photo ? `linear-gradient(180deg,rgba(7,95,130,.03),rgba(7,95,130,.12)),url('${asset(m.photo)}')` : 'linear-gradient(145deg,var(--ssu-deep),var(--ssu-medium))';
+        modalPhoto.style.backgroundSize='cover'; modalPhoto.style.backgroundPosition='center top';
+      }
+      if(modalName) modalName.textContent=m.name_ko||m.name_en||'Member';
+      if(modalEn) modalEn.textContent=(m.name_ko&&m.name_en)?m.name_en:'';
+      if(modalRole) modalRole.textContent=m.role_label||labels[m.role_group]||'';
+      if(modalBio) modalBio.textContent=m.bio||'약력은 준비 중입니다.';
+      if(modalResearch) modalResearch.textContent=m.research_interests||'—';
+      if(modalEducation){ modalEducation.textContent=m.education||'—'; modalEducation.parentElement.style.display=m.education?'grid':'none'; }
+      if(modalActions){
+        modalActions.innerHTML='';
+        if(m.email){ const b=document.createElement('button'); b.type='button'; b.textContent='EMAIL COPY'; b.addEventListener('click',()=>copyEmail(m.email)); modalActions.appendChild(b); }
+        if(m.profile_url){ const a=document.createElement('a'); a.href=m.profile_url; a.target='_blank'; a.rel='noopener'; a.textContent='PROFILE ↗'; modalActions.appendChild(a); }
+      }
+      modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
+    };
+    document.getElementById('memberModalClose')?.addEventListener('click',closeModal);
+    modal?.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal?.classList.contains('open'))closeModal()});
+
+    const bindCards = () => {
+      root.querySelectorAll('.member-card').forEach(card=>{
+        const member=data.find(m=>String(m.id)===card.dataset.memberId); if(!member)return;
+        card.addEventListener('click',()=>openModal(member));
+        card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(member)}});
+        card.querySelectorAll('[data-copy-email]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();copyEmail(member.email)}));
+      });
+    };
+
     const render = f => {
       root.classList.add('visible');
       const subset = f==='all' ? data : data.filter(x=>x.role_group===f);
@@ -149,20 +203,21 @@
         const rows = subset.filter(x=>x.role_group===role);
         return `<div class="section-title-row"><h3>${labels[role]}</h3><span class="count">${rows.length}</span></div>
         <div class="member-grid">${rows.map(m=>`
-          <article class="member-card glass" data-role="${esc(m.role_group)}">
-            <div class="member-photo ${m.photo?'has-photo':''}" ${imgStyle(m.photo)}>${m.photo?'': 'PROFILE IMAGE'}</div>
+          <article class="member-card glass" tabindex="0" role="button" aria-label="${esc(m.name_ko||m.name_en||'Member')} 프로필 보기" data-member-id="${esc(m.id)}" data-role="${esc(m.role_group)}">
+            <div class="member-photo ${m.photo?'has-photo':''}" ${m.photo?`style="background-image:linear-gradient(180deg,rgba(7,95,130,.04),rgba(7,95,130,.14)),url('${asset(m.photo)}');background-size:cover;background-position:center top"`:''}>${m.photo?'': 'PROFILE IMAGE'}</div>
             <div class="member-info">
               <h3>${esc(m.name_ko || m.name_en || 'Member')}</h3>
               ${m.name_en && m.name_ko ? `<div style="font-size:11px;color:var(--muted);margin-top:2px">${esc(m.name_en)}</div>`:''}
               <div class="degree">${esc(m.role_label || '')}</div>
               <p>${m.research_interests ? `Research Interests · ${esc(m.research_interests)}` : ''}</p>
               <div class="member-links">
-                ${m.profile_url ? `<a href="${safeLink(m.profile_url)}" target="_blank" rel="noopener">PROFILE ↗</a>`:''}
-                ${m.email ? `<a href="mailto:${esc(m.email)}">EMAIL ↗</a>`:''}
+                ${m.email ? `<button type="button" data-copy-email>EMAIL COPY</button>`:''}
+                ${m.profile_url ? `<a href="${safeLink(m.profile_url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">PROFILE ↗</a>`:''}
               </div>
             </div>
           </article>`).join('')}</div>`;
       }).join('');
+      bindCards();
     };
     filters.forEach(b=>b.addEventListener('click',()=>{
       filters.forEach(x=>x.classList.remove('active')); b.classList.add('active'); render(b.dataset.filter || 'all');
@@ -174,6 +229,7 @@
     const data = await load('alumni');
     const archive = document.getElementById('archive');
     if (!archive) return;
+    archive.classList.add('visible');
     const search = document.getElementById('alumniSearch');
     const degree = document.getElementById('degreeFilter');
     const decSel = document.getElementById('decadeSelect');
@@ -190,6 +246,7 @@
     }
     let decade='all';
     const render = () => {
+      archive.classList.add('visible');
       const q=(search.value||'').trim().toLowerCase(), d=degree.value, chosen=decSel.value!=='all'?decSel.value:decade;
       const rows = data.filter(x=>{
         const text=[x.name_ko,x.name_en,x.affiliation,x.position,x.note].join(' ').toLowerCase();
@@ -276,7 +333,7 @@
     const lb=document.getElementById('lightbox'); const close=()=>{lb?.classList.remove('open');lb?.setAttribute('aria-hidden','true')}; document.getElementById('closeLightbox')?.addEventListener('click',close); lb?.addEventListener('click',e=>{if(e.target===lb)close()}); document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  const initPage = () => {
     if (page==='home') initHome();
     if (page==='professor') initProfessor();
     if (page==='members') initMembers();
@@ -284,5 +341,7 @@
     if (page==='publications') initPublications();
     if (page==='news') initNews();
     if (page==='gallery') initGallery();
-  });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPage, {once:true});
+  else initPage();
 })();

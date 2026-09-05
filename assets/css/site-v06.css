@@ -1,0 +1,95 @@
+/* KEE LAB v0.6.0 shared interface overrides */
+/* Official symbol colors are unchanged. The multiply treatment only makes the white image canvas visually merge into the header. */
+.brand img{
+  width:62px!important;height:34px!important;object-fit:contain!important;
+  background:transparent!important;mix-blend-mode:multiply;
+}
+.site-header{background:rgba(255,255,255,.93)!important}
+.header-tools{display:flex;align-items:center;gap:10px}
+.mobile-menu{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:50%;background:rgba(255,255,255,.92);place-items:center;cursor:pointer;font-size:19px;line-height:1;color:var(--ink);z-index:122}
+.mobile-menu:hover{border-color:var(--ssu-medium)}
+.chat-fab,.chat-panel{display:none!important}
+
+/* Home top: lab intro + board-style news */
+.home-top{padding-top:142px!important;padding-bottom:76px!important;min-height:auto!important;align-items:stretch!important}
+.home-top .hero-grid{grid-template-columns:1.05fr .95fr;align-items:stretch;gap:28px}
+.home-intro-panel,.home-news-panel{border:1px solid var(--glass-border);border-radius:32px;background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.52));-webkit-backdrop-filter:blur(22px) saturate(150%);backdrop-filter:blur(22px) saturate(150%);box-shadow:var(--glass-shadow)}
+.home-intro-panel{padding:42px;display:flex;flex-direction:column;justify-content:center;min-height:500px;position:relative;overflow:hidden}
+.home-intro-panel:before{content:"";position:absolute;width:240px;height:240px;border-radius:50%;right:-90px;top:-95px;background:radial-gradient(circle,rgba(168,242,240,.65),transparent 68%);pointer-events:none}
+.home-intro-panel h1{font-size:clamp(48px,6.2vw,82px);line-height:.95;letter-spacing:-.055em;margin:0 0 26px}
+.home-intro-panel .hero-desc{margin:0;max-width:660px}
+.home-news-panel{padding:30px;min-height:500px;display:flex;flex-direction:column}
+.home-news-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:2px 2px 20px;border-bottom:1px solid var(--line)}
+.home-news-head h2{margin:0;font-size:34px;letter-spacing:-.04em}
+.home-news-list{display:flex;flex-direction:column;flex:1}
+.home-news-row{display:grid;grid-template-columns:92px 1fr 22px;gap:16px;align-items:center;padding:20px 4px;border-bottom:1px solid var(--line);transition:.22s ease}
+.home-news-row:hover{padding-left:10px;background:rgba(255,255,255,.5)}
+.home-news-row .date{font-size:10px;font-weight:900;letter-spacing:.1em;color:var(--ssu-dark)}
+.home-news-row strong{display:block;font-size:15px;line-height:1.35}
+.home-news-row small{display:block;margin-top:4px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.home-news-row .arr{color:var(--ssu-dark);font-weight:900}
+.home-news-list .data-empty{margin-top:20px}
+
+/* Home professor portrait: prioritize face/top of vertical portrait. */
+.home-section .prof-photo.has-photo{background-position:center top!important}
+
+/* Research cards now point into About. */
+.research-card{cursor:pointer}
+
+/* Current members */
+.member-card{cursor:pointer}
+.member-photo.has-photo{background-position:center top!important;background-size:cover!important}
+.member-links button,.member-modal-actions button{border:0;background:transparent;padding:0;color:var(--ssu-dark);font:inherit;font-size:11px;font-weight:900;cursor:pointer;letter-spacing:.04em}
+.member-links button:hover,.member-modal-actions button:hover{text-decoration:underline}
+
+.member-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(7,46,61,.42);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.member-modal.open{display:flex}
+.member-modal-card{width:min(920px,100%);max-height:min(720px,calc(100vh - 48px));display:grid;grid-template-columns:.82fr 1.18fr;overflow:hidden;border-radius:30px;background:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.78);box-shadow:0 30px 90px rgba(7,95,130,.28)}
+.member-modal-photo{min-height:520px;background:linear-gradient(145deg,var(--ssu-deep),var(--ssu-medium));background-size:cover;background-position:center top;position:relative}
+.member-modal-body{padding:46px;overflow:auto;position:relative}
+.member-modal-close{position:absolute;right:22px;top:20px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:20px;color:var(--ink)}
+.member-modal-body .eyebrow{font-size:10px;font-weight:900;letter-spacing:.14em;color:var(--ssu-dark);text-transform:uppercase;margin-bottom:12px}
+.member-modal-body h2{font-size:38px;line-height:1;margin:0;letter-spacing:-.04em}
+.member-modal-body .member-en{margin-top:7px;color:var(--muted);font-size:12px}
+.member-modal-role{margin-top:16px;color:var(--ssu-dark);font-size:13px;font-weight:900}
+.member-modal-bio{margin:28px 0 0;color:var(--muted);font-size:14px;line-height:1.8;white-space:pre-line}
+.member-modal-meta{margin-top:28px;border-top:1px solid var(--line)}
+.member-modal-meta div{display:grid;grid-template-columns:120px 1fr;gap:18px;padding:15px 0;border-bottom:1px solid var(--line);font-size:12px}
+.member-modal-meta b{color:var(--ink)}
+.member-modal-meta span{color:var(--muted)}
+.member-modal-actions{display:flex;gap:18px;margin-top:24px;align-items:center;flex-wrap:wrap}
+.copy-toast{position:fixed;left:50%;bottom:30px;z-index:400;transform:translate(-50%,18px);opacity:0;pointer-events:none;background:#082f3f;color:#fff;padding:12px 18px;border-radius:999px;font-size:12px;font-weight:800;box-shadow:0 16px 42px rgba(0,0,0,.18);transition:.22s ease}
+.copy-toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* About: only introduction + Research Areas */
+.about-research-grid{display:grid;grid-template-columns:repeat(4,1fr);border-left:1px solid var(--line);border-top:1px solid var(--line)}
+.about-research-card{min-height:290px;padding:28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(255,255,255,.68);position:relative;transition:.25s ease}
+.about-research-card:hover{transform:translateY(-6px);background:linear-gradient(145deg,rgba(8,127,165,.94),rgba(34,185,220,.84));color:#fff;box-shadow:0 22px 60px rgba(8,127,165,.2);z-index:2}
+.about-research-card .num{font-size:11px;letter-spacing:.14em;color:var(--ssu-medium);font-weight:900}
+.about-research-card h3{font-size:23px;line-height:1.08;margin:52px 0 14px}
+.about-research-card p{font-size:13px;color:var(--muted);margin:0}.about-research-card:hover p{color:rgba(255,255,255,.78)}
+
+/* Mobile navigation */
+.nav-backdrop{display:none;position:fixed;inset:82px 0 0;z-index:115;background:rgba(6,45,58,.26);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px)}
+.nav-backdrop.open{display:block}
+body.menu-open{overflow:hidden}
+@media(max-width:900px){
+  .mobile-menu{display:grid!important}
+  .nav{display:none!important}
+  .nav.is-open{display:flex!important;position:fixed;z-index:121;left:18px;right:18px;top:94px;flex-direction:column;align-items:stretch;gap:0;padding:12px;border:1px solid rgba(255,255,255,.8);border-radius:24px;background:rgba(255,255,255,.96);-webkit-backdrop-filter:blur(22px);backdrop-filter:blur(22px);box-shadow:0 24px 70px rgba(8,127,165,.2)}
+  .nav.is-open a{padding:16px 14px!important;border-bottom:1px solid var(--line);font-size:14px}
+  .nav.is-open a:last-child{border-bottom:0}
+  .nav.is-open a:after{display:none}
+  .home-top .hero-grid{grid-template-columns:1fr}
+  .home-intro-panel,.home-news-panel{min-height:auto}
+  .about-research-grid{grid-template-columns:1fr 1fr}
+  .member-modal-card{grid-template-columns:1fr;max-height:calc(100vh - 30px)}
+  .member-modal-photo{min-height:280px;max-height:34vh}
+  .member-modal-body{padding:34px 26px}
+}
+@media(max-width:600px){
+  .home-intro-panel{padding:30px 24px}.home-news-panel{padding:24px 20px}
+  .home-news-row{grid-template-columns:74px 1fr 18px;gap:10px;padding:17px 2px}
+  .about-research-grid{grid-template-columns:1fr}
+  .member-modal{padding:14px}.member-modal-photo{min-height:230px}.member-modal-body h2{font-size:31px}
+}

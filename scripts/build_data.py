@@ -32,13 +32,9 @@ def num(v, default=0):
 def normalize_role(group, label=''):
     raw = f"{text(group)} {text(label)}".strip().lower()
     compact = re.sub(r'[^a-z0-9가-힣]+', '', raw)
-
-    if any(k in compact for k in ('phd','doctoral','doctorate','박사')):
-        return 'phd'
-    if any(k in compact for k in ('master','masters','ma','석사')):
-        return 'ma'
-    if any(k in compact for k in ('researcher','research','postdoc','연구원','연구교수')):
-        return 'researcher'
+    if any(k in compact for k in ('phd','doctoral','doctorate','박사')): return 'phd'
+    if any(k in compact for k in ('master','masters','ma','석사')): return 'ma'
+    if any(k in compact for k in ('researcher','research','postdoc','연구원','연구교수')): return 'researcher'
     return 'other'
 
 def rows(sheet):
@@ -93,6 +89,7 @@ for r in rows(wb['Members']):
         'role_group':normalize_role(r.get('role_group'), r.get('role_label')), 'role_label':text(r.get('role_label')),
         'research_interests':text(r.get('research_interests')), 'email':text(r.get('email')),
         'profile_url':text(r.get('profile_url')), 'photo':image_path('members',r.get('photo_file')),
+        'bio':text(r.get('bio')), 'education':text(r.get('education')),
     })
 members.sort(key=lambda x:(x['sort_order'],x['name_ko'] or x['name_en']))
 write('members',members)

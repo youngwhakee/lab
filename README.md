@@ -1,80 +1,28 @@
-# KEE LAB v0.5 — Excel-managed GitHub Pages
+# KEE LAB v0.6.0 — 1차 구조/UI 개편
 
-이 패키지는 **HTML을 직접 수정하지 않고 Excel 파일로 Members / Alumni / Publications / News / Gallery를 관리**하도록 바꾼 버전입니다.
+GitHub Pages용 정적 사이트 + Excel 자동 데이터 빌드 구조입니다.
 
-## 운영자가 수정하는 파일
+## 이번 변경
+- 상단 메뉴: ABOUT / MEMBER / PUBLICATIONS / NEWS / CONTACT
+- Research 독립 메뉴 제거, Research Areas는 About the Lab 내부로 이동
+- About 하위: About the Lab / Professor
+- Member 최상위 신설: Member / Alumni
+- 모바일 햄버거 메뉴 동작 수정
+- 검색 버튼 제거
+- AI 챗봇 UI 숨김/비활성화
+- 홈 상단: 랩실소개 + 게시판형 NEWS
+- 홈 순서: 랩실소개+NEWS → Research Areas → Professor → Publications → Contact
+- 홈 교수 사진 및 멤버 사진: 상단 중앙 기준 표시
+- Member 카드 클릭 시 프로필 모달
+- 이메일 클릭 시 mailto 대신 클립보드 복사 + 안내 토스트
+- 기존 Excel → JSON → GitHub Pages Actions 구조 유지
 
-`data/kee_lab_content.xlsx`
+## 라이브 사이트에 적용할 때
+기존에 실제 데이터가 들어 있는 `data/kee_lab_content.xlsx`는 덮어쓰지 않는 것을 권장합니다.
+`kee-lab-v0.6.0-live-safe-patch.zip`에는 Excel과 업로드 사진을 제외했습니다.
 
-엑셀 안에는 다음 시트가 있습니다.
+## Member 모달의 선택 입력 항목
+현재 Excel의 Members 시트에 `bio`, `education` 열이 있으면 모달에 표시됩니다. 열이 없더라도 사이트는 정상 동작합니다.
 
-- `Members`
-- `Alumni`
-- `Publications`
-- `News`
-- `Gallery`
-
-`README` 시트에 입력 규칙이 들어 있습니다.
-
-## 자동 반영 원리
-
-1. Excel을 수정합니다.
-2. 필요하면 사진을 정해진 폴더에 업로드합니다.
-3. GitHub에서 `data/kee_lab_content.xlsx`를 새 파일로 교체합니다.
-4. `.github/workflows/build-content.yml`이 자동 실행됩니다.
-5. Excel → JSON 변환이 자동으로 이루어집니다.
-6. GitHub Pages가 갱신됩니다.
-
-HTML은 수정하지 않습니다.
-
-## 이미지 폴더
-
-- 멤버 사진: `assets/uploads/members/`
-- 뉴스 사진: `assets/uploads/news/`
-- 갤러리 사진: `assets/uploads/gallery/`
-
-Excel에는 전체 경로가 아니라 **파일명만** 적으면 됩니다.
-
-예: `honggildong.jpg`
-
-## 매우 중요 — 공개 정보만 입력
-
-현재 저장소가 Public이면 `data/kee_lab_content.xlsx`도 누구나 열어볼 수 있습니다.
-따라서 개인 전화번호, 비공개 이메일, 개인정보, API 키 등은 절대 넣지 마세요.
-
-## 처음 GitHub에 교체 업로드한 뒤
-
-`Actions` 탭에서 **Build site content from Excel** 작업이 초록색 체크로 완료되는지 확인하세요.
-실패한다면 저장소 `Settings → Actions → General → Workflow permissions`에서 Actions 쓰기 권한 설정을 확인해야 할 수 있습니다.
-
-## active / featured
-
-- `active = TRUE`: 홈페이지에 공개
-- `active = FALSE`: 데이터는 Excel에 있지만 홈페이지에는 숨김
-- `featured = TRUE`: Featured 영역에 우선 표시
-
-처음 들어 있는 예시 행은 모두 `active = FALSE`라 공개 페이지에는 나타나지 않습니다.
-
-
-## Professor 사진/정보 관리 (v0.5)
-
-교수님 정보도 이제 `data/kee_lab_content.xlsx`의 `Professor` 시트에서 관리합니다.
-
-- `active`: TRUE인 첫 행을 사용
-- `name_ko`, `name_en`: 이름
-- `title`, `university`, `department`: 직위/소속
-- `email`, `office`: 공개 연락 정보
-- `photo_file`: 교수님 사진 파일명
-- `home_bio`: HOME 교수 카드용 짧은 소개
-- `biography`: Professor 페이지 Biography
-- `research_interests`: `|` 문자로 여러 연구분야 구분
-
-사진은 아래 폴더에 업로드합니다.
-
-`assets/uploads/professor/`
-
-예를 들어 Excel에 `photo_file = youngwha-kee.jpg`라고 적었다면 실제 파일도 정확히:
-
-`assets/uploads/professor/youngwha-kee.jpg`
-
-이어야 합니다. 커밋하면 GitHub Actions가 Excel을 읽어 HOME과 Professor 페이지에 자동 반영합니다.
+## 레거시 URL
+`/research/`, `/about/members.html`, `/about/alumni.html`은 기존 링크 보호를 위해 새 위치로 자동 이동하는 redirect 파일만 남겨두었습니다.
