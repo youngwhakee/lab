@@ -39,8 +39,25 @@
 /* Current members */
 .member-card{cursor:pointer}
 .member-photo.has-photo{background-position:center top!important;background-size:cover!important}
-.member-links button,.member-modal-actions button{border:0;background:transparent;padding:0;color:var(--ssu-dark);font:inherit;font-size:11px;font-weight:900;cursor:pointer;letter-spacing:.04em}
-.member-links button:hover,.member-modal-actions button:hover{text-decoration:underline}
+.member-links button,
+.member-links a,
+.member-modal-actions button,
+.member-modal-actions a{
+  border:0;
+  background:transparent;
+  padding:0;
+  color:var(--ssu-dark);
+  font:inherit;
+  font-size:11px;
+  font-weight:900;
+  cursor:pointer;
+  letter-spacing:.04em;
+  text-decoration:none;
+}
+.member-links button:hover,
+.member-links a:hover,
+.member-modal-actions button:hover,
+.member-modal-actions a:hover{text-decoration:underline}
 
 .member-modal{position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(7,46,61,.42);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
 .member-modal.open{display:flex}

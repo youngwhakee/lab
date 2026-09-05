@@ -28,6 +28,15 @@
   const yearOf = v => String(v || '').slice(0,4);
   const empty = msg => `<div class="data-empty glass"><b>Content is being prepared.</b><span>${esc(msg)}</span></div>`;
   const safeLink = u => u ? esc(u) : '#';
+  const externalLink = u => {
+    const raw = String(u || '').trim();
+    if (!raw) return '#';
+    if (/^https?:\/\//i.test(raw)) return raw;
+    if (/^\/\//.test(raw)) return `https:${raw}`;
+    if (/^www\./i.test(raw)) return `https://${raw}`;
+    if (/^[^\s/]+\.[^\s/]+/.test(raw)) return `https://${raw}`;
+    return raw;
+  };
 
   async function initHome(){
     const [pubs, news, professor] = await Promise.all([load('publications'), load('news'), load('professor')]);
@@ -172,13 +181,16 @@
       if(modalName) modalName.textContent=m.name_ko||m.name_en||'Member';
       if(modalEn) modalEn.textContent=(m.name_ko&&m.name_en)?m.name_en:'';
       if(modalRole) modalRole.textContent=m.role_label||labels[m.role_group]||'';
-      if(modalBio) modalBio.textContent=m.bio||'약력은 준비 중입니다.';
+      if(modalBio) {
+        modalBio.textContent = m.bio || '';
+        modalBio.style.display = m.bio ? 'block' : 'none';
+      }
       if(modalResearch) modalResearch.textContent=m.research_interests||'—';
       if(modalEducation){ modalEducation.textContent=m.education||'—'; modalEducation.parentElement.style.display=m.education?'grid':'none'; }
       if(modalActions){
         modalActions.innerHTML='';
         if(m.email){ const b=document.createElement('button'); b.type='button'; b.textContent='EMAIL COPY'; b.addEventListener('click',()=>copyEmail(m.email)); modalActions.appendChild(b); }
-        if(m.profile_url){ const a=document.createElement('a'); a.href=m.profile_url; a.target='_blank'; a.rel='noopener'; a.textContent='PROFILE ↗'; modalActions.appendChild(a); }
+        if(m.profile_url){ const a=document.createElement('a'); a.href=externalLink(m.profile_url); a.target='_blank'; a.rel='noopener noreferrer'; a.textContent='PROFILE ↗'; modalActions.appendChild(a); }
       }
       modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
     };
@@ -188,7 +200,9 @@
 
     const bindCards = () => {
       root.querySelectorAll('.member-card').forEach(card=>{
-        const member=data.find(m=>String(m.id)===card.dataset.memberId); if(!member)return;
+        const memberIndex = Number(card.dataset.memberIndex);
+        const member = Number.isInteger(memberIndex) ? data[memberIndex] : null;
+        if(!member)return;
         card.addEventListener('click',()=>openModal(member));
         card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(member)}});
         card.querySelectorAll('[data-copy-email]').forEach(btn=>btn.addEventListener('click',e=>{e.stopPropagation();copyEmail(member.email)}));
@@ -203,7 +217,7 @@
         const rows = subset.filter(x=>x.role_group===role);
         return `<div class="section-title-row"><h3>${labels[role]}</h3><span class="count">${rows.length}</span></div>
         <div class="member-grid">${rows.map(m=>`
-          <article class="member-card glass" tabindex="0" role="button" aria-label="${esc(m.name_ko||m.name_en||'Member')} 프로필 보기" data-member-id="${esc(m.id)}" data-role="${esc(m.role_group)}">
+          <article class="member-card glass" tabindex="0" role="button" aria-label="${esc(m.name_ko||m.name_en||'Member')} 프로필 보기" data-member-index="${data.indexOf(m)}" data-role="${esc(m.role_group)}">
             <div class="member-photo ${m.photo?'has-photo':''}" ${m.photo?`style="background-image:linear-gradient(180deg,rgba(7,95,130,.04),rgba(7,95,130,.14)),url('${asset(m.photo)}');background-size:cover;background-position:center top"`:''}>${m.photo?'': 'PROFILE IMAGE'}</div>
             <div class="member-info">
               <h3>${esc(m.name_ko || m.name_en || 'Member')}</h3>
@@ -212,7 +226,7 @@
               <p>${m.research_interests ? `Research Interests · ${esc(m.research_interests)}` : ''}</p>
               <div class="member-links">
                 ${m.email ? `<button type="button" data-copy-email>EMAIL COPY</button>`:''}
-                ${m.profile_url ? `<a href="${safeLink(m.profile_url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">PROFILE ↗</a>`:''}
+                ${m.profile_url ? `<a href="${esc(externalLink(m.profile_url))}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()">PROFILE ↗</a>`:''}
               </div>
             </div>
           </article>`).join('')}</div>`;
