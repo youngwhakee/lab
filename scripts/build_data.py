@@ -50,6 +50,28 @@ def write(name, data):
 
 wb=load_workbook(XLSX,data_only=True)
 
+
+professor={}
+if 'Professor' in wb.sheetnames:
+    for r in rows(wb['Professor']):
+        if not yes(r.get('active')):
+            continue
+        professor={
+            'name_ko':text(r.get('name_ko')),
+            'name_en':text(r.get('name_en')),
+            'title':text(r.get('title')),
+            'university':text(r.get('university')),
+            'department':text(r.get('department')),
+            'email':text(r.get('email')),
+            'office':text(r.get('office')),
+            'photo':image_path('professor',r.get('photo_file')),
+            'home_bio':text(r.get('home_bio')),
+            'biography':text(r.get('biography')),
+            'research_interests':[x.strip() for x in text(r.get('research_interests')).split('|') if x.strip()],
+        }
+        break
+write('professor',professor)
+
 members=[]
 for r in rows(wb['Members']):
     if not yes(r.get('active')): continue
@@ -91,16 +113,4 @@ for r in rows(wb['Gallery']):
 gallery.sort(key=lambda x:(x['date'],x['featured']),reverse=True)
 write('gallery',gallery)
 
-status = {
-    'built_at': datetime.now().isoformat(timespec='seconds'),
-    'counts': {
-        'members': len(members),
-        'alumni': len(alumni),
-        'publications': len(publications),
-        'news': len(news),
-        'gallery': len(gallery),
-    }
-}
-write('build-status', status)
-
-print(f'Built: {len(members)} members, {len(alumni)} alumni, {len(publications)} publications, {len(news)} news, {len(gallery)} photos')
+print(f"Built: professor={'yes' if professor else 'no'}, {len(members)} members, {len(alumni)} alumni, {len(publications)} publications, {len(news)} news, {len(gallery)} photos")

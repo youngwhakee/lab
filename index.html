@@ -252,6 +252,8 @@
         #ccdadd;
     }
     .prof-photo span{font-size:12px;opacity:.8}
+    .prof-photo.has-photo{background-size:cover;background-position:center}
+    .prof-photo.has-photo span,.prof-photo.has-photo b{display:none}
     .prof-info{padding:58px}
     .prof-info h3{font-size:46px;line-height:1;margin:9px 0 12px;letter-spacing:-.045em}
     .prof-role{color:var(--ssu-dark);font-weight:850}
@@ -654,7 +656,7 @@
   <footer>
     <div class="wrap footer-inner">
       <span>© <span id="year"></span> KEE LAB · Soongsil University</span>
-      <span>KEE LAB · Excel-managed content v0.3</span>
+      <span>KEE LAB · Excel-managed content v0.2</span>
     </div>
   </footer>
 
@@ -717,7 +719,6 @@
       alert("현재는 챗봇 디자인 시안입니다. Gemini API는 다음 단계에서 보안 프록시와 연결합니다.");
     });
   </script>
-<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="assets/js/data-pages.js"></script>
 </body>
 </html>

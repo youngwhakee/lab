@@ -5,158 +5,18 @@
 
   const esc = (v='') => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   const asset = (p='') => p ? new URL(String(p).replace(/^\/+/, ''), siteRoot).href : '';
-  const workbookUrl = new URL('data/kee_lab_content.xlsx', siteRoot).href;
-
-  const truthy = v => v === true || ['true','1','yes','y'].includes(String(v ?? '').trim().toLowerCase());
-  const text = v => v == null ? '' : String(v).trim();
-  const num = (v, fallback=0) => {
-    const n = Number(v);
-    return Number.isFinite(n) ? Math.trunc(n) : fallback;
-  };
-
-  const excelDateToISO = v => {
-    if (!v) return '';
-    if (v instanceof Date && !Number.isNaN(v.getTime())) {
-      const y = v.getFullYear();
-      const m = String(v.getMonth()+1).padStart(2,'0');
-      const d = String(v.getDate()).padStart(2,'0');
-      return `${y}-${m}-${d}`;
-    }
-    if (typeof v === 'number' && window.XLSX?.SSF?.parse_date_code) {
-      const x = XLSX.SSF.parse_date_code(v);
-      if (x) return `${x.y}-${String(x.m).padStart(2,'0')}-${String(x.d).padStart(2,'0')}`;
-    }
-    const s = text(v).replace(/\./g,'-').replace(/\//g,'-');
-    const m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
-    if (m) return `${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
-    return s;
-  };
-
-  const imagePath = (folder, filename) => {
-    const f = text(filename);
-    if (!f) return '';
-    if (/^(https?:\/\/|assets\/)/i.test(f)) return f;
-    return `assets/uploads/${folder}/${f}`;
-  };
-
-  let workbookPromise = null;
-
-  async function getWorkbook(){
-    if (!window.XLSX) throw new Error('Excel reader library did not load.');
-    if (!workbookPromise) {
-      workbookPromise = fetch(`${workbookUrl}?v=${Date.now()}`, {cache:'no-store'})
-        .then(r => {
-          if (!r.ok) throw new Error(`Excel HTTP ${r.status}`);
-          return r.arrayBuffer();
-        })
-        .then(buf => XLSX.read(buf, {type:'array', cellDates:true}));
-    }
-    return workbookPromise;
-  }
-
-  async function sheetRows(sheetName){
-    const wb = await getWorkbook();
-    const ws = wb.Sheets[sheetName];
-    if (!ws) return [];
-    return XLSX.utils.sheet_to_json(ws, {defval:'', raw:true});
-  }
-
-  async function load(name){
-    try{
-      if(name === 'members'){
-        const rows = (await sheetRows('Members'))
-          .filter(r => truthy(r.active))
-          .map(r => ({
-            id:text(r.id) || text(r.name_en).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
-            sort_order:num(r.sort_order,999),
-            name_ko:text(r.name_ko),
-            name_en:text(r.name_en),
-            role_group:text(r.role_group).toLowerCase(),
-            role_label:text(r.role_label),
-            research_interests:text(r.research_interests),
-            email:text(r.email),
-            profile_url:text(r.profile_url),
-            photo:imagePath('members',r.photo_file)
-          }))
-          .sort((a,b)=>(a.sort_order-b.sort_order) || (a.name_ko||a.name_en).localeCompare(b.name_ko||b.name_en,'ko'));
-        return rows;
-      }
-
-      if(name === 'alumni'){
-        return (await sheetRows('Alumni'))
-          .filter(r => truthy(r.active))
-          .map(r => ({
-            id:text(r.id),
-            name_ko:text(r.name_ko),
-            name_en:text(r.name_en),
-            degree:text(r.degree),
-            graduation_year:num(r.graduation_year),
-            affiliation:text(r.affiliation),
-            position:text(r.position),
-            note:text(r.note)
-          }))
-          .sort((a,b)=>(b.graduation_year-a.graduation_year) || (a.name_ko||a.name_en).localeCompare(b.name_ko||b.name_en,'ko'));
-      }
-
-      if(name === 'publications'){
-        return (await sheetRows('Publications'))
-          .filter(r => truthy(r.active))
-          .map(r => ({
-            id:text(r.id),
-            featured:truthy(r.featured),
-            year:num(r.year),
-            type:text(r.type).toLowerCase(),
-            title:text(r.title),
-            authors:text(r.authors),
-            venue:text(r.venue),
-            volume_issue:text(r.volume_issue),
-            doi_url:text(r.doi_url),
-            pdf_url:text(r.pdf_url),
-            keywords:text(r.keywords)
-          }))
-          .sort((a,b)=>(b.year-a.year) || (Number(b.featured)-Number(a.featured)) || a.title.localeCompare(b.title));
-      }
-
-      if(name === 'news'){
-        return (await sheetRows('News'))
-          .filter(r => truthy(r.active))
-          .map(r => ({
-            id:text(r.id),
-            featured:truthy(r.featured),
-            date:excelDateToISO(r.date),
-            category:text(r.category).toLowerCase(),
-            title:text(r.title),
-            summary:text(r.summary),
-            body:text(r.body),
-            image:imagePath('news',r.image_file),
-            link_url:text(r.link_url)
-          }))
-          .sort((a,b)=>String(b.date).localeCompare(String(a.date)) || Number(b.featured)-Number(a.featured));
-      }
-
-      if(name === 'gallery'){
-        return (await sheetRows('Gallery'))
-          .filter(r => truthy(r.active))
-          .map(r => ({
-            id:text(r.id),
-            featured:truthy(r.featured),
-            date:excelDateToISO(r.date),
-            category:text(r.category).toLowerCase(),
-            title:text(r.title),
-            caption:text(r.caption),
-            image:imagePath('gallery',r.image_file),
-            album:text(r.album)
-          }))
-          .sort((a,b)=>String(b.date).localeCompare(String(a.date)) || Number(b.featured)-Number(a.featured));
-      }
-
-      return [];
-    }catch(e){
-      console.error(`KEE LAB: failed to read ${name} from Excel`, e);
+  const jsonUrl = name => new URL(`assets/data/${name}.json`, siteRoot).href;
+  const load = async name => {
+    try {
+      const r = await fetch(`${jsonUrl(name)}?v=${Date.now()}`, {cache:'no-store'});
+      if (!r.ok) throw new Error(`${r.status}`);
+      return await r.json();
+    } catch (e) {
+      console.warn(`KEE LAB: failed to load ${name}.json`, e);
       return [];
     }
-  }
-
+  };
+  const truthy = v => v === true || ['true','1','yes','y'].includes(String(v).toLowerCase());
   const imgStyle = p => p ? `style="background-image:linear-gradient(180deg,rgba(7,95,130,.04),rgba(7,95,130,.18)),url('${asset(p)}');background-size:cover;background-position:center"` : '';
   const fmtDate = (v, mode='full') => {
     if (!v) return '';
@@ -170,7 +30,30 @@
   const safeLink = u => u ? esc(u) : '#';
 
   async function initHome(){
-    const [pubs, news] = await Promise.all([load('publications'), load('news')]);
+    const [pubs, news, professor] = await Promise.all([load('publications'), load('news'), load('professor')]);
+    const prof = Array.isArray(professor) ? {} : (professor || {});
+    const profCard = document.querySelector('.prof-card');
+    if (profCard && Object.keys(prof).length) {
+      const photo = profCard.querySelector('.prof-photo');
+      if (photo && prof.photo) {
+        photo.classList.add('has-photo');
+        photo.innerHTML = '';
+        photo.style.backgroundImage = `linear-gradient(180deg,rgba(7,95,130,.03),rgba(7,95,130,.12)),url('${asset(prof.photo)}')`;
+        photo.style.backgroundSize = 'cover';
+        photo.style.backgroundPosition = 'center';
+      }
+      const en = profCard.querySelector('.prof-info .label');
+      const ko = profCard.querySelector('.prof-info h3');
+      const role = profCard.querySelector('.prof-role');
+      const bio = profCard.querySelector('.prof-info > p');
+      const research = profCard.querySelector('.meta-row span');
+      if (en && prof.name_en) en.textContent = prof.name_en.toUpperCase();
+      if (ko && prof.name_ko) ko.textContent = prof.name_ko;
+      if (role) role.textContent = [prof.title, prof.university].filter(Boolean).join(' · ') || role.textContent;
+      if (bio && prof.home_bio) bio.textContent = prof.home_bio;
+      if (research && Array.isArray(prof.research_interests) && prof.research_interests.length) research.textContent = prof.research_interests.join(' · ');
+    }
+
     const pubList = document.querySelector('.pub-list');
     if (pubList) {
       const chosen = [...pubs].sort((a,b)=>(Number(b.featured)-Number(a.featured)) || (Number(b.year)-Number(a.year))).slice(0,3);
@@ -189,6 +72,57 @@
           <div class="thumb" ${imgStyle(n.image)}></div>
           <div class="news-body"><span class="news-date">${fmtDate(n.date,'month')}</span><h3>${esc(n.title)}</h3><p>${esc(n.summary||'')}</p></div>
         </a>`).join('') : empty('News will be updated from the Excel file.');
+    }
+  }
+
+  async function initProfessor(){
+    const [rawProf, pubs] = await Promise.all([load('professor'), load('publications')]);
+    const prof = Array.isArray(rawProf) ? {} : (rawProf || {});
+    if (!Object.keys(prof).length) return;
+
+    const portrait = document.querySelector('.prof-portrait');
+    if (portrait && prof.photo) {
+      portrait.classList.add('has-photo');
+      portrait.innerHTML = '';
+      portrait.style.backgroundImage = `linear-gradient(180deg,rgba(7,95,130,.02),rgba(7,95,130,.10)),url('${asset(prof.photo)}')`;
+      portrait.style.backgroundSize = 'cover';
+      portrait.style.backgroundPosition = 'center';
+    }
+
+    const intro = document.querySelector('.prof-intro');
+    if (intro) {
+      const h1 = intro.querySelector('h1');
+      const role = intro.querySelector('.role');
+      const p = intro.querySelector('p');
+      if (h1 && prof.name_en) {
+        const parts = String(prof.name_en).trim().split(/\s+/);
+        if (parts.length > 1) {
+          h1.innerHTML = `${esc(parts.slice(0,-1).join(' '))}<br><em style="font-style:normal;color:var(--ssu-dark)">${esc(parts.at(-1))}</em>`;
+        } else h1.textContent = prof.name_en;
+      }
+      if (role) role.textContent = [prof.title, prof.university].filter(Boolean).join(' · ') || role.textContent;
+      if (p && prof.home_bio) p.textContent = prof.home_bio;
+    }
+
+    const bioSection = document.querySelector('#bio .profile-grid > div:last-child');
+    if (bioSection && prof.biography) {
+      const big = bioSection.querySelector('.bio-big');
+      const body = [...bioSection.querySelectorAll('.body-copy')];
+      if (big) big.textContent = prof.biography;
+      body.forEach(x => x.remove());
+    }
+
+    const interests = document.querySelector('.interest-grid');
+    if (interests && Array.isArray(prof.research_interests) && prof.research_interests.length) {
+      interests.innerHTML = prof.research_interests.map(x=>`<div class="interest glass">${esc(x)}</div>`).join('');
+    }
+
+    const works = document.querySelector('#works .selected');
+    if (works && Array.isArray(pubs)) {
+      const selected = [...pubs].sort((a,b)=>(Number(b.featured)-Number(a.featured)) || (Number(b.year)-Number(a.year))).slice(0,3);
+      if (selected.length) {
+        works.innerHTML = selected.map(p=>`<div class="work"><span class="year">${esc(p.year)}</span><div><b>${esc(p.title)}</b><br><small>${esc([p.authors,p.venue].filter(Boolean).join(' · '))}</small></div><span>↗</span></div>`).join('');
+      }
     }
   }
 
@@ -342,6 +276,7 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     if (page==='home') initHome();
+    if (page==='professor') initProfessor();
     if (page==='members') initMembers();
     if (page==='alumni') initAlumni();
     if (page==='publications') initPublications();
