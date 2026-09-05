@@ -91,4 +91,16 @@ for r in rows(wb['Gallery']):
 gallery.sort(key=lambda x:(x['date'],x['featured']),reverse=True)
 write('gallery',gallery)
 
+status = {
+    'built_at': datetime.now().isoformat(timespec='seconds'),
+    'counts': {
+        'members': len(members),
+        'alumni': len(alumni),
+        'publications': len(publications),
+        'news': len(news),
+        'gallery': len(gallery),
+    }
+}
+write('build-status', status)
+
 print(f'Built: {len(members)} members, {len(alumni)} alumni, {len(publications)} publications, {len(news)} news, {len(gallery)} photos')

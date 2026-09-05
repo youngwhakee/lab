@@ -1,13 +1,12 @@
-# KEE LAB v0.2 — Excel-managed GitHub Pages
+# KEE LAB v0.3 — Excel-managed GitHub Pages
 
-이 패키지는 **HTML을 직접 수정하지 않고 Excel 파일로 Members / Alumni / Publications / News / Gallery를 관리**하도록 바꾼 버전입니다.
+이 버전은 **HTML을 직접 수정하지 않고 Excel 파일로 Members / Alumni / Publications / News / Gallery를 관리**하고, GitHub Actions가 Excel을 읽어 사이트를 직접 배포하도록 구성되어 있습니다.
 
-## 운영자가 수정하는 파일
+## 운영자가 수정하는 핵심 파일
 
 `data/kee_lab_content.xlsx`
 
-엑셀 안에는 다음 시트가 있습니다.
-
+시트:
 - `Members`
 - `Alumni`
 - `Publications`
@@ -19,38 +18,51 @@
 ## 자동 반영 원리
 
 1. Excel을 수정합니다.
-2. 필요하면 사진을 정해진 폴더에 업로드합니다.
-3. GitHub에서 `data/kee_lab_content.xlsx`를 새 파일로 교체합니다.
-4. `.github/workflows/build-content.yml`이 자동 실행됩니다.
-5. Excel → JSON 변환이 자동으로 이루어집니다.
-6. GitHub Pages가 갱신됩니다.
+2. 사진이 있으면 정해진 업로드 폴더에 올립니다.
+3. GitHub에서 수정된 파일을 `main` 브랜치에 반영합니다.
+4. GitHub Actions의 `Build and deploy KEE LAB`이 실행됩니다.
+5. Excel → JSON 변환이 실행됩니다.
+6. 생성된 JSON과 사이트 파일을 하나의 Pages artifact로 묶습니다.
+7. 같은 workflow가 그 artifact를 GitHub Pages에 바로 배포합니다.
 
-HTML은 수정하지 않습니다.
+**중간에 JSON을 GitHub 저장소에 다시 커밋하지 않습니다.** 따라서 branch 기반 Pages 재빌드 문제를 피합니다.
+
+## GitHub Pages 설정 — 중요
+
+저장소에서 한 번만 다음 설정을 해주세요.
+
+`Settings → Pages → Build and deployment → Source → GitHub Actions`
+
+기존 `Deploy from a branch`가 선택되어 있으면 `GitHub Actions`로 변경해야 합니다.
 
 ## 이미지 폴더
 
-- 멤버 사진: `assets/uploads/members/`
-- 뉴스 사진: `assets/uploads/news/`
-- 갤러리 사진: `assets/uploads/gallery/`
+- 멤버: `assets/uploads/members/`
+- 뉴스: `assets/uploads/news/`
+- 갤러리: `assets/uploads/gallery/`
 
-Excel에는 전체 경로가 아니라 **파일명만** 적으면 됩니다.
+Excel에는 파일명만 적으면 됩니다.
 
 예: `honggildong.jpg`
 
-## 매우 중요 — 공개 정보만 입력
-
-현재 저장소가 Public이면 `data/kee_lab_content.xlsx`도 누구나 열어볼 수 있습니다.
-따라서 개인 전화번호, 비공개 이메일, 개인정보, API 키 등은 절대 넣지 마세요.
-
-## 처음 GitHub에 교체 업로드한 뒤
-
-`Actions` 탭에서 **Build site content from Excel** 작업이 초록색 체크로 완료되는지 확인하세요.
-실패한다면 저장소 `Settings → Actions → General → Workflow permissions`에서 Actions 쓰기 권한 설정을 확인해야 할 수 있습니다.
-
 ## active / featured
 
-- `active = TRUE`: 홈페이지에 공개
-- `active = FALSE`: 데이터는 Excel에 있지만 홈페이지에는 숨김
-- `featured = TRUE`: Featured 영역에 우선 표시
+- `active = TRUE` → 공개
+- `active = FALSE` → Excel에는 있지만 사이트에는 숨김
+- `featured = TRUE` → Featured 영역 우선 표시
 
-처음 들어 있는 예시 행은 모두 `active = FALSE`라 공개 페이지에는 나타나지 않습니다.
+처음 들어 있는 예시 데이터는 전부 `active = FALSE`입니다. 따라서 처음 배포하면 해당 목록은 비어 있는 것이 정상입니다.
+
+## 자동 빌드 확인
+
+GitHub의 `Actions` 탭에서 `Build and deploy KEE LAB` workflow가 초록색 체크로 끝나는지 확인합니다.
+
+배포된 사이트의 아래 파일을 열어 빌드 결과도 확인할 수 있습니다.
+
+`/assets/data/build-status.json`
+
+여기에 마지막 빌드 시각과 공개된 데이터 개수가 기록됩니다.
+
+## 공개 정보 주의
+
+Public 저장소라면 Excel 원본도 GitHub에서 누구나 볼 수 있습니다. 홈페이지에 공개해도 되는 정보만 입력하세요. 비밀번호, API 키, 개인 전화번호, 비공개 개인정보는 넣지 마세요.
