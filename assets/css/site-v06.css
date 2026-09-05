@@ -110,3 +110,16 @@ body.menu-open{overflow:hidden}
   .about-research-grid{grid-template-columns:1fr}
   .member-modal{padding:14px}.member-modal-photo{min-height:230px}.member-modal-body h2{font-size:31px}
 }
+
+#memberModalEducation {
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
+
+#memberModalEducation,
+#memberModalBio {
+    white-space: pre-line;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
