@@ -5,18 +5,158 @@
 
   const esc = (v='') => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   const asset = (p='') => p ? new URL(String(p).replace(/^\/+/, ''), siteRoot).href : '';
-  const jsonUrl = name => new URL(`assets/data/${name}.json`, siteRoot).href;
-  const load = async name => {
-    try {
-      const r = await fetch(`${jsonUrl(name)}?v=${Date.now()}`, {cache:'no-store'});
-      if (!r.ok) throw new Error(`${r.status}`);
-      return await r.json();
-    } catch (e) {
-      console.warn(`KEE LAB: failed to load ${name}.json`, e);
+  const workbookUrl = new URL('data/kee_lab_content.xlsx', siteRoot).href;
+
+  const truthy = v => v === true || ['true','1','yes','y'].includes(String(v ?? '').trim().toLowerCase());
+  const text = v => v == null ? '' : String(v).trim();
+  const num = (v, fallback=0) => {
+    const n = Number(v);
+    return Number.isFinite(n) ? Math.trunc(n) : fallback;
+  };
+
+  const excelDateToISO = v => {
+    if (!v) return '';
+    if (v instanceof Date && !Number.isNaN(v.getTime())) {
+      const y = v.getFullYear();
+      const m = String(v.getMonth()+1).padStart(2,'0');
+      const d = String(v.getDate()).padStart(2,'0');
+      return `${y}-${m}-${d}`;
+    }
+    if (typeof v === 'number' && window.XLSX?.SSF?.parse_date_code) {
+      const x = XLSX.SSF.parse_date_code(v);
+      if (x) return `${x.y}-${String(x.m).padStart(2,'0')}-${String(x.d).padStart(2,'0')}`;
+    }
+    const s = text(v).replace(/\./g,'-').replace(/\//g,'-');
+    const m = s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+    if (m) return `${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
+    return s;
+  };
+
+  const imagePath = (folder, filename) => {
+    const f = text(filename);
+    if (!f) return '';
+    if (/^(https?:\/\/|assets\/)/i.test(f)) return f;
+    return `assets/uploads/${folder}/${f}`;
+  };
+
+  let workbookPromise = null;
+
+  async function getWorkbook(){
+    if (!window.XLSX) throw new Error('Excel reader library did not load.');
+    if (!workbookPromise) {
+      workbookPromise = fetch(`${workbookUrl}?v=${Date.now()}`, {cache:'no-store'})
+        .then(r => {
+          if (!r.ok) throw new Error(`Excel HTTP ${r.status}`);
+          return r.arrayBuffer();
+        })
+        .then(buf => XLSX.read(buf, {type:'array', cellDates:true}));
+    }
+    return workbookPromise;
+  }
+
+  async function sheetRows(sheetName){
+    const wb = await getWorkbook();
+    const ws = wb.Sheets[sheetName];
+    if (!ws) return [];
+    return XLSX.utils.sheet_to_json(ws, {defval:'', raw:true});
+  }
+
+  async function load(name){
+    try{
+      if(name === 'members'){
+        const rows = (await sheetRows('Members'))
+          .filter(r => truthy(r.active))
+          .map(r => ({
+            id:text(r.id) || text(r.name_en).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
+            sort_order:num(r.sort_order,999),
+            name_ko:text(r.name_ko),
+            name_en:text(r.name_en),
+            role_group:text(r.role_group).toLowerCase(),
+            role_label:text(r.role_label),
+            research_interests:text(r.research_interests),
+            email:text(r.email),
+            profile_url:text(r.profile_url),
+            photo:imagePath('members',r.photo_file)
+          }))
+          .sort((a,b)=>(a.sort_order-b.sort_order) || (a.name_ko||a.name_en).localeCompare(b.name_ko||b.name_en,'ko'));
+        return rows;
+      }
+
+      if(name === 'alumni'){
+        return (await sheetRows('Alumni'))
+          .filter(r => truthy(r.active))
+          .map(r => ({
+            id:text(r.id),
+            name_ko:text(r.name_ko),
+            name_en:text(r.name_en),
+            degree:text(r.degree),
+            graduation_year:num(r.graduation_year),
+            affiliation:text(r.affiliation),
+            position:text(r.position),
+            note:text(r.note)
+          }))
+          .sort((a,b)=>(b.graduation_year-a.graduation_year) || (a.name_ko||a.name_en).localeCompare(b.name_ko||b.name_en,'ko'));
+      }
+
+      if(name === 'publications'){
+        return (await sheetRows('Publications'))
+          .filter(r => truthy(r.active))
+          .map(r => ({
+            id:text(r.id),
+            featured:truthy(r.featured),
+            year:num(r.year),
+            type:text(r.type).toLowerCase(),
+            title:text(r.title),
+            authors:text(r.authors),
+            venue:text(r.venue),
+            volume_issue:text(r.volume_issue),
+            doi_url:text(r.doi_url),
+            pdf_url:text(r.pdf_url),
+            keywords:text(r.keywords)
+          }))
+          .sort((a,b)=>(b.year-a.year) || (Number(b.featured)-Number(a.featured)) || a.title.localeCompare(b.title));
+      }
+
+      if(name === 'news'){
+        return (await sheetRows('News'))
+          .filter(r => truthy(r.active))
+          .map(r => ({
+            id:text(r.id),
+            featured:truthy(r.featured),
+            date:excelDateToISO(r.date),
+            category:text(r.category).toLowerCase(),
+            title:text(r.title),
+            summary:text(r.summary),
+            body:text(r.body),
+            image:imagePath('news',r.image_file),
+            link_url:text(r.link_url)
+          }))
+          .sort((a,b)=>String(b.date).localeCompare(String(a.date)) || Number(b.featured)-Number(a.featured));
+      }
+
+      if(name === 'gallery'){
+        return (await sheetRows('Gallery'))
+          .filter(r => truthy(r.active))
+          .map(r => ({
+            id:text(r.id),
+            featured:truthy(r.featured),
+            date:excelDateToISO(r.date),
+            category:text(r.category).toLowerCase(),
+            title:text(r.title),
+            caption:text(r.caption),
+            image:imagePath('gallery',r.image_file),
+            album:text(r.album)
+          }))
+          .sort((a,b)=>String(b.date).localeCompare(String(a.date)) || Number(b.featured)-Number(a.featured));
+      }
+
+      return [];
+    }catch(e){
+      console.error(`KEE LAB: failed to read ${name} from Excel`, e);
       return [];
     }
-  };
-  const truthy = v => v === true || ['true','1','yes','y'].includes(String(v).toLowerCase());
+  }
+
   const imgStyle = p => p ? `style="background-image:linear-gradient(180deg,rgba(7,95,130,.04),rgba(7,95,130,.18)),url('${asset(p)}');background-size:cover;background-position:center"` : '';
   const fmtDate = (v, mode='full') => {
     if (!v) return '';
