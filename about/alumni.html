@@ -236,7 +236,7 @@ footer{padding:34px 0 95px;color:var(--muted);font-size:12px}
       <select class="select" id="decadeSelect"><option value="all">ALL DECADES</option><option>2020s</option><option>2010s</option><option>2000s</option><option>1990s</option></select>
     </div>
     <div class="decades reveal"><button class="decade-btn active" data-decade="all">ALL</button><button class="decade-btn" data-decade="2020s">2020s</button><button class="decade-btn" data-decade="2010s">2010s</button><button class="decade-btn" data-decade="2000s">2000s</button><button class="decade-btn" data-decade="1990s">1990s</button></div>
-    <div id="archive" class="reveal"></div>
+    <div id="archive"></div>
   </div>
 </section>
 <section><div class="wrap"><div class="cta reveal"><h2>Once KEE LAB,<br>Always Connected.</h2><div><p>Alumni 데이터는 Excel에서 이름, 학위, 졸업연도, 현재 소속 등을 관리합니다.</p><a class="btn" style="background:#fff;color:var(--ssu-dark)" href="members.html">CURRENT MEMBERS ↗</a></div></div></div></section>
@@ -274,5 +274,5 @@ if(fab&&panel)fab.addEventListener("click",()=>panel.classList.toggle("open"));
 document.getElementById("chatClose")?.addEventListener("click",()=>panel?.classList.remove("open"));
 document.getElementById("chatForm")?.addEventListener("submit",e=>{e.preventDefault();alert("현재는 챗봇 UI 시안입니다.");});
 </script>
-<script src="../assets/js/data-pages.js"></script>
+<script src="../assets/js/data-pages.js?v=0.5.2"></script>
 </body></html>
