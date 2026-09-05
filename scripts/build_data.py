@@ -29,6 +29,18 @@ def num(v, default=0):
     try: return int(float(v))
     except (TypeError,ValueError): return default
 
+def normalize_role(group, label=''):
+    raw = f"{text(group)} {text(label)}".strip().lower()
+    compact = re.sub(r'[^a-z0-9가-힣]+', '', raw)
+
+    if any(k in compact for k in ('phd','doctoral','doctorate','박사')):
+        return 'phd'
+    if any(k in compact for k in ('master','masters','ma','석사')):
+        return 'ma'
+    if any(k in compact for k in ('researcher','research','postdoc','연구원','연구교수')):
+        return 'researcher'
+    return 'other'
+
 def rows(sheet):
     values=list(sheet.iter_rows(values_only=True))
     if not values: return []
@@ -78,7 +90,7 @@ for r in rows(wb['Members']):
     members.append({
         'id':text(r.get('id')) or re.sub(r'[^a-z0-9]+','-',text(r.get('name_en')).lower()).strip('-'),
         'sort_order':num(r.get('sort_order'),999), 'name_ko':text(r.get('name_ko')), 'name_en':text(r.get('name_en')),
-        'role_group':text(r.get('role_group')).lower(), 'role_label':text(r.get('role_label')),
+        'role_group':normalize_role(r.get('role_group'), r.get('role_label')), 'role_label':text(r.get('role_label')),
         'research_interests':text(r.get('research_interests')), 'email':text(r.get('email')),
         'profile_url':text(r.get('profile_url')), 'photo':image_path('members',r.get('photo_file')),
     })

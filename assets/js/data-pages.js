@@ -130,6 +130,7 @@
     const data = await load('members');
     const root = document.getElementById('membersDynamic');
     if (!root) return;
+    root.classList.add('visible');
     const stats = document.querySelectorAll('.members-stat .stat strong');
     if (stats.length >= 4) {
       stats[0].textContent = data.filter(x=>x.role_group==='phd').length;
@@ -137,10 +138,11 @@
       stats[2].textContent = data.filter(x=>x.role_group==='researcher').length;
       stats[3].textContent = '1';
     }
-    const labels = {phd:'Doctoral Students',ma:"Master's Students",researcher:'Researchers'};
-    const order = ['phd','ma','researcher'];
+    const labels = {phd:'Doctoral Students',ma:"Master's Students",researcher:'Researchers',other:'Other Members'};
+    const order = ['phd','ma','researcher','other'];
     const filters = [...document.querySelectorAll('.filters .filter')];
     const render = f => {
+      root.classList.add('visible');
       const subset = f==='all' ? data : data.filter(x=>x.role_group===f);
       if (!subset.length) { root.innerHTML = empty('Member information will be updated from the Excel file.'); return; }
       root.innerHTML = order.filter(role=>subset.some(x=>x.role_group===role)).map(role => {
