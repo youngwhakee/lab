@@ -3,15 +3,15 @@
 <html lang="ko">
 
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Members | KEE LAB</title>
 
-<!-- 공통 CSS를 먼저 불러옵니다 -->
+<!-- 공통 CSS -->
 <link rel="stylesheet" href="../assets/css/site-v06.css?v=0.6.2">
 
-<!-- 현재 Members 페이지 전용 CSS -->
 <style>
 
 :root{
@@ -80,8 +80,8 @@ select{
 }
 
 img{
-  max-width:100%;
   display:block;
+  max-width:100%;
 }
 
 .wrap{
@@ -104,7 +104,8 @@ img{
 
   z-index:100;
 
-  background:rgba(255,255,255,.64);
+  background:
+    rgba(255,255,255,.64);
 
   -webkit-backdrop-filter:
     blur(22px)
@@ -206,18 +207,22 @@ img{
 
   height:2px;
 
-  background:var(--ssu-medium);
+  background:
+    var(--ssu-medium);
 
-  transform:scaleX(0);
+  transform:
+    scaleX(0);
 
-  transform-origin:right;
+  transform-origin:
+    right;
 
   transition:.25s;
 }
 
 .nav a:hover:after,
 .nav a.active:after{
-  transform:scaleX(1);
+  transform:
+    scaleX(1);
 
   transform-origin:left;
 }
@@ -318,7 +323,8 @@ img{
   width:35px;
   height:3px;
 
-  background:var(--ssu-medium);
+  background:
+    var(--ssu-medium);
 }
 
 .page-hero h1{
@@ -340,9 +346,9 @@ img{
 }
 
 .page-hero h1 em{
-  font-style:normal;
-
   color:var(--ssu-dark);
+
+  font-style:normal;
 }
 
 .lead{
@@ -365,6 +371,7 @@ img{
 
 .glass{
   background:
+
     linear-gradient(
       145deg,
       rgba(255,255,255,.70),
@@ -383,7 +390,147 @@ img{
     blur(22px)
     saturate(155%);
 
-  box-shadow:var(--glass-shadow);
+  box-shadow:
+    var(--glass-shadow);
+}
+
+
+/* =========================================================
+   MEMBERS HERO
+========================================================= */
+
+.members-hero-grid{
+  position:relative;
+
+  z-index:2;
+
+  display:grid;
+
+  grid-template-columns:
+    1.05fr
+    .95fr;
+
+  gap:55px;
+
+  align-items:end;
+}
+
+.members-stat{
+  padding:32px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:12px;
+
+  border-radius:32px;
+}
+
+.stat{
+  position:relative;
+
+  min-height:125px;
+
+  padding:22px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:center;
+
+  overflow:hidden;
+
+  border-radius:20px;
+
+  background:
+    rgba(255,255,255,.55);
+
+  border:
+    1px solid
+    rgba(255,255,255,.72);
+
+  transition:
+    transform .25s ease,
+    box-shadow .25s ease,
+    background .25s ease;
+}
+
+.stat:hover{
+  transform:
+    translateY(-4px);
+
+  background:
+    rgba(255,255,255,.76);
+
+  box-shadow:
+    0 15px 38px
+    rgba(8,127,165,.10);
+}
+
+
+/* =========================================================
+   COUNT NUMBER
+========================================================= */
+
+.stat-number{
+  display:block;
+
+  color:var(--ssu-dark);
+
+  font-size:42px;
+  font-weight:900;
+
+  line-height:1;
+
+  letter-spacing:-.05em;
+
+  font-variant-numeric:
+    tabular-nums;
+
+  opacity:.20;
+
+  transform:
+    translateY(10px)
+    scale(.94);
+
+  transition:
+    opacity .45s ease,
+    transform .45s ease,
+    text-shadow .45s ease;
+}
+
+.stat-number.counted{
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  text-shadow:
+    0 8px 25px
+    rgba(8,127,165,.13);
+}
+
+.stat:hover .stat-number{
+  transform:
+    translateY(-2px)
+    scale(1.04);
+}
+
+.stat span{
+  display:block;
+
+  margin-top:10px;
+
+  color:var(--muted);
+
+  font-size:11px;
+  font-weight:700;
+
+  letter-spacing:.08em;
 }
 
 
@@ -446,7 +593,7 @@ img{
 
 
 /* =========================================================
-   COMMON
+   COMMON SECTION
 ========================================================= */
 
 section{
@@ -553,7 +700,8 @@ section{
 .btn.primary{
   background:var(--ssu-dark);
 
-  border-color:var(--ssu-dark);
+  border-color:
+    var(--ssu-dark);
 
   color:#fff;
 }
@@ -562,7 +710,8 @@ section{
   transform:
     translateY(-3px);
 
-  box-shadow:var(--shadow);
+  box-shadow:
+    var(--shadow);
 }
 
 
@@ -585,67 +734,6 @@ section{
   opacity:1;
 
   transform:none;
-}
-
-
-/* =========================================================
-   MEMBERS HERO
-========================================================= */
-
-.members-hero-grid{
-  display:grid;
-
-  grid-template-columns:
-    1.05fr
-    .95fr;
-
-  gap:55px;
-
-  align-items:end;
-}
-
-.members-stat{
-  padding:32px;
-
-  display:grid;
-
-  grid-template-columns:
-    repeat(2,1fr);
-
-  gap:12px;
-
-  border-radius:32px;
-}
-
-.stat{
-  padding:22px;
-
-  border-radius:20px;
-
-  background:
-    rgba(255,255,255,.55);
-
-  border:
-    1px solid
-    rgba(255,255,255,.72);
-}
-
-.stat strong{
-  display:block;
-
-  color:var(--ssu-dark);
-
-  font-size:38px;
-
-  letter-spacing:-.04em;
-}
-
-.stat span{
-  color:var(--muted);
-
-  font-size:11px;
-
-  letter-spacing:.08em;
 }
 
 
@@ -683,15 +771,19 @@ section{
   font-weight:900;
 
   letter-spacing:.08em;
+
+  transition:.2s;
 }
 
 .filter.active,
 .filter:hover{
-  background:var(--ssu-dark);
+  background:
+    var(--ssu-dark);
 
   color:#fff;
 
-  border-color:var(--ssu-dark);
+  border-color:
+    var(--ssu-dark);
 }
 
 
@@ -720,7 +812,8 @@ section{
   transform:
     translateY(-8px);
 
-  box-shadow:var(--shadow);
+  box-shadow:
+    var(--shadow);
 }
 
 .member-photo{
@@ -1222,9 +1315,6 @@ footer{
     transparent;
 }
 
-
-/* Chrome / Edge / Safari */
-
 .member-modal-scroll::-webkit-scrollbar{
   width:6px;
 }
@@ -1265,9 +1355,6 @@ footer{
 
 /* =========================================================
    RESEARCH INTERESTS / EDUCATION
-
-   카드형 UI 삭제
-   → 회색 구분선 + 파란색 제목
 ========================================================= */
 
 #memberModal .member-modal-meta{
@@ -1275,11 +1362,6 @@ footer{
 
   margin-top:28px;
 }
-
-
-/*
-  둥근 사각형, 배경색, 테두리 카드 제거
-*/
 
 #memberModal .member-modal-meta > div{
   display:grid;
@@ -1296,35 +1378,28 @@ footer{
     20px
     0;
 
-  background:transparent !important;
+  background:
+    transparent !important;
 
-  border:none !important;
+  border:
+    none !important;
 
   border-top:
     1px solid
     rgba(100,119,125,.22) !important;
 
-  border-radius:0 !important;
+  border-radius:
+    0 !important;
 
-  box-shadow:none !important;
+  box-shadow:
+    none !important;
 }
-
-
-/*
-  마지막 Education 아래에도 구분선
-*/
 
 #memberModal .member-modal-meta > div:last-child{
   border-bottom:
     1px solid
     rgba(100,119,125,.22) !important;
 }
-
-
-/*
-  Research Interests / Education
-  → 파란색
-*/
 
 #memberModal .member-modal-meta b{
   display:block;
@@ -1335,7 +1410,6 @@ footer{
     var(--ssu-dark) !important;
 
   font-size:11px;
-
   font-weight:900;
 
   line-height:1.55;
@@ -1346,11 +1420,6 @@ footer{
 
   word-break:keep-all;
 }
-
-
-/*
-  실제 연구분야 / 학력 내용
-*/
 
 #memberModal .member-modal-meta span{
   display:block;
@@ -1370,7 +1439,7 @@ footer{
 
 
 /* =========================================================
-   ACTION BUTTONS
+   MODAL ACTIONS
 ========================================================= */
 
 .member-modal-actions{
@@ -1449,7 +1518,8 @@ footer{
 
   border-radius:999px;
 
-  background:var(--ink);
+  background:
+    var(--ink);
 
   color:#fff;
 
@@ -1500,7 +1570,6 @@ footer{
       1fr;
   }
 
-
   .member-modal-card{
     width:
       min(
@@ -1519,7 +1588,6 @@ footer{
       minmax(0,1fr);
   }
 
-
   .member-modal-body{
     padding:
       40px
@@ -1534,10 +1602,7 @@ footer{
 
   .member-modal{
     padding:12px;
-
-    align-items:center;
   }
-
 
   .member-modal-card{
     width:
@@ -1556,11 +1621,6 @@ footer{
     border-radius:24px;
   }
 
-
-  /*
-    모바일 사진 영역
-  */
-
   .member-modal-photo{
     flex:none;
 
@@ -1573,7 +1633,6 @@ footer{
     background-position:
       center 25%;
   }
-
 
   .member-modal-body{
     flex:1;
@@ -1588,7 +1647,6 @@ footer{
       22px;
   }
 
-
   .member-modal-close{
     top:15px;
     right:15px;
@@ -1597,26 +1655,17 @@ footer{
     height:36px;
   }
 
-
   .member-modal-body h2{
     margin-top:17px;
 
     font-size:35px;
   }
 
-
   .member-modal-scroll{
     margin-top:20px;
 
     padding-right:8px;
   }
-
-
-  /*
-    모바일에서는
-    RESEARCH INTERESTS / EDUCATION을
-    내용 위에 표시
-  */
 
   #memberModal .member-modal-meta > div{
     grid-template-columns:1fr;
@@ -1627,7 +1676,6 @@ footer{
       18px
       0;
   }
-
 
   #memberModal .member-modal-meta b{
     font-size:10px;
@@ -1685,6 +1733,22 @@ footer{
     grid-template-columns:
       1fr
       1fr;
+
+    padding:20px;
+  }
+
+  .stat{
+    min-height:110px;
+
+    padding:18px;
+  }
+
+  .stat-number{
+    font-size:36px;
+  }
+
+  .stat span{
+    font-size:9px;
   }
 
 }
@@ -1794,7 +1858,9 @@ footer{
 <main>
 
 
-<!-- HERO -->
+<!-- =========================================================
+     HERO
+========================================================= -->
 
 <section class="page-hero">
 
@@ -1825,14 +1891,28 @@ footer{
     </div>
 
 
-    <aside class="members-stat glass reveal">
+    <!-- =====================================================
+         MEMBER COUNTERS
+
+         strong 태그를 사용하지 않은 이유:
+         기존 data-pages.js의 카운터 로직과 충돌하지 않도록
+         이 페이지에서 독립적으로 숫자를 계산합니다.
+    ====================================================== -->
+
+    <aside
+      class="members-stat glass reveal"
+      id="memberStats"
+    >
 
 
       <div class="stat">
 
-        <strong>
-          —
-        </strong>
+        <div
+          class="stat-number"
+          id="doctoralCount"
+        >
+          0
+        </div>
 
         <span>
           DOCTORAL STUDENTS
@@ -1843,9 +1923,12 @@ footer{
 
       <div class="stat">
 
-        <strong>
-          —
-        </strong>
+        <div
+          class="stat-number"
+          id="mastersCount"
+        >
+          0
+        </div>
 
         <span>
           MASTER'S STUDENTS
@@ -1856,9 +1939,12 @@ footer{
 
       <div class="stat">
 
-        <strong>
-          —
-        </strong>
+        <div
+          class="stat-number"
+          id="researcherCount"
+        >
+          0
+        </div>
 
         <span>
           RESEARCHERS
@@ -1869,9 +1955,12 @@ footer{
 
       <div class="stat">
 
-        <strong>
-          1
-        </strong>
+        <div
+          class="stat-number"
+          id="professorCount"
+        >
+          0
+        </div>
 
         <span>
           PROFESSOR
@@ -1888,7 +1977,9 @@ footer{
 </section>
 
 
-<!-- SUB NAV -->
+<!-- =========================================================
+     SUB NAV
+========================================================= -->
 
 <div class="subnav-wrap">
 
@@ -1910,7 +2001,9 @@ footer{
 </div>
 
 
-<!-- CURRENT MEMBERS -->
+<!-- =========================================================
+     CURRENT MEMBERS
+========================================================= -->
 
 <section>
 
@@ -1943,6 +2036,7 @@ footer{
       <button
         class="filter active"
         data-filter="all"
+        type="button"
       >
         ALL
       </button>
@@ -1951,6 +2045,7 @@ footer{
       <button
         class="filter"
         data-filter="phd"
+        type="button"
       >
         Ph.D.
       </button>
@@ -1959,6 +2054,7 @@ footer{
       <button
         class="filter"
         data-filter="ma"
+        type="button"
       >
         MASTER'S
       </button>
@@ -1967,6 +2063,7 @@ footer{
       <button
         class="filter"
         data-filter="researcher"
+        type="button"
       >
         RESEARCHER
       </button>
@@ -1983,11 +2080,14 @@ footer{
 </section>
 
 
-<!-- ALUMNI CTA -->
+<!-- =========================================================
+     ALUMNI CTA
+========================================================= -->
 
 <section class="soft">
 
   <div class="wrap">
+
 
     <div class="cta reveal">
 
@@ -2001,7 +2101,8 @@ footer{
       <div>
 
         <p>
-          KEE LAB을 함께해 온 졸업생과 연구자들의 발자취를 소개합니다.
+          KEE LAB을 함께해 온 졸업생과 연구자들의
+          발자취를 소개합니다.
         </p>
 
 
@@ -2020,6 +2121,7 @@ footer{
 
 
     </div>
+
 
   </div>
 
@@ -2069,8 +2171,6 @@ footer{
       </button>
 
 
-      <!-- 고정 영역 -->
-
       <div class="eyebrow">
         MEMBER PROFILE
       </div>
@@ -2104,8 +2204,6 @@ footer{
         ></p>
 
 
-        <!-- Research Interests / Education -->
-
         <div class="member-modal-meta">
 
 
@@ -2138,8 +2236,6 @@ footer{
         </div>
 
 
-        <!-- Actions -->
-
         <div
           class="member-modal-actions"
           id="memberModalActions"
@@ -2158,7 +2254,9 @@ footer{
 </div>
 
 
-<!-- COPY TOAST -->
+<!-- =========================================================
+     COPY TOAST
+========================================================= -->
 
 <div
   class="copy-toast"
@@ -2199,93 +2297,53 @@ document.getElementById("year").textContent =
   new Date().getFullYear();
 
 
-const obs =
+/* reveal animation */
+
+const revealObserver =
   new IntersectionObserver(
-    es =>
-      es.forEach(
-        e => {
 
-          if(e.isIntersecting){
+    entries => {
 
-            e.target
+      entries.forEach(
+        entry => {
+
+          if(entry.isIntersecting){
+
+            entry.target
               .classList
               .add("visible");
 
-            obs.unobserve(
-              e.target
-            );
+            revealObserver
+              .unobserve(
+                entry.target
+              );
 
           }
 
         }
-      ),
+      );
+
+    },
 
     {
       threshold:.1
     }
+
   );
 
 
 document
   .querySelectorAll(".reveal")
   .forEach(
-    el =>
-      obs.observe(el)
-  );
-
-
-const fab =
-  document.getElementById("chatFab");
-
-
-const panel =
-  document.getElementById("chatPanel");
-
-
-if(fab && panel){
-
-  fab.addEventListener(
-    "click",
-    () =>
-      panel
-        .classList
-        .toggle("open")
-  );
-
-}
-
-
-document
-  .getElementById("chatClose")
-  ?.addEventListener(
-    "click",
-    () =>
-      panel
-        ?.classList
-        .remove("open")
-  );
-
-
-document
-  .getElementById("chatForm")
-  ?.addEventListener(
-    "submit",
-    e => {
-
-      e.preventDefault();
-
-      alert(
-        "현재는 챗봇 UI 시안입니다."
-      );
-
-    }
+    element =>
+      revealObserver.observe(element)
   );
 
 </script>
 
 
 <!-- =========================================================
-     MEMBER DATA
+     MEMBER DATA / MEMBER CARD RENDERING
 ========================================================= -->
 
 <script src="../assets/js/data-pages.js?v=0.6.0"></script>
@@ -2296,6 +2354,660 @@ document
 ========================================================= -->
 
 <script src="../assets/js/site-v06.js?v=0.6.0"></script>
+
+
+<!-- =========================================================
+     MEMBER COUNT SYSTEM
+
+     - members.json을 직접 읽음
+     - 박사 / 석사 / 연구원 자동 집계
+     - 화면에 들어오면 0 → 실제 숫자 애니메이션
+     - data-pages.js 기존 counter와 충돌하지 않음
+========================================================= -->
+
+<script>
+
+(() => {
+
+  const doctoralEl =
+    document.getElementById(
+      "doctoralCount"
+    );
+
+  const mastersEl =
+    document.getElementById(
+      "mastersCount"
+    );
+
+  const researcherEl =
+    document.getElementById(
+      "researcherCount"
+    );
+
+  const professorEl =
+    document.getElementById(
+      "professorCount"
+    );
+
+  const statsBox =
+    document.getElementById(
+      "memberStats"
+    );
+
+
+  /* -------------------------------------------------------
+     ROLE 정규화
+  ------------------------------------------------------- */
+
+  function normalizeText(value){
+
+    return String(
+      value ?? ""
+    )
+    .trim()
+    .toLowerCase()
+    .replace(/\s+/g," ");
+
+  }
+
+
+  function classifyRole(member){
+
+    const value =
+      normalizeText(
+        member.role_group ??
+        member.roleGroup ??
+        member.role ??
+        member.degree_group ??
+        member.degree ??
+        ""
+      );
+
+
+    /* 박사과정 */
+
+    if(
+      value === "phd" ||
+      value === "ph.d." ||
+      value === "ph.d" ||
+      value.includes("doctoral") ||
+      value.includes("doctor") ||
+      value.includes("박사")
+    ){
+      return "phd";
+    }
+
+
+    /* 석사과정 */
+
+    if(
+      value === "ma" ||
+      value === "m.a." ||
+      value === "m.a" ||
+      value.includes("master") ||
+      value.includes("석사")
+    ){
+      return "ma";
+    }
+
+
+    /* 연구원 */
+
+    if(
+      value.includes("researcher") ||
+      value.includes("research fellow") ||
+      value.includes("연구원")
+    ){
+      return "researcher";
+    }
+
+
+    return "";
+  }
+
+
+  /* -------------------------------------------------------
+     ACTIVE 값 처리
+
+     JSON에서 active가 없는 경우에는 공개 데이터로 간주
+  ------------------------------------------------------- */
+
+  function isActive(member){
+
+    const value =
+      member.active;
+
+
+    if(
+      value === undefined ||
+      value === null ||
+      value === ""
+    ){
+      return true;
+    }
+
+
+    if(value === true){
+      return true;
+    }
+
+
+    const normalized =
+      normalizeText(value);
+
+
+    return (
+      normalized === "true" ||
+      normalized === "1" ||
+      normalized === "yes" ||
+      normalized === "y"
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     COUNT-UP ANIMATION
+  ------------------------------------------------------- */
+
+  function animateCount(
+    element,
+    target,
+    duration = 900
+  ){
+
+    if(!element){
+      return;
+    }
+
+
+    const finalValue =
+      Math.max(
+        0,
+        Number(target) || 0
+      );
+
+
+    const startTime =
+      performance.now();
+
+
+    element.textContent =
+      "0";
+
+
+    element.classList
+      .remove("counted");
+
+
+    function update(now){
+
+      const elapsed =
+        now - startTime;
+
+
+      const progress =
+        Math.min(
+          elapsed / duration,
+          1
+        );
+
+
+      /*
+        easeOutCubic
+      */
+
+      const eased =
+        1 -
+        Math.pow(
+          1 - progress,
+          3
+        );
+
+
+      const currentValue =
+        Math.round(
+          finalValue *
+          eased
+        );
+
+
+      element.textContent =
+        currentValue;
+
+
+      if(progress < 1){
+
+        requestAnimationFrame(
+          update
+        );
+
+      }else{
+
+        element.textContent =
+          finalValue;
+
+
+        element.classList
+          .add("counted");
+
+      }
+
+    }
+
+
+    requestAnimationFrame(
+      update
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     ANIMATION START
+  ------------------------------------------------------- */
+
+  let animationStarted =
+    false;
+
+
+  function startAnimation(counts){
+
+    if(animationStarted){
+      return;
+    }
+
+
+    animationStarted =
+      true;
+
+
+    animateCount(
+      doctoralEl,
+      counts.phd
+    );
+
+
+    animateCount(
+      mastersEl,
+      counts.ma
+    );
+
+
+    animateCount(
+      researcherEl,
+      counts.researcher
+    );
+
+
+    animateCount(
+      professorEl,
+      1
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     STATS가 화면에 보일 때 실행
+  ------------------------------------------------------- */
+
+  function waitUntilVisible(counts){
+
+    if(!statsBox){
+
+      startAnimation(
+        counts
+      );
+
+      return;
+
+    }
+
+
+    const observer =
+      new IntersectionObserver(
+
+        entries => {
+
+          entries.forEach(
+            entry => {
+
+              if(entry.isIntersecting){
+
+                startAnimation(
+                  counts
+                );
+
+
+                observer.disconnect();
+
+              }
+
+            }
+          );
+
+        },
+
+        {
+          threshold:.25
+        }
+
+      );
+
+
+    observer.observe(
+      statsBox
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     DOM 카드 기준 FALLBACK COUNT
+
+     JSON 구조가 달라져도
+     이미 출력된 카드의 텍스트를 읽어 최대한 집계
+  ------------------------------------------------------- */
+
+  function countFromRenderedCards(){
+
+    const cards =
+      [
+        ...document.querySelectorAll(
+          "#membersDynamic .member-card"
+        )
+      ];
+
+
+    const counts = {
+      phd:0,
+      ma:0,
+      researcher:0
+    };
+
+
+    cards.forEach(
+      card => {
+
+        const dataValue =
+          normalizeText(
+            card.dataset.role ??
+            card.dataset.group ??
+            card.dataset.filter ??
+            ""
+          );
+
+
+        const text =
+          normalizeText(
+            card.textContent
+          );
+
+
+        const combined =
+          dataValue +
+          " " +
+          text;
+
+
+        if(
+          combined.includes("ph.d") ||
+          combined.includes("phd") ||
+          combined.includes("doctoral") ||
+          combined.includes("박사")
+        ){
+
+          counts.phd += 1;
+
+          return;
+
+        }
+
+
+        if(
+          combined.includes("master") ||
+          combined.includes("m.a") ||
+          combined.includes("석사")
+        ){
+
+          counts.ma += 1;
+
+          return;
+
+        }
+
+
+        if(
+          combined.includes("researcher") ||
+          combined.includes("research fellow") ||
+          combined.includes("연구원")
+        ){
+
+          counts.researcher += 1;
+
+        }
+
+      }
+    );
+
+
+    return counts;
+
+  }
+
+
+  /* -------------------------------------------------------
+     JSON LOAD
+  ------------------------------------------------------- */
+
+  async function loadMemberCounts(){
+
+    try{
+
+      /*
+        cache 방지를 위해 현재 시간을 query에 추가
+      */
+
+      const response =
+        await fetch(
+          "../assets/data/members.json?t=" +
+          Date.now(),
+          {
+            cache:"no-store"
+          }
+        );
+
+
+      if(!response.ok){
+
+        throw new Error(
+          "members.json load failed"
+        );
+
+      }
+
+
+      const json =
+        await response.json();
+
+
+      /*
+        JSON이 배열인 경우와
+        { members: [] } 구조 둘 다 대응
+      */
+
+      let members = [];
+
+
+      if(
+        Array.isArray(json)
+      ){
+
+        members =
+          json;
+
+      }else if(
+        Array.isArray(
+          json.members
+        )
+      ){
+
+        members =
+          json.members;
+
+      }
+
+
+      members =
+        members.filter(
+          isActive
+        );
+
+
+      const counts = {
+        phd:0,
+        ma:0,
+        researcher:0
+      };
+
+
+      members.forEach(
+        member => {
+
+          const role =
+            classifyRole(
+              member
+            );
+
+
+          if(
+            role === "phd"
+          ){
+
+            counts.phd += 1;
+
+          }
+
+
+          if(
+            role === "ma"
+          ){
+
+            counts.ma += 1;
+
+          }
+
+
+          if(
+            role === "researcher"
+          ){
+
+            counts.researcher += 1;
+
+          }
+
+        }
+      );
+
+
+      /*
+        JSON에는 데이터가 있는데
+        role_group 구조가 예상과 다를 경우
+        화면 카드 기준으로 한 번 더 확인
+      */
+
+      const total =
+        counts.phd +
+        counts.ma +
+        counts.researcher;
+
+
+      if(
+        total === 0
+      ){
+
+        /*
+          data-pages.js가 DOM 렌더링을 끝낼 시간을 조금 줌
+        */
+
+        await new Promise(
+          resolve =>
+            setTimeout(
+              resolve,
+              450
+            )
+        );
+
+
+        const fallback =
+          countFromRenderedCards();
+
+
+        const fallbackTotal =
+          fallback.phd +
+          fallback.ma +
+          fallback.researcher;
+
+
+        if(
+          fallbackTotal > 0
+        ){
+
+          waitUntilVisible(
+            fallback
+          );
+
+          return;
+
+        }
+
+      }
+
+
+      waitUntilVisible(
+        counts
+      );
+
+
+    }catch(error){
+
+      console.warn(
+        "KEE LAB member counter:",
+        error
+      );
+
+
+      /*
+        JSON을 읽지 못한 경우에도
+        data-pages.js가 만든 카드에서 숫자 계산
+      */
+
+      setTimeout(
+        () => {
+
+          const counts =
+            countFromRenderedCards();
+
+
+          waitUntilVisible(
+            counts
+          );
+
+        },
+        700
+      );
+
+    }
+
+  }
+
+
+  loadMemberCounts();
+
+})();
+
+</script>
 
 
 </body>

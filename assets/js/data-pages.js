@@ -71,7 +71,7 @@
           <span class="year">${esc(p.year)}</span>
           <div><strong>${esc(p.title)}</strong><small>${esc([p.authors,p.venue].filter(Boolean).join(' · '))}</small></div>
           <span class="pill">${esc(String(p.type||'WORK').toUpperCase())}</span>
-        </a>`).join('') : empty('Publications will be updated from the Excel file.');
+        </a>`).join('') : empty('등록된 연구성과가 없습니다.');
     }
     const board = document.getElementById('homeNewsBoard');
     if (board) {
@@ -81,7 +81,7 @@
           <span class="date">${fmtDate(n.date,'month')}</span>
           <span><strong>${esc(n.title)}</strong><small>${esc(n.category||'news')}</small></span>
           <span class="arr">↗</span>
-        </a>`).join('') : empty('News will be updated from the Excel file.');
+        </a>`).join('') : empty('등록된 소식이 없습니다.');
     }
   }
 
@@ -212,7 +212,7 @@
     const render = f => {
       root.classList.add('visible');
       const subset = f==='all' ? data : data.filter(x=>x.role_group===f);
-      if (!subset.length) { root.innerHTML = empty('Member information will be updated from the Excel file.'); return; }
+      if (!subset.length) { root.innerHTML = empty('등록된 구성원 정보가 없습니다.'); return; }
       root.innerHTML = order.filter(role=>subset.some(x=>x.role_group===role)).map(role => {
         const rows = subset.filter(x=>x.role_group===role);
         return `<div class="section-title-row"><h3>${labels[role]}</h3><span class="count">${rows.length}</span></div>
@@ -294,7 +294,7 @@
     const featured=document.querySelector('.featured-grid');
     const feats=data.filter(x=>truthy(x.featured));
     const chosen=(feats.length?feats:data).slice(0,2);
-    featured.innerHTML=chosen.length?chosen.map((p,i)=>`<article class="feature-card glass"><div class="feature-top"><span class="feature-no">FEATURED · ${String(i+1).padStart(2,'0')}</span><span class="type-pill">${esc(String(p.type||'work').toUpperCase())}</span></div><h3>${esc(p.title)}</h3><p>${esc([p.authors,p.venue,p.volume_issue,p.year].filter(Boolean).join(' · '))}</p><div class="feature-actions">${p.doi_url?`<a class="btn primary" target="_blank" rel="noopener" href="${safeLink(p.doi_url)}">DOI ↗</a>`:''}${p.pdf_url?`<a class="btn" target="_blank" rel="noopener" href="${safeLink(p.pdf_url)}">PDF</a>`:''}<button class="btn cite-dynamic" data-cite="${esc([p.authors,`(${p.year})`,p.title,p.venue].filter(Boolean).join('. '))}">CITE</button></div></article>`).join(''):empty('Featured publications will appear after Excel data is added.');
+    featured.innerHTML=chosen.length?chosen.map((p,i)=>`<article class="feature-card glass"><div class="feature-top"><span class="feature-no">FEATURED · ${String(i+1).padStart(2,'0')}</span><span class="type-pill">${esc(String(p.type||'work').toUpperCase())}</span></div><h3>${esc(p.title)}</h3><p>${esc([p.authors,p.venue,p.volume_issue,p.year].filter(Boolean).join(' · '))}</p><div class="feature-actions">${p.doi_url?`<a class="btn primary" target="_blank" rel="noopener" href="${safeLink(p.doi_url)}">DOI ↗</a>`:''}${p.pdf_url?`<a class="btn" target="_blank" rel="noopener" href="${safeLink(p.pdf_url)}">PDF</a>`:''}<button class="btn cite-dynamic" data-cite="${esc([p.authors,`(${p.year})`,p.title,p.venue].filter(Boolean).join('. '))}">CITE</button></div></article>`).join(''):empty('등록된 대표 연구성과가 없습니다.');
 
     const search=document.getElementById('searchInput'), year=document.getElementById('yearSelect'), sort=document.getElementById('sortSelect'), filters=[...document.querySelectorAll('.filter-row .filter')];
     const years=[...new Set(data.map(x=>String(x.year)).filter(Boolean))].sort((a,b)=>b-a);
@@ -315,7 +315,7 @@
     filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(x=>x.classList.remove('active'));b.classList.add('active');active=b.dataset.type||'all';render()}));
     document.addEventListener('click',e=>{const b=e.target.closest('.cite-dynamic');if(!b)return; navigator.clipboard?.writeText(b.dataset.cite||'').then(()=>{const old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,1000)}).catch(()=>alert(b.dataset.cite||''));});
     const books=document.querySelector('.book-grid'); const bookRows=data.filter(x=>['book','chapter'].includes(x.type)).slice(0,6);
-    books.innerHTML=bookRows.length?bookRows.map(p=>`<article class="book-card glass"><span class="book-year">${esc(p.year)} · ${esc(String(p.type).toUpperCase())}</span><h3>${esc(p.title)}</h3><p>${esc([p.authors,p.venue].filter(Boolean).join(' · '))}</p><span class="book-link">↗</span></article>`).join(''):empty('Books and chapters will be updated from the Excel file.');
+    books.innerHTML=bookRows.length?bookRows.map(p=>`<article class="book-card glass"><span class="book-year">${esc(p.year)} · ${esc(String(p.type).toUpperCase())}</span><h3>${esc(p.title)}</h3><p>${esc([p.authors,p.venue].filter(Boolean).join(' · '))}</p><span class="book-link">↗</span></article>`).join(''):empty('등록된 저서 및 북챕터가 없습니다.');
     render();
   }
 
@@ -328,7 +328,7 @@
     let active='all'; const grid=document.getElementById('newsGrid'), no=document.getElementById('noResults');
     const render=()=>{const q=(search.value||'').trim().toLowerCase(), y=year.value;const rows=data.filter(n=>{const text=[n.title,n.summary,n.body,n.category].join(' ').toLowerCase();return(!q||text.includes(q))&&(y==='all'||yearOf(n.date)===y)&&(active==='all'||n.category===active)}); if(!rows.length){grid.innerHTML='';no.style.display='block'}else{no.style.display='none';grid.innerHTML=rows.map(n=>`<article class="news-card glass"><div class="news-media" ${imgStyle(n.image)}><span class="news-category">${esc(String(n.category||'news').toUpperCase())}</span></div><div class="news-body"><div class="news-date">${fmtDate(n.date)}</div><h3>${esc(n.title)}</h3><p>${esc(n.summary||'')}</p><div class="news-bottom">${n.link_url?`<a class="readmore" target="_blank" rel="noopener" href="${safeLink(n.link_url)}">READ STORY ↗</a>`:'<span class="readmore">KEE LAB UPDATE</span>'}<span class="tag">${esc(String(n.category||'news').toUpperCase())}</span></div></div></article>`).join('')}};
     search.addEventListener('input',render);year.addEventListener('change',render);filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(x=>x.classList.remove('active'));b.classList.add('active');active=b.dataset.category||'all';render()}));render();
-    const archive=document.querySelector('.archive'); if(archive){archive.innerHTML=data.slice(0,20).map(n=>`<${n.link_url?'a':'div'} class="archive-row" ${n.link_url?`href="${safeLink(n.link_url)}" target="_blank" rel="noopener"`:''}><span class="archive-date">${esc(n.date||'')}</span><span class="archive-cat">${esc(String(n.category||'news').toUpperCase())}</span><span class="archive-title">${esc(n.title)}</span><span class="archive-arrow">↗</span></${n.link_url?'a':'div'}>`).join('')||empty('News archive will be updated from Excel.');}
+    const archive=document.querySelector('.archive'); if(archive){archive.innerHTML=data.slice(0,20).map(n=>`<${n.link_url?'a':'div'} class="archive-row" ${n.link_url?`href="${safeLink(n.link_url)}" target="_blank" rel="noopener"`:''}><span class="archive-date">${esc(n.date||'')}</span><span class="archive-cat">${esc(String(n.category||'news').toUpperCase())}</span><span class="archive-title">${esc(n.title)}</span><span class="archive-arrow">↗</span></${n.link_url?'a':'div'}>`).join('')||empty('등록된 뉴스가 없습니다.');}
     const main=document.querySelector('.gallery-main'), tiles=[...document.querySelectorAll('.gallery-tile')], cap=document.querySelector('.gallery-caption'); const pics=gallery.slice(0,3); if(main&&pics[0]){main.href='../gallery/';main.style.backgroundImage=`url('${asset(pics[0].image)}')`;main.style.backgroundSize='cover';main.style.backgroundPosition='center';if(cap)cap.innerHTML=`<b>${esc(pics[0].title)}</b><span>${esc(pics[0].caption||'')}</span>`;} tiles.forEach((t,i)=>{const p=pics[i+1];t.href='../gallery/';if(p){t.style.backgroundImage=`url('${asset(p.image)}')`;t.style.backgroundSize='cover';t.style.backgroundPosition='center';}});
     const galleryBtn=[...document.querySelectorAll('a.btn.primary')].find(x=>x.textContent.includes('PHOTO GALLERY'));if(galleryBtn)galleryBtn.href='../gallery/';
   }
@@ -343,7 +343,7 @@
     const bindLightbox=()=>{const lb=document.getElementById('lightbox'), title=document.getElementById('lightboxTitle'), date=document.getElementById('lightboxDate'), image=lb?.querySelector('.lightbox-image'), copy=lb?.querySelector('.lightbox-copy p');grid.querySelectorAll('.photo-card').forEach(card=>card.addEventListener('click',()=>{const p=data.find(x=>String(x.id)===card.dataset.id);if(!p||!lb)return;title.textContent=p.title||'Gallery Photo';date.textContent=fmtDate(p.date);if(copy)copy.textContent=p.caption||'';if(image&&p.image){image.style.backgroundImage=`url('${asset(p.image)}')`;image.style.backgroundSize='cover';image.style.backgroundPosition='center';}lb.classList.add('open');lb.setAttribute('aria-hidden','false');}));};
     const render=()=>{const q=(search.value||'').trim().toLowerCase(), y=year.value;const rows=data.filter(p=>{const text=[p.title,p.caption,p.album,p.category].join(' ').toLowerCase();return(!q||text.includes(q))&&(y==='all'||yearOf(p.date)===y)&&(active==='all'||p.category===active)});if(!rows.length){grid.innerHTML='';no.style.display='block'}else{no.style.display='none';grid.innerHTML=rows.map((p,i)=>`<article class="photo-card ${patterns[i%patterns.length]}" data-id="${esc(p.id)}" ${imgStyle(p.image)}><span class="photo-open">＋</span><div class="photo-info"><small>${fmtDate(p.date,'month')}</small><b>${esc(p.title)}</b></div></article>`).join('');bindLightbox();}};
     search.addEventListener('input',render);year.addEventListener('change',render);filters.forEach(b=>b.addEventListener('click',()=>{filters.forEach(x=>x.classList.remove('active'));b.classList.add('active');active=b.dataset.category||'all';render()}));render();
-    const albumGrid=document.querySelector('.album-grid'); if(albumGrid){const groups={};data.forEach(p=>{const k=p.album||`${yearOf(p.date)} ${p.category||'Gallery'}`;(groups[k]??=[]).push(p)});albumGrid.innerHTML=Object.entries(groups).map(([name,rows])=>{const p=rows[0];return`<article class="album-card glass"><div class="album-cover" ${imgStyle(p.image)}><span class="album-count">${rows.length} PHOTOS</span></div><div class="album-body"><div class="album-year">${esc(yearOf(p.date))} · ${esc(String(p.category||'gallery').toUpperCase())}</div><h3>${esc(name)}</h3><p>${esc(p.caption||'')}</p></div></article>`}).join('')||empty('Albums will be updated from the Excel file.');}
+    const albumGrid=document.querySelector('.album-grid'); if(albumGrid){const groups={};data.forEach(p=>{const k=p.album||`${yearOf(p.date)} ${p.category||'Gallery'}`;(groups[k]??=[]).push(p)});albumGrid.innerHTML=Object.entries(groups).map(([name,rows])=>{const p=rows[0];return`<article class="album-card glass"><div class="album-cover" ${imgStyle(p.image)}><span class="album-count">${rows.length} PHOTOS</span></div><div class="album-body"><div class="album-year">${esc(yearOf(p.date))} · ${esc(String(p.category||'gallery').toUpperCase())}</div><h3>${esc(name)}</h3><p>${esc(p.caption||'')}</p></div></article>`}).join('')||empty('등록된 갤러리 항목이 없습니다.');}
     const lb=document.getElementById('lightbox'); const close=()=>{lb?.classList.remove('open');lb?.setAttribute('aria-hidden','true')}; document.getElementById('closeLightbox')?.addEventListener('click',close); lb?.addEventListener('click',e=>{if(e.target===lb)close()}); document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
   }
 
