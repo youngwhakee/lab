@@ -1,39 +1,70 @@
 <!doctype html>
+
 <html lang="ko">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Members | KEE LAB</title>
 
+<!-- 공통 CSS를 먼저 불러옵니다 -->
+<link rel="stylesheet" href="../assets/css/site-v06.css?v=0.6.2">
+
+<!-- 현재 Members 페이지 전용 CSS -->
 <style>
+
 :root{
   --ssu-light:#7adfe3;
   --ssu-medium:#22b9dc;
   --ssu-dark:#087fa5;
   --ssu-deep:#075f82;
   --ssu-glow:#a8f2f0;
+
   --ink:#10232b;
   --muted:#64777d;
   --line:rgba(130,184,194,.28);
+
   --paper:#f3fbfb;
   --white:#fff;
+
   --glass:rgba(255,255,255,.56);
   --glass-strong:rgba(255,255,255,.72);
   --glass-border:rgba(255,255,255,.70);
+
   --max:1240px;
+
   --shadow:0 24px 70px rgba(8,127,165,.16);
   --glass-shadow:0 18px 55px rgba(8,127,165,.12);
 }
 
-*{box-sizing:border-box}
 
-html{scroll-behavior:smooth}
+/* =========================================================
+   BASIC
+========================================================= */
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
+
   color:var(--ink);
   background:#fff;
-  font-family:Inter,Pretendard,"Noto Sans KR","Apple SD Gothic Neo",Arial,sans-serif;
+
+  font-family:
+    Inter,
+    Pretendard,
+    "Noto Sans KR",
+    "Apple SD Gothic Neo",
+    Arial,
+    sans-serif;
+
   line-height:1.58;
 }
 
@@ -54,42 +85,67 @@ img{
 }
 
 .wrap{
-  width:min(var(--max),calc(100% - 48px));
+  width:min(
+    var(--max),
+    calc(100% - 48px)
+  );
+
   margin:auto;
 }
 
 
-/* HEADER */
+/* =========================================================
+   HEADER
+========================================================= */
 
 .site-header{
   position:fixed;
   inset:0 0 auto 0;
+
   z-index:100;
+
   background:rgba(255,255,255,.64);
-  -webkit-backdrop-filter:blur(22px) saturate(155%);
-  backdrop-filter:blur(22px) saturate(155%);
-  border-bottom:1px solid rgba(255,255,255,.72);
-  box-shadow:0 8px 30px rgba(8,127,165,.06);
+
+  -webkit-backdrop-filter:
+    blur(22px)
+    saturate(155%);
+
+  backdrop-filter:
+    blur(22px)
+    saturate(155%);
+
+  border-bottom:
+    1px solid
+    rgba(255,255,255,.72);
+
+  box-shadow:
+    0 8px 30px
+    rgba(8,127,165,.06);
 }
 
 .header-inner{
   min-height:82px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:28px;
 }
 
 .brand{
   display:flex;
   align-items:center;
+
   gap:14px;
+
   min-width:max-content;
 }
 
 .brand img{
   width:62px;
   height:34px;
+
   object-fit:contain;
 }
 
@@ -99,49 +155,70 @@ img{
 
 .brand-copy b{
   display:block;
+
   font-size:19px;
+
   letter-spacing:.02em;
 }
 
 .brand-copy small{
   display:block;
+
   margin-top:6px;
+
   color:var(--ssu-dark);
-  letter-spacing:.12em;
+
   font-size:10px;
   font-weight:800;
+
+  letter-spacing:.12em;
 }
 
 .nav{
   display:flex;
   align-items:center;
+
   gap:26px;
+
   font-size:13px;
   font-weight:800;
+
   letter-spacing:.04em;
 }
 
 .nav a{
   position:relative;
-  padding:31px 0 27px;
+
+  padding:
+    31px
+    0
+    27px;
 }
 
 .nav a:after{
   content:"";
+
   position:absolute;
+
   left:0;
   right:0;
   bottom:20px;
+
   height:2px;
+
   background:var(--ssu-medium);
+
   transform:scaleX(0);
+
   transform-origin:right;
+
   transition:.25s;
 }
 
 .nav a:hover:after,
 .nav a.active:after{
   transform:scaleX(1);
+
   transform-origin:left;
 }
 
@@ -152,18 +229,8 @@ img{
 .header-tools{
   display:flex;
   align-items:center;
-  gap:10px;
-}
 
-.round-btn{
-  width:40px;
-  height:40px;
-  border:1px solid var(--line);
-  border-radius:50%;
-  background:#fff;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
+  gap:10px;
 }
 
 .mobile-menu{
@@ -171,24 +238,34 @@ img{
 }
 
 
-/* PAGE HERO */
+/* =========================================================
+   PAGE HERO
+========================================================= */
 
 .page-hero{
-  padding:160px 0 86px;
   position:relative;
+
+  padding:
+    160px
+    0
+    86px;
+
   overflow:hidden;
 
   background:
+
     radial-gradient(
       circle at 12% 16%,
       rgba(168,242,240,.40),
       transparent 27%
     ),
+
     radial-gradient(
       circle at 88% 12%,
       rgba(34,185,220,.18),
       transparent 31%
     ),
+
     linear-gradient(
       180deg,
       #fff 0%,
@@ -199,13 +276,20 @@ img{
 
 .page-hero:after{
   content:"";
+
   position:absolute;
+
   width:430px;
   height:430px;
-  border-radius:50%;
+
   right:-160px;
   bottom:-220px;
-  border:1px solid rgba(34,185,220,.16);
+
+  border-radius:50%;
+
+  border:
+    1px solid
+    rgba(34,185,220,.16);
 
   box-shadow:
     0 0 0 50px rgba(122,223,227,.05),
@@ -215,42 +299,69 @@ img{
 .eyebrow{
   display:flex;
   align-items:center;
+
   gap:11px;
+
   color:var(--ssu-dark);
+
   font-size:11px;
   font-weight:900;
+
   letter-spacing:.16em;
+
   text-transform:uppercase;
 }
 
 .eyebrow:before{
   content:"";
+
   width:35px;
   height:3px;
+
   background:var(--ssu-medium);
 }
 
 .page-hero h1{
-  margin:20px 0 0;
-  font-size:clamp(58px,8vw,108px);
+  margin:
+    20px
+    0
+    0;
+
+  font-size:
+    clamp(
+      58px,
+      8vw,
+      108px
+    );
+
   line-height:.91;
+
   letter-spacing:-.065em;
 }
 
 .page-hero h1 em{
   font-style:normal;
+
   color:var(--ssu-dark);
 }
 
 .lead{
-  font-size:17px;
-  color:var(--muted);
   max-width:720px;
-  margin:28px 0 0;
+
+  margin:
+    28px
+    0
+    0;
+
+  color:var(--muted);
+
+  font-size:17px;
 }
 
 
-/* GLASS */
+/* =========================================================
+   GLASS
+========================================================= */
 
 .glass{
   background:
@@ -260,7 +371,9 @@ img{
       rgba(255,255,255,.38)
     );
 
-  border:1px solid var(--glass-border);
+  border:
+    1px solid
+    var(--glass-border);
 
   -webkit-backdrop-filter:
     blur(22px)
@@ -274,14 +387,19 @@ img{
 }
 
 
-/* SUB NAV */
+/* =========================================================
+   SUB NAV
+========================================================= */
 
 .subnav-wrap{
   position:sticky;
+
   top:82px;
+
   z-index:50;
 
-  background:rgba(248,254,254,.72);
+  background:
+    rgba(248,254,254,.72);
 
   -webkit-backdrop-filter:
     blur(18px)
@@ -291,24 +409,35 @@ img{
     blur(18px)
     saturate(150%);
 
-  border-top:1px solid rgba(255,255,255,.7);
-  border-bottom:1px solid var(--line);
+  border-top:
+    1px solid
+    rgba(255,255,255,.7);
+
+  border-bottom:
+    1px solid
+    var(--line);
 }
 
 .subnav{
   min-height:58px;
+
   display:flex;
   align-items:center;
+
   gap:30px;
+
   overflow:auto;
 }
 
 .subnav a{
+  color:var(--muted);
+
   font-size:11px;
   font-weight:900;
+
   letter-spacing:.11em;
+
   white-space:nowrap;
-  color:var(--muted);
 }
 
 .subnav a.active{
@@ -316,84 +445,136 @@ img{
 }
 
 
-/* COMMON */
+/* =========================================================
+   COMMON
+========================================================= */
 
 section{
-  padding:105px 0;
+  padding:
+    105px
+    0;
 }
 
 .soft{
   background:
+
     radial-gradient(
       circle at 12% 20%,
       rgba(168,242,240,.16),
       transparent 29%
     ),
+
     radial-gradient(
       circle at 88% 75%,
       rgba(34,185,220,.09),
       transparent 27%
     ),
+
     var(--paper);
 }
 
 .section-head{
   display:flex;
+
   align-items:flex-end;
   justify-content:space-between;
+
   gap:42px;
+
   margin-bottom:45px;
 }
 
 .section-head h2{
   margin:0;
-  font-size:clamp(38px,5vw,68px);
-  letter-spacing:-.055em;
+
+  font-size:
+    clamp(
+      38px,
+      5vw,
+      68px
+    );
+
   line-height:.94;
+
+  letter-spacing:-.055em;
 }
 
 .section-head p{
   max-width:520px;
-  color:var(--muted);
+
   margin:0;
+
+  color:var(--muted);
 }
 
 .label{
-  font-size:11px;
-  letter-spacing:.16em;
-  font-weight:900;
   color:var(--ssu-dark);
+
+  font-size:11px;
+  font-weight:900;
+
+  letter-spacing:.16em;
 }
 
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
 .btn{
+  min-height:48px;
+
+  padding:
+    0
+    20px;
+
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
+
   gap:9px;
-  min-height:48px;
-  padding:0 20px;
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:999px;
-  border:1px solid var(--line);
+
+  background:
+    rgba(255,255,255,.72);
+
   font-size:12px;
   font-weight:900;
+
   transition:.25s;
-  background:rgba(255,255,255,.72);
 }
 
 .btn.primary{
   background:var(--ssu-dark);
+
   border-color:var(--ssu-dark);
+
   color:#fff;
 }
 
 .btn:hover{
-  transform:translateY(-3px);
+  transform:
+    translateY(-3px);
+
   box-shadow:var(--shadow);
 }
 
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
 .reveal{
   opacity:0;
-  transform:translateY(22px);
+
+  transform:
+    translateY(22px);
 
   transition:
     opacity .65s ease,
@@ -402,178 +583,185 @@ section{
 
 .reveal.visible{
   opacity:1;
+
   transform:none;
 }
 
 
-/* CTA */
-
-.cta{
-  padding:68px;
-  border-radius:34px;
-  color:#fff;
-
-  background:
-    radial-gradient(
-      circle at 83% 8%,
-      rgba(168,242,240,.22),
-      transparent 28%
-    ),
-    linear-gradient(
-      125deg,
-      var(--ssu-deep),
-      var(--ssu-dark) 60%,
-      #0aa8c7
-    );
-
-  box-shadow:
-    0 28px 70px rgba(8,127,165,.18);
-
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:50px;
-  align-items:end;
-}
-
-.cta h2{
-  margin:0;
-  font-size:clamp(42px,6vw,78px);
-  line-height:.92;
-  letter-spacing:-.055em;
-}
-
-.cta p{
-  margin:0 0 20px;
-  color:rgba(255,255,255,.76);
-}
-
-
-/* FOOTER */
-
-footer{
-  padding:34px 0 95px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.footer-inner{
-  display:flex;
-  justify-content:space-between;
-  gap:25px;
-  flex-wrap:wrap;
-}
-
-
-/* MEMBERS */
+/* =========================================================
+   MEMBERS HERO
+========================================================= */
 
 .members-hero-grid{
   display:grid;
-  grid-template-columns:1.05fr .95fr;
+
+  grid-template-columns:
+    1.05fr
+    .95fr;
+
   gap:55px;
+
   align-items:end;
 }
 
 .members-stat{
-  border-radius:32px;
   padding:32px;
+
   display:grid;
-  grid-template-columns:repeat(2,1fr);
+
+  grid-template-columns:
+    repeat(2,1fr);
+
   gap:12px;
+
+  border-radius:32px;
 }
 
 .stat{
   padding:22px;
+
   border-radius:20px;
-  background:rgba(255,255,255,.55);
-  border:1px solid rgba(255,255,255,.72);
+
+  background:
+    rgba(255,255,255,.55);
+
+  border:
+    1px solid
+    rgba(255,255,255,.72);
 }
 
 .stat strong{
   display:block;
-  font-size:38px;
-  letter-spacing:-.04em;
+
   color:var(--ssu-dark);
+
+  font-size:38px;
+
+  letter-spacing:-.04em;
 }
 
 .stat span{
-  font-size:11px;
   color:var(--muted);
+
+  font-size:11px;
+
   letter-spacing:.08em;
 }
 
+
+/* =========================================================
+   FILTER
+========================================================= */
+
 .filters{
   display:flex;
+
   gap:9px;
+
   flex-wrap:wrap;
+
   margin-bottom:32px;
 }
 
 .filter{
-  border:1px solid var(--line);
+  padding:
+    10px
+    15px;
+
+  border:
+    1px solid
+    var(--line);
+
   border-radius:999px;
-  padding:10px 15px;
-  background:rgba(255,255,255,.72);
+
+  background:
+    rgba(255,255,255,.72);
+
   cursor:pointer;
+
   font-size:11px;
   font-weight:900;
+
   letter-spacing:.08em;
 }
 
 .filter.active,
 .filter:hover{
   background:var(--ssu-dark);
+
   color:#fff;
+
   border-color:var(--ssu-dark);
 }
 
+
+/* =========================================================
+   MEMBER CARDS
+========================================================= */
+
 .member-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
+
+  grid-template-columns:
+    repeat(3,1fr);
+
   gap:20px;
 }
 
 .member-card{
-  border-radius:25px;
   overflow:hidden;
+
+  border-radius:25px;
+
   transition:.28s;
 }
 
 .member-card:hover{
-  transform:translateY(-8px);
+  transform:
+    translateY(-8px);
+
   box-shadow:var(--shadow);
 }
 
 .member-photo{
+  position:relative;
+
   aspect-ratio:3/4;
 
   display:grid;
+
   place-items:center;
 
   color:#fff;
 
   background:
+
     radial-gradient(
       circle at 75% 18%,
       rgba(168,242,240,.5),
       transparent 25%
     ),
+
     linear-gradient(
       145deg,
       var(--ssu-deep),
       var(--ssu-medium)
     );
-
-  position:relative;
 }
 
 .member-photo:after{
   content:"PHOTO";
+
   position:absolute;
+
   bottom:18px;
   left:20px;
+
   font-size:9px;
-  letter-spacing:.15em;
   font-weight:900;
+
+  letter-spacing:.15em;
+
   opacity:.7;
 }
 
@@ -587,98 +775,200 @@ footer{
 
 .member-info h3{
   margin:0;
+
   font-size:21px;
 }
 
 .degree{
+  margin-top:4px;
+
   color:var(--ssu-dark);
+
   font-size:12px;
   font-weight:900;
-  margin-top:4px;
 }
 
 .member-info p{
-  font-size:13px;
+  margin:
+    15px
+    0
+    0;
+
   color:var(--muted);
-  margin:15px 0 0;
+
+  font-size:13px;
 }
 
 .member-links{
   display:flex;
+
   gap:8px;
+
   margin-top:18px;
+
+  color:var(--ssu-dark);
+
   font-size:11px;
   font-weight:900;
-  color:var(--ssu-dark);
 }
 
 .member-links a{
   color:var(--ssu-dark);
 }
 
-.section-title-row{
-  display:flex;
-  align-items:center;
-  gap:16px;
-  margin:55px 0 22px;
-}
 
-.section-title-row h3{
-  font-size:27px;
-  margin:0;
-}
-
-.count{
-  font-size:11px;
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:5px 9px;
-  color:var(--muted);
-}
-
-.empty-note{
-  font-size:12px;
-  color:var(--muted);
-}
+/* =========================================================
+   DATA EMPTY
+========================================================= */
 
 .data-empty{
-  grid-column:1/-1;
+  grid-column:
+    1 / -1;
+
   padding:28px;
-  border-radius:22px;
-  color:var(--muted);
+
   display:flex;
+
   flex-direction:column;
+
   gap:5px;
+
+  border-radius:22px;
+
+  color:var(--muted);
 }
 
 .data-empty b{
   color:var(--ink);
+
   font-size:16px;
 }
 
 
 /* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+  padding:68px;
+
+  display:grid;
+
+  grid-template-columns:
+    1.15fr
+    .85fr;
+
+  gap:50px;
+
+  align-items:end;
+
+  border-radius:34px;
+
+  color:#fff;
+
+  background:
+
+    radial-gradient(
+      circle at 83% 8%,
+      rgba(168,242,240,.22),
+      transparent 28%
+    ),
+
+    linear-gradient(
+      125deg,
+      var(--ssu-deep),
+      var(--ssu-dark) 60%,
+      #0aa8c7
+    );
+
+  box-shadow:
+    0 28px 70px
+    rgba(8,127,165,.18);
+}
+
+.cta h2{
+  margin:0;
+
+  font-size:
+    clamp(
+      42px,
+      6vw,
+      78px
+    );
+
+  line-height:.92;
+
+  letter-spacing:-.055em;
+}
+
+.cta p{
+  margin:
+    0
+    0
+    20px;
+
+  color:
+    rgba(255,255,255,.76);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+  padding:
+    34px
+    0
+    95px;
+
+  color:var(--muted);
+
+  font-size:12px;
+}
+
+.footer-inner{
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:25px;
+
+  flex-wrap:wrap;
+}
+
+
+/* =========================================================
    MEMBER MODAL
-   ========================================================= */
+========================================================= */
 
 .member-modal{
   position:fixed;
+
   inset:0;
+
   z-index:500;
 
   padding:20px;
 
   display:flex;
+
   align-items:center;
   justify-content:center;
 
-  background:rgba(5,35,48,.45);
+  background:
+    rgba(5,35,48,.45);
 
-  -webkit-backdrop-filter:blur(10px);
-  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:
+    blur(10px);
+
+  backdrop-filter:
+    blur(10px);
 
   opacity:0;
+
   visibility:hidden;
+
   pointer-events:none;
 
   transition:
@@ -689,51 +979,78 @@ footer{
 .member-modal.open,
 .member-modal[aria-hidden="false"]{
   opacity:1;
+
   visibility:visible;
+
   pointer-events:auto;
 }
 
 
-/* 모달 전체 크기 제한 */
+/* =========================================================
+   MODAL CARD SIZE
+========================================================= */
 
 .member-modal-card{
-  width:min(980px,calc(100vw - 40px));
-  height:min(760px,calc(100vh - 40px));
-  max-height:calc(100vh - 40px);
+  width:
+    min(
+      980px,
+      calc(100vw - 40px)
+    );
+
+  height:
+    min(
+      760px,
+      calc(100vh - 40px)
+    );
+
+  max-height:
+    calc(100vh - 40px);
 
   display:grid;
-  grid-template-columns:minmax(300px,.82fr) minmax(0,1.18fr);
+
+  grid-template-columns:
+    minmax(300px,.82fr)
+    minmax(0,1.18fr);
 
   overflow:hidden;
 
   border-radius:30px;
 
   background:
+
     linear-gradient(
       145deg,
       rgba(255,255,255,.96),
       rgba(244,253,253,.94)
     );
 
-  border:1px solid rgba(255,255,255,.82);
+  border:
+    1px solid
+    rgba(255,255,255,.82);
 
   box-shadow:
-    0 35px 100px rgba(0,48,68,.25);
+    0 35px 100px
+    rgba(0,48,68,.25);
 }
 
 
-/* 왼쪽 사진 */
+/* =========================================================
+   MODAL PHOTO
+========================================================= */
 
 .member-modal-photo{
   min-height:0;
+
   height:100%;
 
   background:
+
     radial-gradient(
       circle at 70% 18%,
       rgba(168,242,240,.5),
       transparent 28%
     ),
+
     linear-gradient(
       145deg,
       var(--ssu-deep),
@@ -741,31 +1058,44 @@ footer{
     );
 
   background-size:cover;
+
   background-position:center;
+
+  background-repeat:no-repeat;
 }
 
 
-/* 오른쪽 전체 영역 */
+/* =========================================================
+   MODAL BODY
+========================================================= */
 
 .member-modal-body{
   position:relative;
 
   height:100%;
+
   min-height:0;
 
-  padding:46px 44px 38px;
+  padding:
+    46px
+    44px
+    38px;
 
   display:flex;
+
   flex-direction:column;
 
   overflow:hidden;
 }
 
 
-/* 닫기 */
+/* =========================================================
+   MODAL CLOSE
+========================================================= */
 
 .member-modal-close{
   position:absolute;
+
   top:20px;
   right:22px;
 
@@ -773,16 +1103,22 @@ footer{
   height:40px;
 
   display:grid;
+
   place-items:center;
 
-  border:1px solid var(--line);
+  border:
+    1px solid
+    var(--line);
+
   border-radius:50%;
 
-  background:rgba(255,255,255,.85);
+  background:
+    rgba(255,255,255,.85);
 
   color:var(--ink);
 
   font-size:25px;
+
   line-height:1;
 
   cursor:pointer;
@@ -793,26 +1129,44 @@ footer{
 }
 
 .member-modal-close:hover{
-  background:var(--ssu-dark);
+  background:
+    var(--ssu-dark);
+
   color:#fff;
-  border-color:var(--ssu-dark);
+
+  border-color:
+    var(--ssu-dark);
 }
 
 
-/* 이름 영역 */
+/* =========================================================
+   MODAL FIXED HEADER
+========================================================= */
 
 .member-modal-body .eyebrow{
   flex:none;
+
   margin-right:50px;
 }
 
 .member-modal-body h2{
   flex:none;
 
-  margin:22px 48px 0 0;
+  margin:
+    22px
+    48px
+    0
+    0;
 
-  font-size:clamp(35px,4vw,54px);
+  font-size:
+    clamp(
+      35px,
+      4vw,
+      54px
+    );
+
   line-height:1;
+
   letter-spacing:-.05em;
 }
 
@@ -821,9 +1175,9 @@ footer{
 
   margin-top:9px;
 
-  font-size:13px;
-
   color:var(--muted);
+
+  font-size:13px;
 
   letter-spacing:.04em;
 }
@@ -837,29 +1191,32 @@ footer{
 
   font-size:12px;
   font-weight:900;
+
   letter-spacing:.07em;
 }
 
 
-/* ---------------------------------------------------------
-   실제 스크롤 되는 부분
-   --------------------------------------------------------- */
+/* =========================================================
+   MODAL SCROLL AREA
+========================================================= */
 
 .member-modal-scroll{
   flex:1;
-  min-height:0;
 
-  overflow-y:auto;
-  overflow-x:hidden;
+  min-height:0;
 
   margin-top:25px;
 
   padding-right:14px;
   padding-bottom:8px;
 
+  overflow-y:auto;
+  overflow-x:hidden;
+
   overscroll-behavior:contain;
 
   scrollbar-width:thin;
+
   scrollbar-color:
     rgba(8,127,165,.30)
     transparent;
@@ -877,16 +1234,21 @@ footer{
 }
 
 .member-modal-scroll::-webkit-scrollbar-thumb{
-  background:rgba(8,127,165,.25);
+  background:
+    rgba(8,127,165,.25);
+
   border-radius:999px;
 }
 
 .member-modal-scroll::-webkit-scrollbar-thumb:hover{
-  background:rgba(8,127,165,.48);
+  background:
+    rgba(8,127,165,.48);
 }
 
 
-/* Biography */
+/* =========================================================
+   MODAL BIOGRAPHY
+========================================================= */
 
 .member-modal-bio{
   margin:0;
@@ -894,80 +1256,153 @@ footer{
   color:var(--muted);
 
   font-size:14px;
+
   line-height:1.78;
 
   white-space:pre-line;
 }
 
 
-/* Research / Education */
+/* =========================================================
+   RESEARCH INTERESTS / EDUCATION
 
-.member-modal-meta{
+   카드형 UI 삭제
+   → 회색 구분선 + 파란색 제목
+========================================================= */
+
+#memberModal .member-modal-meta{
+  display:block;
+
   margin-top:28px;
+}
 
+
+/*
+  둥근 사각형, 배경색, 테두리 카드 제거
+*/
+
+#memberModal .member-modal-meta > div{
   display:grid;
-  gap:12px;
+
+  grid-template-columns:
+    180px
+    minmax(0,1fr);
+
+  gap:28px;
+
+  align-items:start;
+
+  padding:
+    20px
+    0;
+
+  background:transparent !important;
+
+  border:none !important;
+
+  border-top:
+    1px solid
+    rgba(100,119,125,.22) !important;
+
+  border-radius:0 !important;
+
+  box-shadow:none !important;
 }
 
-.member-modal-meta > div{
-  padding:17px 19px;
 
-  border-radius:17px;
+/*
+  마지막 Education 아래에도 구분선
+*/
 
-  background:rgba(243,251,251,.82);
-
-  border:1px solid var(--line);
+#memberModal .member-modal-meta > div:last-child{
+  border-bottom:
+    1px solid
+    rgba(100,119,125,.22) !important;
 }
 
-.member-modal-meta b{
+
+/*
+  Research Interests / Education
+  → 파란색
+*/
+
+#memberModal .member-modal-meta b{
   display:block;
 
-  margin-bottom:7px;
+  margin:0;
 
-  color:var(--ssu-dark);
+  color:
+    var(--ssu-dark) !important;
 
-  font-size:10px;
+  font-size:11px;
+
   font-weight:900;
+
+  line-height:1.55;
+
   letter-spacing:.10em;
+
   text-transform:uppercase;
+
+  word-break:keep-all;
 }
 
-.member-modal-meta span{
+
+/*
+  실제 연구분야 / 학력 내용
+*/
+
+#memberModal .member-modal-meta span{
   display:block;
 
-  color:var(--ink);
+  margin:0;
+
+  color:var(--muted);
 
   font-size:13px;
-  line-height:1.65;
+
+  line-height:1.75;
 
   white-space:pre-line;
+
+  word-break:keep-all;
 }
 
 
-/* Action Buttons */
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
 
 .member-modal-actions{
   margin-top:22px;
+
   padding-bottom:4px;
 
   display:flex;
+
   flex-wrap:wrap;
+
   gap:8px;
 }
 
 .member-modal-actions a,
 .member-modal-actions button{
+  min-height:42px;
+
+  padding:
+    0
+    15px;
+
   display:inline-flex;
+
   align-items:center;
   justify-content:center;
 
-  min-height:42px;
-
-  padding:0 15px;
+  border:
+    1px solid
+    var(--line);
 
   border-radius:999px;
-
-  border:1px solid var(--line);
 
   background:#fff;
 
@@ -983,13 +1418,19 @@ footer{
 
 .member-modal-actions a:hover,
 .member-modal-actions button:hover{
-  background:var(--ssu-dark);
-  border-color:var(--ssu-dark);
+  background:
+    var(--ssu-dark);
+
   color:#fff;
+
+  border-color:
+    var(--ssu-dark);
 }
 
 
-/* COPY TOAST */
+/* =========================================================
+   COPY TOAST
+========================================================= */
 
 .copy-toast{
   position:fixed;
@@ -999,18 +1440,23 @@ footer{
 
   z-index:700;
 
-  transform:translate(-50%,15px);
+  transform:
+    translate(-50%,15px);
 
-  padding:11px 17px;
+  padding:
+    11px
+    17px;
 
   border-radius:999px;
 
   background:var(--ink);
+
   color:#fff;
 
   font-size:12px;
 
   opacity:0;
+
   visibility:hidden;
 
   transition:.22s;
@@ -1018,14 +1464,17 @@ footer{
 
 .copy-toast.show{
   opacity:1;
+
   visibility:visible;
-  transform:translate(-50%,0);
+
+  transform:
+    translate(-50%,0);
 }
 
 
 /* =========================================================
    RESPONSIVE
-   ========================================================= */
+========================================================= */
 
 @media(max-width:980px){
 
@@ -1046,18 +1495,30 @@ footer{
   }
 
   .member-grid{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      1fr
+      1fr;
   }
 
-
-  /* 모달 */
 
   .member-modal-card{
-    width:min(900px,calc(100vw - 30px));
-    height:min(720px,calc(100vh - 30px));
+    width:
+      min(
+        900px,
+        calc(100vw - 30px)
+      );
 
-    grid-template-columns:300px minmax(0,1fr);
+    height:
+      min(
+        720px,
+        calc(100vh - 30px)
+      );
+
+    grid-template-columns:
+      300px
+      minmax(0,1fr);
   }
+
 
   .member-modal-body{
     padding:
@@ -1073,32 +1534,44 @@ footer{
 
   .member-modal{
     padding:12px;
+
     align-items:center;
   }
 
+
   .member-modal-card{
-    width:calc(100vw - 24px);
-    height:calc(100vh - 24px);
-    max-height:calc(100vh - 24px);
+    width:
+      calc(100vw - 24px);
+
+    height:
+      calc(100vh - 24px);
+
+    max-height:
+      calc(100vh - 24px);
 
     display:flex;
+
     flex-direction:column;
 
     border-radius:24px;
   }
 
 
-  /* 모바일에서는 사진을 위쪽에 작게 */
+  /*
+    모바일 사진 영역
+  */
 
   .member-modal-photo{
     flex:none;
 
     width:100%;
+
     height:210px;
 
     min-height:210px;
 
-    background-position:center 25%;
+    background-position:
+      center 25%;
   }
 
 
@@ -1126,15 +1599,38 @@ footer{
 
 
   .member-modal-body h2{
-    font-size:35px;
-
     margin-top:17px;
+
+    font-size:35px;
   }
 
 
   .member-modal-scroll{
     margin-top:20px;
+
     padding-right:8px;
+  }
+
+
+  /*
+    모바일에서는
+    RESEARCH INTERESTS / EDUCATION을
+    내용 위에 표시
+  */
+
+  #memberModal .member-modal-meta > div{
+    grid-template-columns:1fr;
+
+    gap:8px;
+
+    padding:
+      18px
+      0;
+  }
+
+
+  #memberModal .member-modal-meta b{
+    font-size:10px;
   }
 
 }
@@ -1170,11 +1666,15 @@ footer{
   }
 
   section{
-    padding:76px 0;
+    padding:
+      76px
+      0;
   }
 
   .cta{
-    padding:42px 28px;
+    padding:
+      42px
+      28px;
   }
 
   .member-grid{
@@ -1182,17 +1682,14 @@ footer{
   }
 
   .members-stat{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      1fr
+      1fr;
   }
 
 }
+
 </style>
-
-
-<link
-  rel="stylesheet"
-  href="../assets/css/site-v06.css?v=0.6.2"
->
 
 </head>
 
@@ -1200,9 +1697,14 @@ footer{
 <body data-page="members">
 
 
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
 <header class="site-header">
 
   <div class="wrap header-inner">
+
 
     <a
       href="../"
@@ -1217,9 +1719,12 @@ footer{
         onerror="this.style.display='none'"
       >
 
+
       <div class="brand-copy">
 
-        <b>KEE LAB</b>
+        <b>
+          KEE LAB
+        </b>
 
         <small>
           SOONGSIL UNIVERSITY
@@ -1276,14 +1781,20 @@ footer{
 
     </div>
 
+
   </div>
 
 </header>
 
 
+<!-- =========================================================
+     MAIN
+========================================================= -->
 
 <main>
 
+
+<!-- HERO -->
 
 <section class="page-hero">
 
@@ -1292,14 +1803,17 @@ footer{
 
     <div class="reveal">
 
+
       <div class="eyebrow">
         People of Kee Lab
       </div>
+
 
       <h1>
         Current<br>
         <em>Members</em>
       </h1>
+
 
       <p class="lead">
         KEE LAB에서 함께 연구하고 배우는 구성원을 소개합니다.
@@ -1307,30 +1821,64 @@ footer{
         연구를 이어가고 있습니다.
       </p>
 
+
     </div>
 
 
     <aside class="members-stat glass reveal">
 
-      <div class="stat">
-        <strong>—</strong>
-        <span>DOCTORAL STUDENTS</span>
-      </div>
 
       <div class="stat">
-        <strong>—</strong>
-        <span>MASTER'S STUDENTS</span>
+
+        <strong>
+          —
+        </strong>
+
+        <span>
+          DOCTORAL STUDENTS
+        </span>
+
       </div>
 
-      <div class="stat">
-        <strong>—</strong>
-        <span>RESEARCHERS</span>
-      </div>
 
       <div class="stat">
-        <strong>1</strong>
-        <span>PROFESSOR</span>
+
+        <strong>
+          —
+        </strong>
+
+        <span>
+          MASTER'S STUDENTS
+        </span>
+
       </div>
+
+
+      <div class="stat">
+
+        <strong>
+          —
+        </strong>
+
+        <span>
+          RESEARCHERS
+        </span>
+
+      </div>
+
+
+      <div class="stat">
+
+        <strong>
+          1
+        </strong>
+
+        <span>
+          PROFESSOR
+        </span>
+
+      </div>
+
 
     </aside>
 
@@ -1340,6 +1888,7 @@ footer{
 </section>
 
 
+<!-- SUB NAV -->
 
 <div class="subnav-wrap">
 
@@ -1361,6 +1910,7 @@ footer{
 </div>
 
 
+<!-- CURRENT MEMBERS -->
 
 <section>
 
@@ -1389,12 +1939,14 @@ footer{
 
     <div class="filters reveal">
 
+
       <button
         class="filter active"
         data-filter="all"
       >
         ALL
       </button>
+
 
       <button
         class="filter"
@@ -1403,6 +1955,7 @@ footer{
         Ph.D.
       </button>
 
+
       <button
         class="filter"
         data-filter="ma"
@@ -1410,12 +1963,14 @@ footer{
         MASTER'S
       </button>
 
+
       <button
         class="filter"
         data-filter="researcher"
       >
         RESEARCHER
       </button>
+
 
     </div>
 
@@ -1428,6 +1983,7 @@ footer{
 </section>
 
 
+<!-- ALUMNI CTA -->
 
 <section class="soft">
 
@@ -1435,10 +1991,12 @@ footer{
 
     <div class="cta reveal">
 
+
       <h2>
         Our<br>
-        Alumni.
+        Alumni
       </h2>
+
 
       <div>
 
@@ -1446,11 +2004,12 @@ footer{
           KEE LAB을 함께해 온 졸업생과 연구자들의 발자취를 소개합니다.
         </p>
 
+
         <a
           class="btn"
           style="
             background:#fff;
-            color:var(--ssu-dark)
+            color:var(--ssu-dark);
           "
           href="alumni.html"
         >
@@ -1458,6 +2017,7 @@ footer{
         </a>
 
       </div>
+
 
     </div>
 
@@ -1469,10 +2029,9 @@ footer{
 </main>
 
 
-
-<!-- =======================================================
+<!-- =========================================================
      MEMBER PROFILE MODAL
-     ======================================================= -->
+========================================================= -->
 
 <div
   class="member-modal"
@@ -1493,7 +2052,6 @@ footer{
       class="member-modal-photo"
       id="memberModalPhoto"
     ></div>
-
 
 
     <!-- PROFILE -->
@@ -1535,11 +2093,7 @@ footer{
       ></div>
 
 
-
-      <!--
-        여기부터 내용이 길 경우
-        이 부분만 스크롤됩니다.
-      -->
+      <!-- 스크롤 영역 -->
 
       <div class="member-modal-scroll">
 
@@ -1549,6 +2103,8 @@ footer{
           id="memberModalBio"
         ></p>
 
+
+        <!-- Research Interests / Education -->
 
         <div class="member-modal-meta">
 
@@ -1582,6 +2138,7 @@ footer{
         </div>
 
 
+        <!-- Actions -->
 
         <div
           class="member-modal-actions"
@@ -1597,9 +2154,11 @@ footer{
 
   </div>
 
+
 </div>
 
 
+<!-- COPY TOAST -->
 
 <div
   class="copy-toast"
@@ -1609,6 +2168,9 @@ footer{
 ></div>
 
 
+<!-- =========================================================
+     FOOTER
+========================================================= -->
 
 <footer>
 
@@ -1627,6 +2189,9 @@ footer{
 </footer>
 
 
+<!-- =========================================================
+     BASIC SCRIPT
+========================================================= -->
 
 <script>
 
@@ -1642,14 +2207,19 @@ const obs =
 
           if(e.isIntersecting){
 
-            e.target.classList.add("visible");
+            e.target
+              .classList
+              .add("visible");
 
-            obs.unobserve(e.target);
+            obs.unobserve(
+              e.target
+            );
 
           }
 
         }
       ),
+
     {
       threshold:.1
     }
@@ -1659,12 +2229,14 @@ const obs =
 document
   .querySelectorAll(".reveal")
   .forEach(
-    el => obs.observe(el)
+    el =>
+      obs.observe(el)
   );
 
 
 const fab =
   document.getElementById("chatFab");
+
 
 const panel =
   document.getElementById("chatPanel");
@@ -1675,7 +2247,9 @@ if(fab && panel){
   fab.addEventListener(
     "click",
     () =>
-      panel.classList.toggle("open")
+      panel
+        .classList
+        .toggle("open")
   );
 
 }
@@ -1686,7 +2260,9 @@ document
   ?.addEventListener(
     "click",
     () =>
-      panel?.classList.remove("open")
+      panel
+        ?.classList
+        .remove("open")
   );
 
 
@@ -1708,16 +2284,20 @@ document
 </script>
 
 
-
-<!-- MEMBER DATA -->
+<!-- =========================================================
+     MEMBER DATA
+========================================================= -->
 
 <script src="../assets/js/data-pages.js?v=0.6.0"></script>
 
 
-<!-- COMMON SITE SCRIPT -->
+<!-- =========================================================
+     COMMON SITE SCRIPT
+========================================================= -->
 
 <script src="../assets/js/site-v06.js?v=0.6.0"></script>
 
 
 </body>
+
 </html>
