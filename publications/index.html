@@ -2,13 +2,11 @@
 <html lang="ko">
 
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Publications | KEE LAB</title>
 
-<!-- 공통 사이트 CSS -->
 <link rel="stylesheet" href="../assets/css/site-v06.css?v=0.6.0">
 
 <style>
@@ -52,7 +50,6 @@ html{
 
 body{
   margin:0;
-
   color:var(--ink);
   background:#fff;
 
@@ -99,17 +96,11 @@ img{
 
 .site-header{
   position:fixed;
-
-  inset:
-    0
-    0
-    auto
-    0;
+  inset:0 0 auto 0;
 
   z-index:100;
 
-  background:
-    rgba(255,255,255,.64);
+  background:rgba(255,255,255,.64);
 
   -webkit-backdrop-filter:
     blur(22px)
@@ -132,7 +123,6 @@ img{
   min-height:82px;
 
   display:flex;
-
   align-items:center;
   justify-content:space-between;
 
@@ -141,7 +131,6 @@ img{
 
 .brand{
   display:flex;
-
   align-items:center;
 
   gap:14px;
@@ -164,7 +153,6 @@ img{
   display:block;
 
   font-size:19px;
-
   letter-spacing:.02em;
 }
 
@@ -183,7 +171,6 @@ img{
 
 .nav{
   display:flex;
-
   align-items:center;
 
   gap:26px;
@@ -197,10 +184,7 @@ img{
 .nav a{
   position:relative;
 
-  padding:
-    31px
-    0
-    27px;
+  padding:31px 0 27px;
 }
 
 .nav a:after{
@@ -214,25 +198,18 @@ img{
 
   height:2px;
 
-  background:
-    var(--ssu-medium);
+  background:var(--ssu-medium);
 
-  transform:
-    scaleX(0);
-
-  transform-origin:
-    right;
+  transform:scaleX(0);
+  transform-origin:right;
 
   transition:.25s;
 }
 
 .nav a:hover:after,
 .nav a.active:after{
-  transform:
-    scaleX(1);
-
-  transform-origin:
-    left;
+  transform:scaleX(1);
+  transform-origin:left;
 }
 
 .nav a.active{
@@ -241,7 +218,6 @@ img{
 
 .header-tools{
   display:flex;
-
   align-items:center;
 
   gap:10px;
@@ -281,8 +257,7 @@ img{
 }
 
 .label{
-  color:
-    var(--ssu-dark);
+  color:var(--ssu-dark);
 
   font-size:11px;
   font-weight:900;
@@ -292,19 +267,16 @@ img{
 
 .eyebrow{
   display:flex;
-
   align-items:center;
 
   gap:11px;
 
-  color:
-    var(--ssu-dark);
+  color:var(--ssu-dark);
 
   font-size:11px;
   font-weight:900;
 
   letter-spacing:.16em;
-
   text-transform:uppercase;
 }
 
@@ -314,15 +286,13 @@ img{
   width:35px;
   height:3px;
 
-  background:
-    var(--ssu-medium);
+  background:var(--ssu-medium);
 }
 
 .reveal{
   opacity:0;
 
-  transform:
-    translateY(20px);
+  transform:translateY(20px);
 
   transition:
     opacity .65s ease,
@@ -331,7 +301,6 @@ img{
 
 .reveal.visible{
   opacity:1;
-
   transform:none;
 }
 
@@ -351,19 +320,16 @@ img{
   overflow:hidden;
 
   background:
-
     radial-gradient(
       circle at 12% 16%,
       rgba(168,242,240,.40),
       transparent 27%
     ),
-
     radial-gradient(
       circle at 88% 12%,
       rgba(34,185,220,.18),
       transparent 31%
     ),
-
     linear-gradient(
       180deg,
       #fff 0%,
@@ -395,6 +361,9 @@ img{
 }
 
 .hero-grid{
+  position:relative;
+  z-index:2;
+
   display:grid;
 
   grid-template-columns:
@@ -407,10 +376,7 @@ img{
 }
 
 .page-hero h1{
-  margin:
-    20px
-    0
-    0;
+  margin:20px 0 0;
 
   font-size:
     clamp(
@@ -425,25 +391,18 @@ img{
 }
 
 .page-hero h1 em{
-  color:
-    var(--ssu-dark);
-
+  color:var(--ssu-dark);
   font-style:normal;
 }
 
 .lead{
   max-width:720px;
 
-  margin:
-    28px
-    0
-    0;
+  margin:28px 0 0;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:17px;
-
   line-height:1.75;
 }
 
@@ -513,8 +472,7 @@ img{
 .stat strong{
   display:block;
 
-  color:
-    var(--ssu-dark);
+  color:var(--ssu-dark);
 
   font-size:38px;
 
@@ -528,8 +486,7 @@ img{
 
   margin-top:7px;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:10px;
   font-weight:900;
@@ -539,7 +496,7 @@ img{
 
 
 /* =========================================================
-   PUBLICATION ARCHIVE SECTION
+   PUBLICATION ARCHIVE
 ========================================================= */
 
 .content{
@@ -551,19 +508,16 @@ img{
 
 .soft{
   background:
-
     radial-gradient(
       circle at 12% 20%,
       rgba(168,242,240,.16),
       transparent 29%
     ),
-
     radial-gradient(
       circle at 88% 75%,
       rgba(34,185,220,.09),
       transparent 27%
     ),
-
     var(--paper);
 }
 
@@ -598,11 +552,9 @@ img{
 
   margin:0;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:14px;
-
   line-height:1.75;
 }
 
@@ -679,8 +631,7 @@ img{
   background:
     rgba(255,255,255,.82);
 
-  color:
-    var(--ink);
+  color:var(--ink);
 
   outline:none;
 
@@ -688,8 +639,7 @@ img{
 }
 
 .searchbox input:focus{
-  border-color:
-    var(--ssu-medium);
+  border-color:var(--ssu-medium);
 
   box-shadow:
     0 0 0 3px
@@ -707,13 +657,13 @@ img{
   right:18px;
   top:50%;
 
-  transform:
-    translateY(-50%);
+  transform:translateY(-50%);
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:18px;
+
+  pointer-events:none;
 }
 
 .select{
@@ -734,8 +684,7 @@ img{
   background:
     rgba(255,255,255,.82);
 
-  color:
-    var(--ink);
+  color:var(--ink);
 
   font-size:11px;
   font-weight:900;
@@ -748,8 +697,7 @@ img{
 }
 
 .select:focus{
-  border-color:
-    var(--ssu-medium);
+  border-color:var(--ssu-medium);
 
   box-shadow:
     0 0 0 3px
@@ -785,8 +733,7 @@ img{
   background:
     rgba(255,255,255,.72);
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   cursor:pointer;
 
@@ -800,13 +747,11 @@ img{
 
 .filter:hover,
 .filter.active{
-  background:
-    var(--ssu-dark);
+  background:var(--ssu-dark);
 
   color:#fff;
 
-  border-color:
-    var(--ssu-dark);
+  border-color:var(--ssu-dark);
 }
 
 
@@ -832,8 +777,7 @@ img{
 }
 
 .result-count{
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:11px;
   font-weight:800;
@@ -863,8 +807,7 @@ img{
 
   gap:14px;
 
-  color:
-    var(--ssu-dark);
+  color:var(--ssu-dark);
 
   font-size:
     clamp(
@@ -889,8 +832,7 @@ img{
 
   border-radius:999px;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:10px;
 
@@ -954,8 +896,7 @@ img{
 .pub-index{
   padding-top:3px;
 
-  color:
-    var(--ssu-medium);
+  color:var(--ssu-medium);
 
   font-size:11px;
   font-weight:900;
@@ -969,8 +910,7 @@ img{
     0
     7px;
 
-  color:
-    var(--ink);
+  color:var(--ink);
 
   font-size:18px;
 
@@ -982,8 +922,7 @@ img{
 .authors{
   margin-bottom:5px;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:12px;
 
@@ -991,8 +930,7 @@ img{
 }
 
 .venue{
-  color:
-    var(--ssu-dark);
+  color:var(--ssu-dark);
 
   font-size:12px;
   font-weight:800;
@@ -1024,8 +962,7 @@ img{
   background:
     rgba(34,185,220,.08);
 
-  color:
-    var(--ssu-dark);
+  color:var(--ssu-dark);
 
   font-size:9px;
   font-weight:900;
@@ -1056,6 +993,11 @@ img{
     0
     11px;
 
+  display:inline-flex;
+
+  align-items:center;
+  justify-content:center;
+
   border:
     1px solid
     var(--line);
@@ -1065,8 +1007,7 @@ img{
   background:
     rgba(255,255,255,.76);
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   cursor:pointer;
 
@@ -1079,8 +1020,7 @@ img{
 }
 
 .icon-btn:hover{
-  color:
-    var(--ssu-dark);
+  color:var(--ssu-dark);
 
   border-color:
     rgba(34,185,220,.35);
@@ -1100,8 +1040,7 @@ img{
     70px
     0;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   text-align:center;
 }
@@ -1111,8 +1050,7 @@ img{
 
   margin-bottom:6px;
 
-  color:
-    var(--ink);
+  color:var(--ink);
 
   font-size:20px;
 }
@@ -1129,20 +1067,17 @@ img{
   padding:28px;
 
   display:flex;
-
   flex-direction:column;
 
   gap:5px;
 
   border-radius:22px;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 }
 
 .data-empty b{
-  color:
-    var(--ink);
+  color:var(--ink);
 
   font-size:16px;
 }
@@ -1158,8 +1093,7 @@ footer{
     0
     95px;
 
-  color:
-    var(--muted);
+  color:var(--muted);
 
   font-size:12px;
 }
@@ -1197,7 +1131,6 @@ footer{
     grid-template-columns:1fr;
 
     position:relative;
-
     top:auto;
   }
 
@@ -1297,50 +1230,24 @@ footer{
 
 /* =========================================================
    MOBILE MENU STACKING FIX
-
-   모바일 햄버거 메뉴를 열었을 때
-   site-v06.js가 생성하는 .nav-backdrop이
-   메뉴보다 위에 올라와 클릭을 막는 문제만 수정합니다.
 ========================================================= */
 
 @media(max-width:980px){
 
-  /*
-    헤더 전체를 backdrop보다 위로 올립니다.
-
-    header 내부에 있는 nav는 부모 stacking context의
-    z-index를 넘어서 바깥 backdrop 위로 올라갈 수 없기 때문에
-    nav만 높이는 것이 아니라 header 자체를 높여야 합니다.
-  */
   .site-header{
     z-index:130 !important;
   }
 
-
-  /*
-    반투명 배경:
-    본문보다는 위,
-    헤더/메뉴보다는 아래
-  */
   .nav-backdrop{
     z-index:110 !important;
   }
 
-
-  /*
-    열린 모바일 메뉴
-  */
   .nav.is-open{
     z-index:131 !important;
   }
 
-
-  /*
-    햄버거/닫기 버튼도 항상 클릭 가능하도록 유지
-  */
   .mobile-menu{
     position:relative;
-
     z-index:132 !important;
   }
 
@@ -1354,14 +1261,9 @@ footer{
 <body data-page="publications">
 
 
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header class="site-header">
 
   <div class="wrap header-inner">
-
 
     <a
       href="../"
@@ -1376,17 +1278,9 @@ footer{
         onerror="this.style.display='none'"
       >
 
-
       <div class="brand-copy">
-
-        <b>
-          KEE LAB
-        </b>
-
-        <small>
-          SOONGSIL UNIVERSITY
-        </small>
-
+        <b>KEE LAB</b>
+        <small>SOONGSIL UNIVERSITY</small>
       </div>
 
     </a>
@@ -1438,328 +1332,246 @@ footer{
 
     </div>
 
-
   </div>
 
 </header>
 
 
-<!-- =========================================================
-     MAIN
-========================================================= -->
-
 <main>
 
 
-<!-- =========================================================
-     HERO
-========================================================= -->
+  <!-- ======================================================
+       HERO
+  ======================================================= -->
 
-<section class="page-hero">
+  <section class="page-hero">
 
-  <div class="wrap hero-grid">
-
-
-    <div class="reveal">
+    <div class="wrap hero-grid">
 
 
-      <div class="eyebrow">
-        KEE LAB PUBLICATIONS
+      <div class="reveal">
+
+        <div class="eyebrow">
+          KEE LAB PUBLICATIONS
+        </div>
+
+        <h1>
+          Research<br>
+          <em>Publications</em>
+        </h1>
+
+        <p class="lead">
+          KEE LAB에서 수행해 온 연구성과를 소개합니다.
+          성인학습과 평생교육, 인적자원개발, 교육노년학,
+          지역사회교육과 커뮤니티 웰빙을 비롯한 다양한 연구주제의
+          논문과 연구성과를 확인할 수 있습니다.
+        </p>
+
       </div>
 
 
-      <h1>
-        Research<br>
-        <em>Publications</em>
-      </h1>
+      <aside class="hero-stat-card glass reveal">
 
+        <div class="stat">
+          <strong>—</strong>
+          <span>TOTAL PUBLICATIONS</span>
+        </div>
 
-      <p class="lead">
-        KEE LAB에서 수행해 온 연구성과를 소개합니다.
-        성인학습과 평생교육, 인적자원개발, 교육노년학,
-        지역사회교육과 커뮤니티 웰빙을 비롯한 다양한 연구주제의
-        논문과 연구성과를 확인할 수 있습니다.
-      </p>
+        <div class="stat">
+          <strong>—</strong>
+          <span>JOURNAL ARTICLES</span>
+        </div>
+
+        <div class="stat">
+          <strong>—</strong>
+          <span>BOOKS &amp; CHAPTERS</span>
+        </div>
+
+        <div class="stat">
+          <strong>—</strong>
+          <span>YEARS OF RESEARCH</span>
+        </div>
+
+      </aside>
 
 
     </div>
 
-
-    <aside class="hero-stat-card glass reveal">
-
-
-      <div class="stat">
-
-        <strong>
-          —
-        </strong>
-
-        <span>
-          TOTAL PUBLICATIONS
-        </span>
-
-      </div>
+  </section>
 
 
-      <div class="stat">
+  <!-- ======================================================
+       PUBLICATION ARCHIVE
+  ======================================================= -->
 
-        <strong>
-          —
-        </strong>
+  <section class="content soft">
 
-        <span>
-          JOURNAL ARTICLES
-        </span>
-
-      </div>
+    <div class="wrap">
 
 
-      <div class="stat">
+      <div class="section-head reveal">
 
-        <strong>
-          —
-        </strong>
+        <div>
 
-        <span>
-          BOOKS &amp; CHAPTERS
-        </span>
+          <div
+            class="label"
+            style="margin-bottom:14px"
+          >
+            PUBLICATION ARCHIVE
+          </div>
+
+          <h2>
+            연구성과 찾아보기
+          </h2>
+
+        </div>
 
       </div>
 
 
-      <div class="stat">
+      <!-- SEARCH / YEAR / SORT -->
 
-        <strong>
-          —
-        </strong>
-
-        <span>
-          YEARS OF RESEARCH
-        </span>
-
-      </div>
+      <div class="toolbar reveal">
 
 
-    </aside>
+        <div class="searchbox">
 
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="논문 제목, 저자, 학술지명 등으로 검색"
+            aria-label="연구성과 검색"
+          >
 
-  </div>
+          <span>⌕</span>
 
-</section>
-
-
-<!-- =========================================================
-     PUBLICATION ARCHIVE
-========================================================= -->
-
-<section class="content soft">
-
-  <div class="wrap">
-
-
-    <!-- SECTION TITLE -->
-
-    <div class="section-head reveal">
-
-
-      <div>
-
-        <div
-          class="label"
-          style="margin-bottom:14px"
-        >
-          PUBLICATION ARCHIVE
         </div>
 
 
-        <h2>
-          연구성과 찾아보기
-        </h2>
-
-      </div>
-
-
-    </div>
-
-
-    <!-- =====================================================
-         SEARCH / SORT
-    ====================================================== -->
-
-    <div class="toolbar reveal">
-
-
-      <div class="searchbox">
-
-        <input
-          id="searchInput"
-          type="search"
-          placeholder="논문 제목, 저자, 학술지명 등으로 검색"
-          aria-label="연구성과 검색"
+        <select
+          class="select"
+          id="yearSelect"
+          aria-label="연도 선택"
         >
+          <option value="all">
+            전체 연도
+          </option>
+        </select>
 
-        <span>
-          ⌕
-        </span>
+
+        <select
+          class="select"
+          id="sortSelect"
+          aria-label="정렬 순서"
+        >
+          <option value="new">
+            최신순
+          </option>
+
+          <option value="old">
+            오래된순
+          </option>
+        </select>
+
 
       </div>
 
 
-      <select
-        class="select"
-        id="yearSelect"
-        aria-label="연도 선택"
-      >
+      <!-- TYPE FILTER -->
 
-        <option value="all">
-          전체 연도
-        </option>
+      <div class="filter-row reveal">
 
-      </select>
+        <button
+          class="filter active"
+          data-type="all"
+          type="button"
+        >
+          전체
+        </button>
 
+        <button
+          class="filter"
+          data-type="journal"
+          type="button"
+        >
+          학술논문
+        </button>
 
-      <select
-        class="select"
-        id="sortSelect"
-        aria-label="정렬 순서"
-      >
+        <button
+          class="filter"
+          data-type="book"
+          type="button"
+        >
+          저서
+        </button>
 
-        <option value="new">
-          최신순
-        </option>
+        <button
+          class="filter"
+          data-type="chapter"
+          type="button"
+        >
+          북챕터
+        </button>
 
-        <option value="old">
-          오래된순
-        </option>
+        <button
+          class="filter"
+          data-type="report"
+          type="button"
+        >
+          연구보고서 · 기타
+        </button>
 
-      </select>
-
-
-    </div>
-
-
-    <!-- =====================================================
-         TYPE FILTER
-    ====================================================== -->
-
-    <div class="filter-row reveal">
-
-
-      <button
-        class="filter active"
-        data-type="all"
-        type="button"
-      >
-        전체
-      </button>
-
-
-      <button
-        class="filter"
-        data-type="journal"
-        type="button"
-      >
-        학술논문
-      </button>
-
-
-      <button
-        class="filter"
-        data-type="book"
-        type="button"
-      >
-        저서
-      </button>
-
-
-      <button
-        class="filter"
-        data-type="chapter"
-        type="button"
-      >
-        북챕터
-      </button>
-
-
-      <button
-        class="filter"
-        data-type="report"
-        type="button"
-      >
-        연구보고서 · 기타
-      </button>
-
-
-    </div>
-
-
-    <!-- =====================================================
-         ARCHIVE HEADER
-    ====================================================== -->
-
-    <div class="archive-header reveal">
-
-
-      <div class="label">
-        RESEARCH OUTPUTS
       </div>
 
 
-      <div class="result-count">
+      <!-- ARCHIVE HEADER -->
 
-        총
-        <span id="resultCount">
-          0
-        </span>
-        건
+      <div class="archive-header reveal">
+
+        <div class="label">
+          RESEARCH OUTPUTS
+        </div>
+
+        <div class="result-count">
+          총
+          <span id="resultCount">0</span>
+          건
+        </div>
+
+      </div>
+
+
+      <!-- PUBLICATION DATA -->
+
+      <div
+        id="publicationArchive"
+        class="reveal"
+      ></div>
+
+
+      <!-- SEARCH NO RESULT -->
+
+      <div
+        class="no-results"
+        id="noResults"
+      >
+
+        <strong>
+          검색 결과가 없습니다.
+        </strong>
+
+        검색어나 필터 조건을 변경해 주세요.
 
       </div>
 
 
     </div>
 
-
-    <!-- =====================================================
-         DATA OUTPUT
-
-         data-pages.js에서 연구성과를 출력합니다.
-    ====================================================== -->
-
-    <div
-      id="publicationArchive"
-      class="reveal"
-    ></div>
-
-
-    <!-- =====================================================
-         NO RESULTS
-    ====================================================== -->
-
-    <div
-      class="no-results"
-      id="noResults"
-    >
-
-      <strong>
-        검색 결과가 없습니다.
-      </strong>
-
-      검색어나 필터 조건을 변경해 주세요.
-
-    </div>
-
-
-  </div>
-
-</section>
+  </section>
 
 
 </main>
 
-
-<!-- =========================================================
-     FOOTER
-========================================================= -->
 
 <footer>
 
@@ -1777,10 +1589,6 @@ footer{
 
 </footer>
 
-
-<!-- =========================================================
-     BASIC SCRIPT
-========================================================= -->
 
 <script>
 
@@ -1811,7 +1619,6 @@ const obs =
       );
 
     },
-
     {
       threshold:.1
     }
@@ -1827,16 +1634,11 @@ document
 </script>
 
 
-<!-- =========================================================
-     PUBLICATION DATA
-========================================================= -->
-
-<script src="../assets/js/data-pages.js?v=0.6.0"></script>
-
-
-<!-- =========================================================
-     COMMON SITE SCRIPT
-========================================================= -->
+<!--
+  중요:
+  JS를 수정했으므로 캐시 갱신을 위해 버전을 0.6.1로 변경
+-->
+<script src="../assets/js/data-pages.js?v=0.6.1"></script>
 
 <script src="../assets/js/site-v06.js?v=0.6.0"></script>
 
