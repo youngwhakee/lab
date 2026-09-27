@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="ko">
 
 <head>
@@ -1193,6 +1192,59 @@ footer{
 
 }
 
+
+/* =========================================================
+   MOBILE MENU STACKING FIX
+
+   기존 디자인과 메뉴 동작은 그대로 유지하고,
+   모바일에서 반투명 backdrop이 실제 메뉴보다
+   위에 올라오는 문제만 수정합니다.
+========================================================= */
+
+@media(max-width:980px){
+
+  /*
+    nav가 site-header 내부에 있기 때문에
+    nav 자체의 z-index만 높이는 것으로는
+    부모 stacking context를 벗어날 수 없습니다.
+
+    따라서 header 전체를 backdrop보다 위로 올립니다.
+  */
+  .site-header{
+    z-index:130 !important;
+  }
+
+
+  /*
+    site-v06.js에서 생성하는 반투명 배경은
+    페이지 본문보다는 위,
+    실제 헤더와 메뉴보다는 아래에 둡니다.
+  */
+  .nav-backdrop{
+    z-index:110 !important;
+  }
+
+
+  /*
+    모바일 메뉴가 열린 상태에서는
+    메뉴 자체가 확실하게 backdrop 위에 오도록 합니다.
+  */
+  .nav.is-open{
+    z-index:131 !important;
+  }
+
+
+  /*
+    햄버거/닫기 버튼 역시
+    backdrop보다 위에서 계속 클릭 가능하게 합니다.
+  */
+  .mobile-menu{
+    position:relative;
+    z-index:132 !important;
+  }
+
+}
+
 </style>
 
 </head>
@@ -1443,7 +1495,7 @@ footer{
 
 
       <p>
-\      </p>
+      </p>
 
 
     </div>
@@ -1524,9 +1576,6 @@ footer{
 
 
         </div>
-
-
-      </article>
 
 
       </article>
@@ -1650,7 +1699,7 @@ footer{
       </div>
 
 
-      <p> 
+      <p>
       </p>
 
 

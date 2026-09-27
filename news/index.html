@@ -1,9 +1,7 @@
 <!doctype html>
-
 <html lang="ko">
 
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -1036,6 +1034,61 @@ footer{
 
 }
 
+
+/* =========================================================
+   MOBILE MENU STACKING FIX
+
+   모바일에서 햄버거 메뉴를 열었을 때
+   반투명 .nav-backdrop이 실제 메뉴보다 위에 올라가
+   메뉴 클릭을 막는 문제만 수정합니다.
+========================================================= */
+
+@media(max-width:980px){
+
+  /*
+    모바일 메뉴는 .site-header 내부에 있으므로
+    nav만 z-index를 높여서는 부모 stacking context를
+    벗어날 수 없습니다.
+
+    따라서 header 자체를 backdrop보다 위에 둡니다.
+  */
+  .site-header{
+    z-index:130 !important;
+  }
+
+
+  /*
+    반투명 배경은
+    본문보다 위,
+    헤더와 실제 메뉴보다 아래에 위치합니다.
+  */
+  .nav-backdrop{
+    z-index:110 !important;
+  }
+
+
+  /*
+    site-v06.js가 메뉴를 열 때
+    .nav.is-open을 사용하는 경우
+    실제 메뉴가 확실히 위에 있도록 합니다.
+  */
+  .nav.is-open{
+    z-index:131 !important;
+  }
+
+
+  /*
+    햄버거 버튼 역시 backdrop보다 위에서
+    계속 클릭할 수 있도록 유지합니다.
+  */
+  .mobile-menu{
+    position:relative;
+
+    z-index:132 !important;
+  }
+
+}
+
 </style>
 
 </head>
@@ -1160,7 +1213,7 @@ footer{
 
       <h1>
         News &amp;<br>
-        <em>Updates.</em>
+        <em>Updates</em>
       </h1>
 
 
@@ -1261,7 +1314,7 @@ footer{
 
     <!-- =====================================================
          CATEGORY FILTER
-         
+
          data-category 값은 JS 연동을 위해 유지합니다.
     ====================================================== -->
 

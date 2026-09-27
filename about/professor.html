@@ -1,5 +1,4 @@
 <!doctype html>
-
 <html lang="ko">
 
 <head>
@@ -666,10 +665,6 @@ section{
 #professorPortrait.has-photo{
   background-size:cover !important;
 
-  /*
-    사진 중심을 위쪽 중앙으로 잡습니다.
-    카드가 짧아져도 머리 부분이 잘릴 가능성이 줄어듭니다.
-  */
   background-position:center top !important;
 
   background-repeat:no-repeat !important;
@@ -788,7 +783,6 @@ section{
 
 /* =========================================================
    RESEARCH INTERESTS
-   JS와 충돌하지 않도록 전용 클래스 사용
 ========================================================= */
 
 .prof-interest-grid{
@@ -1180,6 +1174,56 @@ footer{
 
 }
 
+
+/* =========================================================
+   MOBILE MENU STACKING FIX
+
+   nav-backdrop이 메뉴/헤더보다 위에 올라와
+   모바일 메뉴 클릭을 막는 문제만 수정합니다.
+========================================================= */
+
+@media(max-width:980px){
+
+  /*
+    헤더 전체를 반투명 backdrop보다 위에 배치
+  */
+
+  .site-header{
+    z-index:130 !important;
+  }
+
+
+  /*
+    반투명 backdrop은
+    본문보다 위 / 헤더보다 아래
+  */
+
+  .nav-backdrop{
+    z-index:110 !important;
+  }
+
+
+  /*
+    열린 메뉴를 헤더 안에서도 상단에 유지
+  */
+
+  .nav.is-open{
+    z-index:131 !important;
+  }
+
+
+  /*
+    햄버거 버튼 역시 backdrop보다 위에서 클릭 가능하게 유지
+  */
+
+  .mobile-menu{
+    position:relative;
+
+    z-index:132 !important;
+  }
+
+}
+
 </style>
 
 </head>
@@ -1195,6 +1239,7 @@ footer{
 <header class="site-header">
 
   <div class="wrap header-inner">
+
 
     <a
       href="../"
@@ -1270,6 +1315,7 @@ footer{
 
     </div>
 
+
   </div>
 
 </header>
@@ -1282,7 +1328,9 @@ footer{
 <main>
 
 
-<!-- PROFESSOR HERO -->
+<!-- =======================================================
+     PROFESSOR HERO
+======================================================= -->
 
 <section class="page-hero">
 
@@ -1386,7 +1434,9 @@ footer{
 </section>
 
 
-<!-- SUB NAV -->
+<!-- =======================================================
+     SUB NAV
+======================================================= -->
 
 <div class="subnav-wrap">
 
@@ -1493,13 +1543,6 @@ footer{
 
     </div>
 
-
-    <!--
-      중요:
-      기존 .interest-grid를 사용하지 않습니다.
-      data-pages.js와 충돌하지 않도록
-      professor 전용 ID/class 사용
-    -->
 
     <div
       class="prof-interest-grid reveal"
@@ -1747,9 +1790,7 @@ footer{
 
         </div>
 
-        <span>
-          
-        </span>
+        <span></span>
 
       </div>
 
@@ -1775,9 +1816,7 @@ footer{
 
         </div>
 
-        <span>
-          
-        </span>
+        <span></span>
 
       </div>
 
@@ -1802,9 +1841,7 @@ footer{
 
         </div>
 
-        <span>
-          
-        </span>
+        <span></span>
 
       </div>
 
@@ -1944,9 +1981,6 @@ document
 
 <!-- =======================================================
      연구 분야 강제 보호
-     
-     data-pages.js가 기존 교수 연구분야를 다시 그리더라도
-     최종적으로 이 네 항목을 유지합니다.
 ======================================================= -->
 
 <script>
@@ -1986,11 +2020,6 @@ document
     </div>
   `;
 
-
-  /*
-    혹시 외부 JS가 이 영역을 수정했을 경우
-    다시 원하는 내용으로 복구
-  */
 
   function restoreResearch(){
 
@@ -2059,10 +2088,6 @@ document
 
   function fixPortrait(){
 
-    /*
-      background-image로 사진이 들어오는 경우
-    */
-
     if(
       portrait.classList.contains(
         "has-photo"
@@ -2080,10 +2105,6 @@ document
 
     }
 
-
-    /*
-      img 태그 방식일 경우
-    */
 
     const image =
       portrait.querySelector("img");
@@ -2143,5 +2164,4 @@ document
 
 
 </body>
-
 </html>

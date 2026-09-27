@@ -254,19 +254,16 @@ img{
   overflow:hidden;
 
   background:
-
     radial-gradient(
       circle at 12% 16%,
       rgba(168,242,240,.40),
       transparent 27%
     ),
-
     radial-gradient(
       circle at 88% 12%,
       rgba(34,185,220,.18),
       transparent 31%
     ),
-
     linear-gradient(
       180deg,
       #fff 0%,
@@ -293,12 +290,8 @@ img{
     rgba(34,185,220,.16);
 
   box-shadow:
-
-    0 0 0 50px
-    rgba(122,223,227,.05),
-
-    0 0 0 100px
-    rgba(122,223,227,.03);
+    0 0 0 50px rgba(122,223,227,.05),
+    0 0 0 100px rgba(122,223,227,.03);
 }
 
 .alumni-hero-grid{
@@ -382,7 +375,6 @@ img{
 
 .glass{
   background:
-
     linear-gradient(
       145deg,
       rgba(255,255,255,.70),
@@ -537,19 +529,16 @@ section{
 
 .soft{
   background:
-
     radial-gradient(
       circle at 12% 20%,
       rgba(168,242,240,.16),
       transparent 29%
     ),
-
     radial-gradient(
       circle at 88% 75%,
       rgba(34,185,220,.09),
       transparent 27%
     ),
-
     var(--paper);
 }
 
@@ -929,13 +918,11 @@ section{
   color:#fff;
 
   background:
-
     radial-gradient(
       circle at 83% 8%,
       rgba(168,242,240,.22),
       transparent 28%
     ),
-
     linear-gradient(
       125deg,
       var(--ssu-deep),
@@ -1142,6 +1129,59 @@ footer{
 
 }
 
+
+/* =========================================================
+   MOBILE MENU STACKING FIX
+
+   수정 목적:
+   모바일 햄버거 메뉴를 열었을 때
+   반투명 .nav-backdrop이 메뉴보다 위에 올라와
+   메뉴를 클릭할 수 없게 되는 문제만 해결합니다.
+========================================================= */
+
+@media(max-width:980px){
+
+  /*
+    header 자체를 backdrop보다 위쪽 stacking layer로 올립니다.
+
+    header가 낮은 z-index에 있으면,
+    그 안에 있는 nav의 z-index가 아무리 높더라도
+    body에 직접 생성되는 backdrop보다 아래에 갇힐 수 있습니다.
+  */
+  .site-header{
+    z-index:130 !important;
+  }
+
+
+  /*
+    반투명 배경은 본문보다 위에 두되,
+    header 및 실제 메뉴보다 아래에 둡니다.
+  */
+  .nav-backdrop{
+    z-index:110 !important;
+  }
+
+
+  /*
+    site-v06.js가 메뉴를 열면서
+    .nav.is-open을 사용하는 경우를 위한 보정입니다.
+  */
+  .nav.is-open{
+    z-index:131 !important;
+  }
+
+
+  /*
+    햄버거 / 닫기 버튼도
+    항상 backdrop보다 위에서 클릭할 수 있게 합니다.
+  */
+  .mobile-menu{
+    position:relative;
+    z-index:132 !important;
+  }
+
+}
+
 </style>
 
 </head>
@@ -1157,6 +1197,7 @@ footer{
 <header class="site-header">
 
   <div class="wrap header-inner">
+
 
     <a
       href="../"
@@ -1232,6 +1273,7 @@ footer{
 
     </div>
 
+
   </div>
 
 </header>
@@ -1244,7 +1286,9 @@ footer{
 <main>
 
 
-<!-- HERO -->
+<!-- ======================================================
+     HERO
+====================================================== -->
 
 <section class="page-hero">
 
@@ -1300,7 +1344,9 @@ footer{
 </section>
 
 
-<!-- SUB NAV -->
+<!-- ======================================================
+     SUB NAV
+====================================================== -->
 
 <div class="subnav-wrap">
 
@@ -1322,7 +1368,9 @@ footer{
 </div>
 
 
-<!-- ALUMNI DIRECTORY -->
+<!-- ======================================================
+     ALUMNI DIRECTORY
+====================================================== -->
 
 <section class="soft">
 
@@ -1461,10 +1509,7 @@ footer{
     </div>
 
 
-    <!--
-      data-pages.js에서
-      Alumni 데이터를 이 영역에 출력
-    -->
+    <!-- Alumni 데이터 출력 영역 -->
 
     <div id="archive"></div>
 
@@ -1474,7 +1519,9 @@ footer{
 </section>
 
 
-<!-- CURRENT MEMBERS CTA -->
+<!-- ======================================================
+     CURRENT MEMBERS CTA
+====================================================== -->
 
 <section>
 
